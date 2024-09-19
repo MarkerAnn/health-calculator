@@ -1,4 +1,4 @@
-import { calculateBmi } from './calculators/Bmi'
+import { calculateBmi } from './calculators/HealthCalculator'
 import { User } from './models/User'
 
 // const weight = 80

@@ -6,4 +6,5 @@ export interface User {
   waist?: number
   hip?: number
   unitSystem: 'metric' | 'imperial'
+  activityLevel?:  
 }
