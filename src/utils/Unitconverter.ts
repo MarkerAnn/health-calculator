@@ -2,18 +2,18 @@
 import { User } from '../models/User'
 
 export function convertUserToMetric(user: User) {
-  if (user.unitSystem === 'imperial') {
-    feetToMeters(user.height)
-    lbsToKg(user.weight)
-
-    if (user.waist !== undefined) {
-      inchesToCentimeters(user.waist)
-    }
-    if (user.hip !== undefined) {
-      inchesToCentimeters(user.hip)
-    }
+  if (user.unitSystem === 'metric') {
+    return user
   } else {
-    return
+    return {
+      ...user,
+      height: feetToMeters(user.height),
+      weight: lbsToKg(user.weight),
+      waist:
+        user.waist !== undefined ? inchesToCentimeters(user.waist) : undefined,
+      hip: user.hip !== undefined ? inchesToCentimeters(user.hip) : undefined,
+      unitSystem: 'metric',
+    }
   }
 }
 
@@ -28,3 +28,5 @@ function lbsToKg(lbs: number): number {
 function inchesToCentimeters(inches: number): number {
   return inches * 2.54
 }
+
+// TODO: namngivningen, förkortar lbs och kg, men inte meters och centimeter, reflektera

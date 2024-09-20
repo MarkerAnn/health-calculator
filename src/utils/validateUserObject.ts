@@ -1,4 +1,5 @@
 import { User } from '../models/User'
+
 export function validateUserInput(user: User): void {
   try {
     validateWeight(user.weight, user.unitSystem)
