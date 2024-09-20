@@ -1,17 +1,26 @@
 import { User } from '../models/User'
 
+// export function validateUserInput(user: User): void {
+//   try {
+//     validateWeight(user.weight, user.unitSystem)
+//     validateHeight(user.height, user.unitSystem)
+//     validateGender(user.gender)
+//     validateAge(user.age)
+//     validateActivityLevel(user.activityLevel)
+//     validateUnitSystem(user.unitSystem)
+//     console.log('Validation succeed!')
+//   } catch (error) {
+//     console.error(`Validation error: ${(error as Error).message}`)
+//   }
+// }
 export function validateUserInput(user: User): void {
-  try {
-    validateWeight(user.weight, user.unitSystem)
-    validateHeight(user.height, user.unitSystem)
-    validateGender(user.gender)
-    validateAge(user.age)
-    validateActivityLevel(user.activityLevel)
-    validateUnitSystem(user.unitSystem)
-    console.log('Validation succeed!')
-  } catch (error) {
-    console.error(`Validation error: ${(error as Error).message}`)
-  }
+  validateWeight(user.weight, user.unitSystem)
+  validateHeight(user.height, user.unitSystem)
+  validateGender(user.gender)
+  validateAge(user.age)
+  validateActivityLevel(user.activityLevel)
+  validateUnitSystem(user.unitSystem)
+  console.log('Validation succeeded!')
 }
 
 function validateUnitSystem(unitSystem: 'metric' | 'imperial') {
@@ -96,3 +105,5 @@ function validateActivityLevel(
 }
 
 // TODO: nästlade for-loopar !!
+// TODO: Warning age används inte i BMI
+// TODO: Vad är best practice, att bryta vid felaktigt värde eller att köra vidare med ett rangeError samt det orimliga värdet som kommer med?

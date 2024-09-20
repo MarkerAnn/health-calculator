@@ -7,14 +7,26 @@ const Arne: User = {
   unitSystem: 'imperial',
 }
 
+const Petter: User = {
+  weight: 10,
+  height: 2,
+  unitSystem: 'metric',
+}
+
+const calcPetter = new HealthCalculator(Petter)
+const petterBmi = calcPetter.calculateBmi()
+
+// console.log(petterBmi)
+
 const healthCalc = new HealthCalculator(Arne)
 const ArnesBMI = healthCalc.calculateBmi()
 const arnesBMIType = healthCalc.calculateBmiType()
-console.log(ArnesBMI, arnesBMIType)
+const arnesBmiPrime = healthCalc.calculateBmiPrime()
+
+console.log(ArnesBMI, arnesBMIType, petterBmi, arnesBmiPrime)
 
 // TODO: Handle measurements, e.g. imperial units
-// TODO: Send an useribject instead of weight and height
-// TODO: Get the number of BMI
+
 // TODO: Exception om heigh > 2.5 (=angett längd i cm istället för m)
-// TODO: BMI körs trots att det blir validation error
+
 // TODO: lägga till typescript som dependencies i package.json?

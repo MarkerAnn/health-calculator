@@ -3,8 +3,8 @@
 export interface InterfaceHealthCalculation {
   calculateBmi(): number
   calculateBmiType(): string
-  // calculateBmiPrime: number
-  // calculateBmr: number
+  calculateBmiPrime(): number
+  calculateBmrHarrisBenedict(): number
   // calculateTdee: number
   // calculateIdealWeight: number
   // calculateBodyFatPercentage: number
