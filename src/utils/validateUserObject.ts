@@ -1,7 +1,8 @@
+import { User } from '../models/User'
 export function validateUserInput(user: User): void {
   try {
     validateWeight(user.weight, user.unitSystem)
-    validateLength(user.length, user.unitsystem)
+    validateHeight(user.height, user.unitSystem)
     validateGender(user.gender)
     validateAge(user.age)
     validateActivityLevel(user.activityLevel)
@@ -30,57 +31,60 @@ function validateWeight(weight: number, unitSystem: 'metric' | 'imperial') {
   }
 }
 
-function validateLength(length: number, unitSystem: 'metric' | 'imperial') {
-  if (length == null) {
-    throw new Error('Length is required')
+function validateHeight(height: number, unitSystem: 'metric' | 'imperial') {
+  if (height == null) {
+    throw new Error('height is required')
   }
   if (unitSystem === 'metric') {
-    if (length < 0 || length > 2.5) {
+    if (height < 0 || height > 2.5) {
       throw new RangeError(
-        'Length using the metric system must be between 0-2.5 meters'
+        'height using the metric system must be between 0-2.5 meters'
       )
     }
   } else {
-    if (length < 0 || length > 8.2) {
+    if (height < 0 || height > 8.2) {
       throw new RangeError(
-        'Length using the imperial system must be between 0-8.2 feet'
+        'height using the imperial system must be between 0-8.2 feet'
       )
     }
   }
 }
 
-function validateGender(gender: 'male' | 'female') {
-  if (gender !== undefined) {
-    if (gender !== 'male' && gender !== 'female')
-      throw new TypeError('Gender must be male or female')
+function validateGender(gender?: 'male' | 'female') {
+  if (gender === undefined) {
+    return
   }
+  if (gender !== 'male' && gender !== 'female')
+    throw new TypeError('Gender must be male or female')
 }
 
-function validateAge(age: number) {
-  if (age !== undefined) {
-    if (age < 18) {
-      console.warn(
-        'Warning: health calculation might not be accurate for individuals under 18 years old'
-      )
-    }
+function validateAge(age?: number) {
+  if (age === undefined) {
+    return
+  }
+  if (age < 18) {
+    console.warn(
+      'Warning: health calculation might not be accurate for individuals under 18 years old'
+    )
   }
 }
 
 function validateActivityLevel(
-  activityLevel: 'sedentary' | 'lightly' | 'moderately' | 'very' | 'extremely'
+  activityLevel?: 'sedentary' | 'lightly' | 'moderately' | 'very' | 'extremely'
 ) {
-  if (activityLevel !== undefined) {
-    if (
-      activityLevel != 'sedentary' &&
-      activityLevel != 'lightly' &&
-      activityLevel != 'moderately' &&
-      activityLevel != 'very' &&
-      activityLevel != 'extremely'
-    ) {
-      throw new TypeError(
-        'activity level must be sedentary, lightly, moderately, very or extremely'
-      )
-    }
+  if (activityLevel === undefined) {
+    return
+  }
+  if (
+    activityLevel != 'sedentary' &&
+    activityLevel != 'lightly' &&
+    activityLevel != 'moderately' &&
+    activityLevel != 'very' &&
+    activityLevel != 'extremely'
+  ) {
+    throw new TypeError(
+      'activity level must be sedentary, lightly, moderately, very or extremely'
+    )
   }
 }
 

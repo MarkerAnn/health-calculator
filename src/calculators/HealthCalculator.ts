@@ -11,7 +11,7 @@ export class HealthCalculator implements InterfaceHealthCalculation {
   constructor(user: User) {
     this.user = user // TODO: Skicka till konverterare direkt här? Då är mätvärdena klara införa metoderna
     validateUserInput(user)
-    const
+    const convertedUserToMetric =
   }
   calculateBmi: number
 
