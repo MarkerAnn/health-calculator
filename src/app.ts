@@ -1,4 +1,4 @@
-import { calculateBmi } from './calculators/HealthCalculator'
+import { HealthCalculator } from './calculators/HealthCalculator'
 import { User } from './models/User'
 
 // const weight = 80
@@ -9,9 +9,10 @@ import { User } from './models/User'
 const user: User = {
   weight: 80,
   height: 1.8,
-  gender: 'female',
   unitSystem: 'metric',
 }
+
+console.log(user.gender)
 
 // TODO: Handle measurements, e.g. imperial units
 // TODO: Send an useribject instead of weight and height

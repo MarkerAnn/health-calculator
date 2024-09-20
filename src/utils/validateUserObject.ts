@@ -1,0 +1,87 @@
+export function validateUserInput(user: User): void {
+  try {
+    validateWeight(user.weight, user.unitSystem)
+    validateLength(user.length, user.unitsystem)
+    validateGender(user.gender)
+    validateAge(user.age)
+    validateActivityLevel(user.activityLevel)
+    console.log('Validation succeed!')
+  } catch (error) {
+    console.error(`Validation error: ${(error as Error).message}`)
+  }
+}
+
+function validateWeight(weight: number, unitSystem: 'metric' | 'imperial') {
+  if (weight == null) {
+    throw new Error('Weight is required')
+  }
+  if (unitSystem === 'metric') {
+    if (weight < 0 || weight > 700) {
+      throw new RangeError(
+        'Weight using the metric system must be between 0-700 kg'
+      )
+    }
+  } else {
+    if (weight < 0 || weight > 1543) {
+      throw new RangeError(
+        'Weight using the imperial system must be between 0-1543 lbs'
+      )
+    }
+  }
+}
+
+function validateLength(length: number, unitSystem: 'metric' | 'imperial') {
+  if (length == null) {
+    throw new Error('Length is required')
+  }
+  if (unitSystem === 'metric') {
+    if (length < 0 || length > 2.5) {
+      throw new RangeError(
+        'Length using the metric system must be between 0-2.5 meters'
+      )
+    }
+  } else {
+    if (length < 0 || length > 8.2) {
+      throw new RangeError(
+        'Length using the imperial system must be between 0-8.2 feet'
+      )
+    }
+  }
+}
+
+function validateGender(gender: 'male' | 'female') {
+  if (gender !== undefined) {
+    if (gender !== 'male' && gender !== 'female')
+      throw new TypeError('Gender must be male or female')
+  }
+}
+
+function validateAge(age: number) {
+  if (age !== undefined) {
+    if (age < 18) {
+      console.warn(
+        'Warning: health calculation might not be accurate for individuals under 18 years old'
+      )
+    }
+  }
+}
+
+function validateActivityLevel(
+  activityLevel: 'sedentary' | 'lightly' | 'moderately' | 'very' | 'extremely'
+) {
+  if (activityLevel !== undefined) {
+    if (
+      activityLevel != 'sedentary' &&
+      activityLevel != 'lightly' &&
+      activityLevel != 'moderately' &&
+      activityLevel != 'very' &&
+      activityLevel != 'extremely'
+    ) {
+      throw new TypeError(
+        'activity level must be sedentary, lightly, moderately, very or extremely'
+      )
+    }
+  }
+}
+
+// TODO: nästlade for-loopar !!
