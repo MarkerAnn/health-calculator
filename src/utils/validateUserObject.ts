@@ -7,14 +7,20 @@ export function validateUserInput(user: User): void {
     validateGender(user.gender)
     validateAge(user.age)
     validateActivityLevel(user.activityLevel)
+    validateUnitSystem(user.unitSystem)
     console.log('Validation succeed!')
   } catch (error) {
     console.error(`Validation error: ${(error as Error).message}`)
   }
 }
 
+function validateUnitSystem(unitSystem: 'metric' | 'imperial') {
+  if (unitSystem === undefined)
+    throw new Error('Unit system is required, imperial pr metric')
+}
+
 function validateWeight(weight: number, unitSystem: 'metric' | 'imperial') {
-  if (weight == null) {
+  if (weight === undefined) {
     throw new Error('Weight is required')
   }
   if (unitSystem === 'metric') {
@@ -33,7 +39,7 @@ function validateWeight(weight: number, unitSystem: 'metric' | 'imperial') {
 }
 
 function validateHeight(height: number, unitSystem: 'metric' | 'imperial') {
-  if (height == null) {
+  if (height === undefined) {
     throw new Error('height is required')
   }
   if (unitSystem === 'metric') {

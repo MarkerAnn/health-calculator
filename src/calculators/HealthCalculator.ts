@@ -14,10 +14,11 @@ export class HealthCalculator implements InterfaceHealthCalculation {
     validateUserInput(user)
     const userCopy = copyUser(user)
     // TODO: reflektera över namnet nedan
-    this.user = convertUserToMetric(userCopy)
+    this.user = convertUserToMetric(userCopy) as User
   }
-
-  calculateBmi: number
+  calculateBmi(): number {
+    return this.user.weight / Math.pow(this.user.height, 2)
+  }
 
   // calculateBmiType(): string {}
   // calculateBmiPrime(): number {}

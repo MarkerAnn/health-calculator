@@ -1,8 +1,8 @@
 // TODO: Lägg alla funktioner i detta interface. Ta bort denna kommentar sedan.
 
 export interface InterfaceHealthCalculation {
-  calculateBmi: number
-  // calculateBmiType: string
+  calculateBmi(): number
+  // calculateBmiType(): string
   // calculateBmiPrime: number
   // calculateBmr: number
   // calculateTdee: number

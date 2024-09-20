@@ -1,4 +1,3 @@
-// if user user.unitSystem === imperial
 import { User } from '../models/User'
 
 export function convertUserToMetric(user: User) {
