@@ -23,9 +23,9 @@ describe('HealthCalculator', () => {
     expect(calculator.calculateBmiPrime()).toBeCloseTo(0.91, 2)
   })
 
-  test('calculates BMR for metric user', () => {
+  test('calculates BMR (Harris Benedict) for metric user male user', () => {
     const calculator = new HealthCalculator(adamUser)
-    expect(calculator.calculateBmrHarrisBenedict()).toBeCloseTo(1695.66, 2)
+    expect(calculator.calculateBmrHarrisBenedict()).toBe(1695.6670000000001)
   })
 
   test('calculates BMI correctly for imperial user', () => {
@@ -38,6 +38,11 @@ describe('HealthCalculator', () => {
     expect(calculator.calculateBmiPrime()).toBeCloseTo(0.91, 2)
   })
 
+  test('calculates BMR (Harris Benedict) for imperial user female user', () => {
+    const calculator = new HealthCalculator(beatriceUser)
+    expect(calculator.calculateBmrHarrisBenedict()).toBe(1462.336454096)
+  })
+
   test('determines correct BMI type for underweight user, moderate thinness', () => {
     const calculator = new HealthCalculator(CeasarUnderweightUser)
     expect(calculator.calculateBmiType()).toBe('underweight, moderate thinness')
@@ -46,6 +51,11 @@ describe('HealthCalculator', () => {
   test('determines correct BMI prime for underweight user, moderate thinness', () => {
     const calculator = new HealthCalculator(CeasarUnderweightUser)
     expect(calculator.calculateBmiPrime()).toBeCloseTo(0.65, 2)
+  })
+
+  test('calculates BMR (Harris Benedict) for metric and underweight male user', () => {
+    const calculator = new HealthCalculator(CeasarUnderweightUser)
+    expect(calculator.calculateBmrHarrisBenedict()).toBe(1257.417)
   })
 
   test('determines correct BMI type for overweight user, pre-obese', () => {
@@ -58,11 +68,21 @@ describe('HealthCalculator', () => {
     expect(calculator.calculateBmiPrime()).toBeCloseTo(1.18, 2)
   })
 
+  test('calculates BMR (Harris Benedict) for metric and pre-obese female user', () => {
+    const calculator = new HealthCalculator(DianaOverweightUser)
+    expect(calculator.calculateBmrHarrisBenedict()).toBe(1744.033)
+  })
+
   test('calculates BMItype out of range correctly for metric user', () => {
     const calculator = new HealthCalculator(outOfRangeBmiMetricUser)
     expect(calculator.calculateBmiType()).toBe(
       'BMI out of range. Please check you values.'
     )
+  })
+
+  test('calculates BMR (Harris Benedict) for metric and pre-obese female user', () => {
+    const calculator = new HealthCalculator(outOfRangeBmiMetricUser)
+    expect(calculator.calculateBmrHarrisBenedict()).toBe(1744.033)
   })
 
   test('calculates BMItyp out of range correctly for imperial user', () => {

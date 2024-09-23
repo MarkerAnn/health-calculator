@@ -1,29 +1,42 @@
 import { HealthCalculator } from './calculators/HealthCalculator'
 import { User } from './models/User'
 
-const Arne: User = {
-  weight: 180,
-  height: 5.9,
-  unitSystem: 'imperial',
-}
+// const Arne: User = {
+//   weight: 180,
+//   height: 5.9,
+//   unitSystem: 'imperial',
+// }
 
-const Petter: User = {
-  weight: 10,
-  height: 2,
+// const Petter: User = {
+//   weight: 10,
+//   height: 2,
+//   unitSystem: 'metric',
+// }
+
+// const calcPetter = new HealthCalculator(Petter)
+// const petterBmi = calcPetter.calculateBmi()
+
+// // console.log(petterBmi)
+
+// const healthCalc = new HealthCalculator(Arne)
+// const ArnesBMI = healthCalc.calculateBmi()
+// const arnesBMIType = healthCalc.calculateBmiType()
+// const arnesBmiPrime = healthCalc.calculateBmiPrime()
+
+// console.log(ArnesBMI, arnesBMIType, petterBmi, arnesBmiPrime)
+
+export const beatriceUser: User = {
+  weight: 600,
+  age: 36,
+  height: 1.5,
+  gender: 'male',
   unitSystem: 'metric',
 }
 
-const calcPetter = new HealthCalculator(Petter)
-const petterBmi = calcPetter.calculateBmi()
-
-// console.log(petterBmi)
-
-const healthCalc = new HealthCalculator(Arne)
-const ArnesBMI = healthCalc.calculateBmi()
-const arnesBMIType = healthCalc.calculateBmiType()
-const arnesBmiPrime = healthCalc.calculateBmiPrime()
-
-console.log(ArnesBMI, arnesBMIType, petterBmi, arnesBmiPrime)
+const healthCalc = new HealthCalculator(beatriceUser)
+const bmiPrime = healthCalc.calculateBmiPrime()
+const beaBmr = healthCalc.calculateBmrHarrisBenedict()
+console.log(beaBmr)
 
 // TODO: Handle measurements, e.g. imperial units
 

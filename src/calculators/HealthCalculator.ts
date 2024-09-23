@@ -41,6 +41,7 @@ export class HealthCalculator implements InterfaceHealthCalculation {
     const bmiPrime = bmi / 25
     return bmiPrime
   }
+
   calculateBmrHarrisBenedict(): number {
     if (this.user.age) {
       const heightInCentimeter = this.user.height * 100
@@ -51,6 +52,10 @@ export class HealthCalculator implements InterfaceHealthCalculation {
         const ageFactor = 5.677 * this.user.age
 
         const bmrMale = 88.362 + weightFactor + lengthFactor - ageFactor
+        console.log('weightFactor: ', weightFactor)
+        console.log('lengthFactor: ', lengthFactor)
+        console.log('ageFactoor: ', ageFactor)
+        console.log('bmrMale:', this.user)
         return bmrMale
       }
       if (this.user.gender === 'female') {
@@ -59,6 +64,7 @@ export class HealthCalculator implements InterfaceHealthCalculation {
         const ageFactor = 4.33 * this.user.age
 
         const bmrFemale = 447.593 + weightFactor + lengthFactor - ageFactor
+        console.log('bmrFemale:', this.user)
         return bmrFemale
       }
     }
