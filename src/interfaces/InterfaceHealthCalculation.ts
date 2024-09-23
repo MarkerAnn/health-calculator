@@ -10,5 +10,5 @@ export interface InterfaceHealthCalculation {
   calculateIdealWeight(): [number, number]
   calculateBodyFatPercentage(): number
   calculateWaistToHipRatio(): number // Lägg till typ här också?
-  // calculateWaistToHeightRatio(): number
+  calculateWaistToHeightRatio(): number
 }

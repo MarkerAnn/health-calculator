@@ -17,9 +17,6 @@ export class HealthCalculator implements InterfaceHealthCalculation {
     // TODO: reflektera över namnet nedan.
     this.user = convertUserToMetric(userCopy) as User
   }
-  calculateWaistToHipRatio(): number {
-    throw new Error('Method not implemented.')
-  }
 
   calculateBmi(): number {
     return this.user.weight / Math.pow(this.user.height, 2)
@@ -176,7 +173,28 @@ export class HealthCalculator implements InterfaceHealthCalculation {
     return NaN
   }
 
-  // calculateWaistToHeightRatio(): number {}
+  calculateWaistToHipRatio(): number {
+    if (this.user.waist && this.user.hip) {
+      const waistToHipRatio = this.user.waist / this.user.hip
+      return waistToHipRatio
+    }
+    console.warn(
+      'Waist and hip measurements are required for waist to hip calculation.'
+    )
+    return NaN
+  }
+
+  calculateWaistToHeightRatio(): number {
+    const heightInCentimeter = this.user.height * 100
+    if (this.user.waist && this.user.height) {
+      const waistToHeightRatio = this.user.waist / heightInCentimeter
+      return waistToHeightRatio
+    }
+    console.warn(
+      'Waist and height are required for Waist to height ratio calculation.'
+    )
+    return NaN
+  }
 }
 
 // TODO: senare versioner, lägg till Tdee med bmr benedtict
