@@ -5,6 +5,7 @@ export interface User {
   gender?: 'male' | 'female'
   waist?: number
   hip?: number
+  neck?: number
   unitSystem: 'metric' | 'imperial'
   activityLevel?: 'sedentary' | 'lightly' | 'moderately' | 'very' | 'extremely'
 }

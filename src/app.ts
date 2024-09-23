@@ -46,6 +46,9 @@ const adamUser: User = {
   gender: 'male',
   unitSystem: 'metric',
   activityLevel: 'moderately',
+  waist: 85,
+  neck: 40,
+  hip: 95,
 }
 
 const beatriceUser: User = {
@@ -55,6 +58,9 @@ const beatriceUser: User = {
   gender: 'female',
   unitSystem: 'imperial',
   activityLevel: 'lightly',
+  waist: 32,
+  neck: 13.5,
+  hip: 40,
 }
 
 const ceasarUnderweightUser: User = {
@@ -95,6 +101,10 @@ console.log(
 )
 console.log("Adam's TDEE:", healthCalcAdam.calculateTdee())
 console.log("Adam's Ideal Weight:", healthCalcAdam.calculateIdealWeight())
+console.log(
+  "Adam's body fat percantege:",
+  healthCalcAdam.calculateBodyFatPercentage()
+)
 
 const healthCalcBeatrice = new HealthCalculator(beatriceUser)
 console.log("Beatrice's BMI Prime:", healthCalcBeatrice.calculateBmiPrime())
@@ -112,6 +122,10 @@ console.log("Beatrice's TDEE:", healthCalcBeatrice.calculateTdee())
 console.log(
   "Beatrice's Ideal Weight:",
   healthCalcBeatrice.calculateIdealWeight()
+)
+console.log(
+  "Beatrice's body fat percantege:",
+  healthCalcBeatrice.calculateBodyFatPercentage()
 )
 
 const healthCalcCeasar = new HealthCalculator(ceasarUnderweightUser)

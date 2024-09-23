@@ -11,6 +11,8 @@ export function convertUserToMetric(user: User) {
       waist:
         user.waist !== undefined ? inchesToCentimeters(user.waist) : undefined,
       hip: user.hip !== undefined ? inchesToCentimeters(user.hip) : undefined,
+      neck:
+        user.neck !== undefined ? inchesToCentimeters(user.neck) : undefined,
       unitSystem: 'metric',
     }
   }

@@ -17,6 +17,9 @@ export class HealthCalculator implements InterfaceHealthCalculation {
     // TODO: reflektera över namnet nedan.
     this.user = convertUserToMetric(userCopy) as User
   }
+  calculateWaistToHipRatio(): number {
+    throw new Error('Method not implemented.')
+  }
 
   calculateBmi(): number {
     return this.user.weight / Math.pow(this.user.height, 2)
@@ -112,7 +115,7 @@ export class HealthCalculator implements InterfaceHealthCalculation {
       const tdee = bmr * activityFactor
       return tdee
     }
-    console.warn('age and activity level is required for this method')
+    console.warn('Age and activity level is required for this method')
     return NaN
   }
   calculateIdealWeight(): [number, number] {
@@ -133,9 +136,50 @@ export class HealthCalculator implements InterfaceHealthCalculation {
       return [NaN, NaN]
     }
   }
-  // calculateBodyFatPercentage(): number {}
-  // calculateWaistToHipRatio(): number {}
+  calculateBodyFatPercentage(): number {
+    if (this.user.waist && this.user.neck) {
+      const heightInCentimeter = this.user.height * 100
+      if (this.user.gender === 'male') {
+        const heightFactor = 70.041 * Math.log10(heightInCentimeter)
+        const waistNeckFactor =
+          86.01 * Math.log10(this.user.waist - this.user.neck)
+        const constantFactor = 36.76
+
+        const bodyFatPercentage =
+          waistNeckFactor - heightFactor + constantFactor
+        return bodyFatPercentage
+      }
+      if (this.user.gender === 'female') {
+        if (this.user.hip) {
+          const heightFactor = 97.684 * Math.log10(heightInCentimeter)
+          const waistHipNeckFactor =
+            163.205 *
+            Math.log10(this.user.waist + this.user.hip - this.user.neck)
+          const constantFactor = 78.387
+
+          const bodyFatPercentage =
+            waistHipNeckFactor - heightFactor - constantFactor
+          return bodyFatPercentage
+        } else {
+          console.warn(
+            'If the user is a female, hip value is required for calculateBodyFatPercantage method'
+          )
+          return NaN
+        }
+      }
+    } else {
+      console.warn(
+        'Waist and neck is required for calculateBodyFatPercanteage method'
+      )
+      return NaN
+    }
+    return NaN
+  }
+
   // calculateWaistToHeightRatio(): number {}
 }
 
 // TODO: senare versioner, lägg till Tdee med bmr benedtict
+// TODO: gå ingeom metoderna, fett procent är ganska stor, flytta över något till validate?
+// TODO: lägg in en gemensam hjälpfunktion heightToCentimeter?
+// TODO: Lägg in JSDoc, input och return
