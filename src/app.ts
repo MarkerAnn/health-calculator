@@ -158,10 +158,10 @@ console.log(
 console.log("Diana's TDEE:", healthCalcDiana.calculateTdee())
 console.log("Diana's Ideal Weight:", healthCalcDiana.calculateIdealWeight())
 
-const healthCalcOutOfRange = new HealthCalculator(
-  bmiInvalidWeightValuesMetricUser
-)
-console.log('testing:', healthCalcOutOfRange)
+// const healthCalcOutOfRange = new HealthCalculator(
+//   bmiInvalidWeightValuesMetricUser
+// )
+// console.log('testing:', healthCalcOutOfRange)
 
 // TODO: Handle measurements, e.g. imperial units
 
