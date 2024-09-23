@@ -7,7 +7,7 @@ export interface InterfaceHealthCalculation {
   calculateBmrHarrisBenedict(): number
   calculateBmrMifflinStJeor(): number
   calculateTdee(): number
-  // calculateIdealWeight(): number
+  calculateIdealWeight(): [number, number]
   // calculateBodyFatPercentage(): number
   // calculateWaistToHipRatio(): number // Lägg till typ här också?
   // calculateWaistToHeightRatio(): number

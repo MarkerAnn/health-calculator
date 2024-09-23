@@ -6,7 +6,7 @@ import { User } from '../models/User'
 import { validateUserInput } from '../utils/validateUserObject'
 import { convertUserToMetric } from '../utils/unitConverter'
 import { copyUser } from '../utils/copyUser'
-import { bmiRanges } from '../enums/constants'
+import { BmiType, bmiRanges } from '../enums/constants'
 
 export class HealthCalculator implements InterfaceHealthCalculation {
   private user: User
@@ -39,6 +39,20 @@ export class HealthCalculator implements InterfaceHealthCalculation {
     return bmiPrime
   }
 
+  /**
+   * Calculates the Basal Metabolic Rate (BMR) using the Harris-Benedict equation.
+   * The calculation is based on the user's gender, weight, height, and age.
+   *
+   * For males:
+   * BMR = 88.362 + (13.397 * weight in kg) + (4.799 * height in cm) - (5.677 * age in years)
+   *
+   * For females:
+   * BMR = 447.593 + (9.247 * weight in kg) + (3.098 * height in cm) - (4.33 * age in years)
+   *
+   * @returns {number} The calculated BMR value. Returns NaN if the user's age is not provided.
+   *
+   * @throws {Error} Throws an error if the user's gender is not 'male' or 'female'.
+   */
   calculateBmrHarrisBenedict(): number {
     if (this.user.age) {
       const heightInCentimeter = this.user.height * 100
@@ -49,10 +63,6 @@ export class HealthCalculator implements InterfaceHealthCalculation {
         const ageFactor = 5.677 * this.user.age
 
         const bmrMale = 88.362 + weightFactor + lengthFactor - ageFactor
-        console.log('weightFactor: ', weightFactor)
-        console.log('lengthFactor: ', lengthFactor)
-        console.log('ageFactoor: ', ageFactor)
-        console.log('bmrMale:', this.user)
         return bmrMale
       }
       if (this.user.gender === 'female') {
@@ -105,7 +115,24 @@ export class HealthCalculator implements InterfaceHealthCalculation {
     console.warn('age and activity level is required for this method')
     return NaN
   }
-  // calculateIdealWeight(): number {}
+  calculateIdealWeight(): [number, number] {
+    const normalBmiRange = bmiRanges.find(
+      (range) => range.type === BmiType.Normal
+    )
+
+    if (normalBmiRange) {
+      const minNormalBmi = normalBmiRange.min
+      const maxNormalBmi = normalBmiRange.max
+
+      const minIdealWeight = minNormalBmi * Math.pow(this.user.height, 2)
+      const maxIdealWeight = maxNormalBmi * Math.pow(this.user.height, 2)
+
+      return [minIdealWeight, maxIdealWeight]
+    } else {
+      console.warn('Could not find BMI range, check User object height value')
+      return [NaN, NaN]
+    }
+  }
   // calculateBodyFatPercentage(): number {}
   // calculateWaistToHipRatio(): number {}
   // calculateWaistToHeightRatio(): number {}

@@ -26,6 +26,7 @@ export const CeasarUnderweightUser: User = {
   age: 60,
   gender: 'male',
   unitSystem: 'metric',
+  activityLevel: 'very',
 }
 
 export const DianaOverweightUser: User = {
@@ -34,6 +35,7 @@ export const DianaOverweightUser: User = {
   age: 18,
   gender: 'female',
   unitSystem: 'metric',
+  activityLevel: 'extremely',
 }
 
 export const outOfRangeBmiMetricUser: User = {

@@ -33,6 +33,11 @@ describe('HealthCalculator', () => {
     expect(calculator.calculateBmrMifflinStJeor()).toBe(1648.75)
   })
 
+  test('calculates TDEE for metric male user', () => {
+    const calculator = new HealthCalculator(adamUser)
+    expect(calculator.calculateTdee()).toBe(2555.5625)
+  })
+
   // *************** beatriceUser Object ******************** //
   test('calculates BMI correctly for imperial user', () => {
     const calculator = new HealthCalculator(beatriceUser)
@@ -52,6 +57,11 @@ describe('HealthCalculator', () => {
   test('calculates BMR (Miffling St Jeor) for imperial female user', () => {
     const calculator = new HealthCalculator(beatriceUser)
     expect(calculator.calculateBmrMifflinStJeor()).toBe(1431.0016799999999)
+  })
+
+  test('calculates TDEE for imperial female user', () => {
+    const calculator = new HealthCalculator(beatriceUser)
+    expect(calculator.calculateTdee()).toBe(1967.6273099999999)
   })
 
   // *************** ceasarUser Object -  underweight ******************** //
@@ -75,6 +85,11 @@ describe('HealthCalculator', () => {
     expect(calculator.calculateBmrMifflinStJeor()).toBe(1298.75)
   })
 
+  test('calculates TDEE for underweight metric male user with very high activity level', () => {
+    const calculator = new HealthCalculator(CeasarUnderweightUser)
+    expect(calculator.calculateTdee()).toBe(2240.34375)
+  })
+
   // *************** dianaUser Object - overweight ******************** //
   test('determines correct BMI type for overweight user, pre-obese', () => {
     const calculator = new HealthCalculator(DianaOverweightUser)
@@ -94,6 +109,11 @@ describe('HealthCalculator', () => {
   test('calculates BMR (Miffling St Jeor) for pre-obese metric female user', () => {
     const calculator = new HealthCalculator(DianaOverweightUser)
     expect(calculator.calculateBmrMifflinStJeor()).toBe(1742.75)
+  })
+
+  test('calculates TDEE for pre-obese metric female user with extremely high activity level', () => {
+    const calculator = new HealthCalculator(DianaOverweightUser)
+    expect(calculator.calculateTdee()).toBe(3311.225)
   })
 
   // *************** BMI out of range metric User Object ******************** //
