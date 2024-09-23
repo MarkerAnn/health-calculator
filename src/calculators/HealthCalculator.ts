@@ -17,9 +17,6 @@ export class HealthCalculator implements InterfaceHealthCalculation {
     // TODO: reflektera över namnet nedan.
     this.user = convertUserToMetric(userCopy) as User
   }
-  calculateBmr(): number {
-    throw new Error('Method not implemented.')
-  }
 
   calculateBmi(): number {
     return this.user.weight / Math.pow(this.user.height, 2)
@@ -68,16 +65,50 @@ export class HealthCalculator implements InterfaceHealthCalculation {
         return bmrFemale
       }
     }
+    console.warn('Age is required for this method!')
     return NaN
   }
 
-  // For men: BMR = 66.5 + (13.75 × weight in kg) + (5.003 × height in cm) - (6.75 × age)
+  calculateBmrMifflinStJeor(): number {
+    if (this.user.age) {
+      const heightInCentimeter = this.user.height * 100
+      const weightFactor = 10 * this.user.weight
+      const heightFactor = 6.25 * heightInCentimeter
+      const ageFactor = 5 * this.user.age
+      const genderComponent = this.user.gender === 'male' ? 5 : -161
+      const bmr = weightFactor + heightFactor - ageFactor + genderComponent
 
-  // For women: BMR = 655.1 + (9.563 × weight in kg) + (1.850 × height in cm) - (4.676 × age)
+      return bmr
+    }
+    console.warn('age is reqired for this method')
+    return NaN
+  }
 
-  // calculateTdee(): number {}
+  calculateTdee(): number {
+    if (this.user.age && this.user.activityLevel) {
+      const bmr = this.calculateBmrMifflinStJeor()
+      let activityFactor = 0
+      if (this.user.activityLevel === 'sedentary') {
+        activityFactor = 1.2
+      } else if (this.user.activityLevel === 'lightly') {
+        activityFactor = 1.375
+      } else if (this.user.activityLevel === 'moderately') {
+        activityFactor = 1.55
+      } else if (this.user.activityLevel === 'very') {
+        activityFactor = 1.725
+      } else if (this.user.activityLevel === 'extremely') {
+        activityFactor = 1.9
+      }
+      const tdee = bmr * activityFactor
+      return tdee
+    }
+    console.warn('age and activity level is required for this method')
+    return NaN
+  }
   // calculateIdealWeight(): number {}
   // calculateBodyFatPercentage(): number {}
   // calculateWaistToHipRatio(): number {}
   // calculateWaistToHeightRatio(): number {}
 }
+
+// TODO: senare versioner, lägg till Tdee med bmr benedtict

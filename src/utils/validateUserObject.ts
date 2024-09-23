@@ -25,7 +25,7 @@ export function validateUserInput(user: User): void {
 
 function validateUnitSystem(unitSystem: 'metric' | 'imperial') {
   if (unitSystem === undefined)
-    throw new Error('Unit system is required, imperial pr metric')
+    throw new Error('Unit system is required, imperial or metric')
 }
 
 function validateWeight(weight: number, unitSystem: 'metric' | 'imperial') {

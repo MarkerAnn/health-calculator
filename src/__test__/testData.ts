@@ -46,6 +46,7 @@ export const outOfRangeBmiMetricUser: User = {
 export const outOfRangeBmiImperialUser: User = {
   weight: 1322,
   height: 3.28,
+  age: 52,
   gender: 'female',
   unitSystem: 'imperial',
 }

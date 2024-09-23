@@ -26,16 +26,17 @@ import { User } from './models/User'
 // console.log(ArnesBMI, arnesBMIType, petterBmi, arnesBmiPrime)
 
 export const beatriceUser: User = {
-  weight: 600,
-  age: 36,
-  height: 1.5,
+  weight: 70,
+  height: 1.75,
+  age: 30,
   gender: 'male',
   unitSystem: 'metric',
+  activityLevel: 'moderately',
 }
 
 const healthCalc = new HealthCalculator(beatriceUser)
 const bmiPrime = healthCalc.calculateBmiPrime()
-const beaBmr = healthCalc.calculateBmrHarrisBenedict()
+const beaBmr = healthCalc.calculateBmrMifflinStJeor()
 console.log(beaBmr)
 
 // TODO: Handle measurements, e.g. imperial units

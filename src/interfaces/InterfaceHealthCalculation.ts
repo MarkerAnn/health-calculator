@@ -5,9 +5,10 @@ export interface InterfaceHealthCalculation {
   calculateBmiType(): string
   calculateBmiPrime(): number
   calculateBmrHarrisBenedict(): number
-  // calculateTdee: number
-  // calculateIdealWeight: number
-  // calculateBodyFatPercentage: number
-  // calculateWaistToHipRatio: number // Lägg till typ här också?
-  // calculateWaistToHeightRatio: number
+  calculateBmrMifflinStJeor(): number
+  calculateTdee(): number
+  // calculateIdealWeight(): number
+  // calculateBodyFatPercentage(): number
+  // calculateWaistToHipRatio(): number // Lägg till typ här också?
+  // calculateWaistToHeightRatio(): number
 }
