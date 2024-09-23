@@ -75,6 +75,12 @@ const dianaOverweightUser: User = {
   activityLevel: 'extremely',
 }
 
+const bmiInvalidWeightValuesMetricUser: User = {
+  weight: -10,
+  height: 2,
+  unitSystem: 'metric',
+}
+
 const healthCalcAdam = new HealthCalculator(adamUser)
 console.log("Adam's BMI Prime:", healthCalcAdam.calculateBmiPrime())
 console.log("Adam's BMI:", healthCalcAdam.calculateBmi())
@@ -137,6 +143,11 @@ console.log(
 )
 console.log("Diana's TDEE:", healthCalcDiana.calculateTdee())
 console.log("Diana's Ideal Weight:", healthCalcDiana.calculateIdealWeight())
+
+const healthCalcOutOfRange = new HealthCalculator(
+  bmiInvalidWeightValuesMetricUser
+)
+console.log('testing:', healthCalcOutOfRange)
 
 // TODO: Handle measurements, e.g. imperial units
 

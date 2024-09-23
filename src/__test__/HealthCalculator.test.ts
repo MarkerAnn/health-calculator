@@ -38,6 +38,11 @@ describe('HealthCalculator', () => {
     expect(calculator.calculateTdee()).toBe(2555.5625)
   })
 
+  test('calculates ideal weight for metric, male user)', () => {
+    const calculator = new HealthCalculator(adamUser)
+    expect(calculator.calculateIdealWeight()).toEqual([56.65625, 76.25625])
+  })
+
   // *************** beatriceUser Object ******************** //
   test('calculates BMI correctly for imperial user', () => {
     const calculator = new HealthCalculator(beatriceUser)
@@ -62,6 +67,13 @@ describe('HealthCalculator', () => {
   test('calculates TDEE for imperial female user', () => {
     const calculator = new HealthCalculator(beatriceUser)
     expect(calculator.calculateTdee()).toBe(1967.6273099999999)
+  })
+
+  test('calculates ideal weight for imperial, female user', () => {
+    const calculator = new HealthCalculator(beatriceUser)
+    expect(calculator.calculateIdealWeight()).toEqual([
+      56.62724571302402, 76.21721179752961,
+    ])
   })
 
   // *************** ceasarUser Object -  underweight ******************** //
@@ -144,22 +156,28 @@ describe('HealthCalculator', () => {
 
   // *************** invalid weight metric User Object ******************** //
   test('throws RangeError when creating HealthCalculator with invalid weight in metric system', () => {
+    const expectedErrorMessage = `Validation error in user object: ${JSON.stringify(
+      bmiInvalidWeightValuesMetricUser
+    )} - Weight using the metric system must be between 0-700 kg. Check the weight value in ${JSON.stringify(
+      bmiInvalidWeightValuesMetricUser
+    )}`
+
     expect(
       () => new HealthCalculator(bmiInvalidWeightValuesMetricUser)
-    ).toThrow(RangeError)
-    expect(
-      () => new HealthCalculator(bmiInvalidWeightValuesMetricUser)
-    ).toThrow('Weight using the metric system must be between 0-700 kg')
+    ).toThrow(new RangeError(expectedErrorMessage))
   })
 
   // *************** invalid weight imperial User Object ******************** //
   test('throws RangeError when creating HealthCalculator with invalid weight in imperial system', () => {
+    const expectedErrorMessage = `Validation error in user object: ${JSON.stringify(
+      bmiInvalidWeightValuesImperialUser
+    )} - Weight using the imperial system must be between 0-1543 lbs. Check the weight value in ${JSON.stringify(
+      bmiInvalidWeightValuesImperialUser
+    )}`
+
     expect(
       () => new HealthCalculator(bmiInvalidWeightValuesImperialUser)
-    ).toThrow(RangeError)
-    expect(
-      () => new HealthCalculator(bmiInvalidWeightValuesImperialUser)
-    ).toThrow('Weight using the imperial system must be between 0-1543 lbs')
+    ).toThrow(new RangeError(expectedErrorMessage))
   })
 })
 

@@ -1,92 +1,119 @@
 import { User } from '../models/User'
 
-// export function validateUserInput(user: User): void {
-//   try {
-//     validateWeight(user.weight, user.unitSystem)
-//     validateHeight(user.height, user.unitSystem)
-//     validateGender(user.gender)
-//     validateAge(user.age)
-//     validateActivityLevel(user.activityLevel)
-//     validateUnitSystem(user.unitSystem)
-//     console.log('Validation succeed!')
-//   } catch (error) {
-//     console.error(`Validation error: ${(error as Error).message}`)
-//   }
-// }
 export function validateUserInput(user: User): void {
-  validateWeight(user.weight, user.unitSystem)
-  validateHeight(user.height, user.unitSystem)
-  validateGender(user.gender)
-  validateAge(user.age)
-  validateActivityLevel(user.activityLevel)
-  validateUnitSystem(user.unitSystem)
-  console.log('Validation succeeded!')
+  try {
+    validateWeight(user.weight, user.unitSystem, user)
+    validateHeight(user.height, user.unitSystem, user)
+    validateGender(user.gender, user)
+    validateAge(user.age, user)
+    validateActivityLevel(user.activityLevel, user)
+    validateUnitSystem(user.unitSystem, user)
+    console.log('Validation succeeded!')
+  } catch (error) {
+    const errorMessage = `Validation error in user object: ${JSON.stringify(
+      user
+    )} - ${(error as Error).message}`
+    throw new Error(errorMessage)
+  }
 }
 
-function validateUnitSystem(unitSystem: 'metric' | 'imperial') {
-  if (unitSystem === undefined)
-    throw new Error('Unit system is required, imperial or metric')
+function validateUnitSystem(unitSystem: 'metric' | 'imperial', user: User) {
+  if (unitSystem === undefined) {
+    throw new Error(
+      `Unit system is required, imperial or metric. Check the unitSystem value in ${JSON.stringify(
+        user
+      )}`
+    )
+  }
 }
 
-function validateWeight(weight: number, unitSystem: 'metric' | 'imperial') {
+function validateWeight(
+  weight: number,
+  unitSystem: 'metric' | 'imperial',
+  user: User
+) {
   if (weight === undefined) {
-    throw new Error('Weight is required')
+    throw new Error(
+      `Weight is required. Check the weight value in ${JSON.stringify(user)}`
+    )
   }
   if (unitSystem === 'metric') {
     if (weight < 0 || weight > 700) {
       throw new RangeError(
-        'Weight using the metric system must be between 0-700 kg'
+        `Weight using the metric system must be between 0-700 kg. Check the weight value in ${JSON.stringify(
+          user
+        )}`
       )
     }
   } else {
     if (weight < 0 || weight > 1543) {
       throw new RangeError(
-        'Weight using the imperial system must be between 0-1543 lbs'
+        `Weight using the imperial system must be between 0-1543 lbs. Check the weight value in ${JSON.stringify(
+          user
+        )}`
       )
     }
   }
 }
 
-function validateHeight(height: number, unitSystem: 'metric' | 'imperial') {
+function validateHeight(
+  height: number,
+  unitSystem: 'metric' | 'imperial',
+  user: User
+) {
   if (height === undefined) {
-    throw new Error('height is required')
+    throw new Error(
+      `Height is required. Check the height value in ${JSON.stringify(user)}`
+    )
   }
   if (unitSystem === 'metric') {
     if (height < 0 || height > 2.5) {
       throw new RangeError(
-        'height using the metric system must be between 0-2.5 meters'
+        `Height using the metric system must be between 0-2.5 meters. Check the height value in ${JSON.stringify(
+          user
+        )}`
       )
     }
   } else {
     if (height < 0 || height > 8.2) {
       throw new RangeError(
-        'height using the imperial system must be between 0-8.2 feet'
+        `Height using the imperial system must be between 0-8.2 feet. Check the height value in ${JSON.stringify(
+          user
+        )}`
       )
     }
   }
 }
 
-function validateGender(gender?: 'male' | 'female') {
+function validateGender(gender?: 'male' | 'female', user?: User) {
   if (gender === undefined) {
     return
   }
-  if (gender !== 'male' && gender !== 'female')
-    throw new TypeError('Gender must be male or female')
+  if (gender !== 'male' && gender !== 'female') {
+    throw new TypeError(
+      `Gender must be male or female. Check the gender value in ${JSON.stringify(
+        user
+      )}`
+    )
+  }
 }
 
-function validateAge(age?: number) {
+function validateAge(age?: number, user?: User) {
   if (age === undefined) {
     return
   }
   if (age < 18) {
     console.warn(
-      'Warning: health calculation might not be accurate for individuals under 18 years old'
+      `Warning: health calculation might not be accurate for individuals under 18 years old. Check the age value in ${JSON.stringify(
+        user
+      )}`
     )
   }
 }
 
 function validateActivityLevel(
-  activityLevel?: 'sedentary' | 'lightly' | 'moderately' | 'very' | 'extremely'
+  activityLevel?: 'sedentary' | 'lightly' | 'moderately' | 'very' | 'extremely',
+  user?: User
 ) {
   if (activityLevel === undefined) {
     return
@@ -99,7 +126,9 @@ function validateActivityLevel(
     activityLevel != 'extremely'
   ) {
     throw new TypeError(
-      'activity level must be sedentary, lightly, moderately, very or extremely'
+      `Activity level must be sedentary, lightly, moderately, very or extremely. Check the activityLevel value in ${JSON.stringify(
+        user
+      )}`
     )
   }
 }
