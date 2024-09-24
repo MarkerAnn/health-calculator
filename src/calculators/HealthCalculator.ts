@@ -1,10 +1,11 @@
 import { User } from '../models/User'
 import { InterfaceBmiCalculator } from '../interfaces/InterfaceBmiCalculator'
-// import { BmiCalculator } from '../calculators/BmiCalculator'
+import { InterfaceBodyCompositionCalculator } from '../interfaces/InterfaceBodyCompositionCalculator'
 export class HealthCalculator {
   constructor(
     private user: User,
-    private bmiCalculator: InterfaceBmiCalculator // private bodycompositionCalculator: InterfaceBodyCompositionCalculator, // private bmrCalculator: InterfaceBmrCalculator
+    private bmiCalculator: InterfaceBmiCalculator,
+    private bodycompositionCalculator: InterfaceBodyCompositionCalculator // private bmrCalculator: InterfaceBmrCalculator
   ) {}
 
   getBmi(): number {
@@ -18,6 +19,18 @@ export class HealthCalculator {
 
   getIdealWeight(): [number, number] {
     return this.bmiCalculator.calculateIdealWeight(this.user)
+  }
+
+  getWaistToHipRatio(): number {
+    return this.bodycompositionCalculator.calculateWaistToHipRatio(this.user)
+  }
+
+  getWaistToHeightRatio(): number {
+    return this.bodycompositionCalculator.calculateWaistToHeightRatio(this.user)
+  }
+
+  getBodyFatPercantage(): number {
+    return this.bodycompositionCalculator.calculateBodyFatPercantage(this.user)
   }
 }
 
