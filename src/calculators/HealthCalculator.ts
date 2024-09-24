@@ -2,12 +2,14 @@ import { User } from '../models/User'
 import { InterfaceBmiCalculator } from '../interfaces/InterfaceBmiCalculator'
 import { InterfaceBodyCompositionCalculator } from '../interfaces/InterfaceBodyCompositionCalculator'
 import { InterfaceBmrCalculator } from '../interfaces/InterfaceBmrCalculator'
+import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator'
 export class HealthCalculator {
   constructor(
     private user: User,
     private bmiCalculator: InterfaceBmiCalculator,
     private bodycompositionCalculator: InterfaceBodyCompositionCalculator,
-    private bmrCalculator: InterfaceBmrCalculator
+    private bmrCalculator: InterfaceBmrCalculator,
+    private tdeeCalculator: InterfaceTdeeCalculator
   ) {}
 
   getBmi(): number {
@@ -47,6 +49,22 @@ export class HealthCalculator {
   getBmrMifflinStJeor(): number {
     return this.bmrCalculator.calculateBmrMifflinStJeor(this.user)
   }
+
+  getTdeeHarrisBenedict(): number {
+    const bmrHarrisBenedict = this.getBmrHarrisBenedict()
+    return this.tdeeCalculator.calculateTdeeHarrisBenedict(
+      this.user,
+      bmrHarrisBenedict
+    )
+  }
+
+  getTdeeMifflinStJeor(): number {
+    const bmrMifflinStJeor = this.getBmrMifflinStJeor()
+    return this.tdeeCalculator.calculateTdeeMifflinStJeor(
+      this.user,
+      bmrMifflinStJeor
+    )
+  }
 }
 
 // import { InterfaceHealthCalculation } from '../interfaces/InterfaceHealthCalculation'
@@ -66,33 +84,6 @@ export class HealthCalculator {
 //     this.user = convertUserToMetric(userCopy) as User
 //   }
 
-//   calculateBmrMifflinStJeor(): number {
-
-//   }
-
-//   calculateTdee(): number {
-//     if (this.user.age && this.user.activityLevel) {
-//       const bmr = this.calculateBmrMifflinStJeor()
-//       let activityFactor = 0
-//       if (this.user.activityLevel === 'sedentary') {
-//         activityFactor = 1.2
-//       } else if (this.user.activityLevel === 'lightly') {
-//         activityFactor = 1.375
-//       } else if (this.user.activityLevel === 'moderately') {
-//         activityFactor = 1.55
-//       } else if (this.user.activityLevel === 'very') {
-//         activityFactor = 1.725
-//       } else if (this.user.activityLevel === 'extremely') {
-//         activityFactor = 1.9
-//       }
-//       const tdee = bmr * activityFactor
-//       return tdee
-//     }
-//     console.warn('Age and activity level is required for this method')
-//     return NaN
-//   }
-
-// // TODO: senare versioner, lägg till Tdee med bmr benedtict
 // // TODO: gå ingeom metoderna, fett procent är ganska stor, flytta över något till validate?
 // // TODO: lägg in en gemensam hjälpfunktion heightToCentimeter?
 // // TODO: Lägg in JSDoc, input och return
