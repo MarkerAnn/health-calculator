@@ -36,4 +36,9 @@ export class BmiCalculator implements InterfaceBmiCalculator {
       )
     }
   }
+
+  calculateBmiPrime(bmi: number): number {
+    const bmiPrime = bmi / 25
+    return bmiPrime
+  }
 }
