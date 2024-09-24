@@ -9,4 +9,4 @@ export interface User {
   unitSystem: 'metric' | 'imperial'
   activityLevel?: 'sedentary' | 'lightly' | 'moderately' | 'very' | 'extremely'
 }
-// TODO: testa om det glr skillnad på stora och små bokstäver
+// TODO: testa om det gör skillnad på stora och små bokstäver
