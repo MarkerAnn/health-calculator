@@ -6,3 +6,5 @@ export interface InterfaceBmiCalculator {
   calculateIdealWeight(user: User): [number, number]
   calculateBmiPrime(bmi: number): number
 }
+
+// TODO: JSDoc på alla interface och fabric

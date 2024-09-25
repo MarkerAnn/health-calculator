@@ -1,7 +1,18 @@
 import { User } from '../models/User'
 import { InterfaceBmrCalculator } from '../interfaces/InterfaceBmrCalculator'
 
+/**
+ * BmrCalculator class calculates the Basal Metabolic Rate (BMR) for a given user
+ * using both the Harris-Benedict and Mifflin-St Jeor equations.
+ */
 export class BmrCalculator implements InterfaceBmrCalculator {
+  /**
+   * Calculates the Basal Metabolic Rate (BMR) using the Harris-Benedict equation.
+   *
+   * @param {User} user - The user object containing age, weight, height, and gender.
+   * @returns {number} The calculated BMR in calories/day.
+   * @throws {Error} Throws an error if age or gender is not provided or if the gender is invalid.
+   */
   calculateBmrHarrisBenedict(user: User): number {
     if (!user.age) {
       throw new Error('Age is required for calculateBmRHarrisBenedict method')
@@ -14,7 +25,6 @@ export class BmrCalculator implements InterfaceBmrCalculator {
       const ageFactor = 5.677 * user.age
 
       const bmrMale = 88.362 + weightFactor + lengthFactor - ageFactor
-
       return bmrMale
     } else if (user.gender === 'female') {
       const weightFactor = 9.247 * user.weight
@@ -22,16 +32,21 @@ export class BmrCalculator implements InterfaceBmrCalculator {
       const ageFactor = 4.33 * user.age
 
       const bmrFemale = 447.593 + weightFactor + lengthFactor - ageFactor
-      console.log('bmrFemale:', user)
-
       return bmrFemale
     } else {
       throw new Error(
-        "Invalid gender, Gender must be either 'male' or 'female'. "
+        "Invalid gender, Gender must be either 'male' or 'female'."
       )
     }
   }
 
+  /**
+   * Calculates the Basal Metabolic Rate (BMR) using the Mifflin-St Jeor equation.
+   *
+   * @param {User} user - The user object containing age, weight, height, and gender.
+   * @returns {number} The calculated BMR in calories/day.
+   * @throws {Error} Throws an error if age is not provided or if the gender is invalid.
+   */
   calculateBmrMifflinStJeor(user: User): number {
     if (user.age) {
       const heightInCentimeter = user.height * 100

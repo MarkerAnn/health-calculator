@@ -1,9 +1,20 @@
 import { InterfaceBodyCompositionCalculator } from '../interfaces/InterfaceBodyCompositionCalculator'
 import { User } from '../models/User'
 
+/**
+ * The BodyCompositionCalculator class is responsible for calculating various body composition-related metrics
+ * such as waist-to-hip ratio, waist-to-height ratio, and body fat percentage.
+ */
 export class BodyCompositionCalculator
   implements InterfaceBodyCompositionCalculator
 {
+  /**
+   * Calculates the waist-to-hip ratio for the user.
+   *
+   * @param {User} user - The user object containing waist and hip measurements.
+   * @returns {number} The waist-to-hip ratio.
+   * @throws {Error} Throws an error if waist or hip measurements are missing.
+   */
   calculateWaistToHipRatio(user: User): number {
     if (user.waist && user.hip) {
       const waistToHipRatio = user.waist / user.hip
@@ -14,6 +25,14 @@ export class BodyCompositionCalculator
       )
     }
   }
+
+  /**
+   * Calculates the waist-to-height ratio for the user.
+   *
+   * @param {User} user - The user object containing waist and height measurements.
+   * @returns {number} The waist-to-height ratio.
+   * @throws {Error} Throws an error if waist or height measurements are missing.
+   */
   calculateWaistToHeightRatio(user: User): number {
     const heightInCentimeter = user.height * 100
     if (user.waist && user.height) {
@@ -26,6 +45,16 @@ export class BodyCompositionCalculator
     }
   }
 
+  /**
+   * Calculates the body fat percentage based on the user's measurements and gender.
+   *
+   * For males, the calculation uses the waist and neck values, while for females,
+   * it also includes the hip value.
+   *
+   * @param {User} user - The user object containing waist, neck, and optionally hip measurements for females.
+   * @returns {number} The calculated body fat percentage.
+   * @throws {Error} Throws an error if required measurements (waist, neck, hip) are missing or invalid.
+   */
   calculateBodyFatPercentage(user: User): number {
     const heightInCentimeter = user.height * 100
 

@@ -1,6 +1,5 @@
 import { BmrCalculator } from '../calculators/BmrCalculator'
 import { testUsers } from './testData'
-import { User } from '../models/User'
 import { HealthCalculatorFactory } from '../factories/HealthCalculatorFactory'
 
 describe('BmrCalculator', () => {
