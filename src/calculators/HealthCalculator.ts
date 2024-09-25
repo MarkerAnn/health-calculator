@@ -1,9 +1,10 @@
 import { User } from '../models/User'
+import { InterfaceHealthCalculator } from '../interfaces/InterfaceHealthCalculator'
 import { InterfaceBmiCalculator } from '../interfaces/InterfaceBmiCalculator'
 import { InterfaceBodyCompositionCalculator } from '../interfaces/InterfaceBodyCompositionCalculator'
 import { InterfaceBmrCalculator } from '../interfaces/InterfaceBmrCalculator'
 import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator'
-export class HealthCalculator {
+export class HealthCalculator implements InterfaceHealthCalculator {
   constructor(
     private user: User,
     private bmiCalculator: InterfaceBmiCalculator,
@@ -66,23 +67,6 @@ export class HealthCalculator {
     )
   }
 }
-
-// import { InterfaceHealthCalculation } from '../interfaces/InterfaceHealthCalculation'
-// import { User } from '../models/User'
-// import { validateUserInput } from '../utils/validateUserObject'
-// import { convertUserToMetric } from '../utils/unitConverter'
-// import { copyUser } from '../utils/copyUser'
-// import { BmiType, bmiRanges } from '../enums/constants'
-
-// export class HealthCalculator implements InterfaceHealthCalculation {
-//   private user: User
-
-//   constructor(user: User) {
-//     validateUserInput(user)
-//     const userCopy = copyUser(user)
-//     // TODO: reflektera över namnet nedan.
-//     this.user = convertUserToMetric(userCopy) as User
-//   }
 
 // // TODO: gå ingeom metoderna, fett procent är ganska stor, flytta över något till validate?
 // // TODO: lägg in en gemensam hjälpfunktion heightToCentimeter?

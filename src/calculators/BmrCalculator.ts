@@ -1,7 +1,7 @@
 import { User } from '../models/User'
 import { InterfaceBmrCalculator } from '../interfaces/InterfaceBmrCalculator'
 
-export class bmrCalculator implements InterfaceBmrCalculator {
+export class BmrCalculator implements InterfaceBmrCalculator {
   calculateBmrHarrisBenedict(user: User): number {
     if (!user.age) {
       throw new Error('Age is required for calculateBmRHarrisBenedict method')

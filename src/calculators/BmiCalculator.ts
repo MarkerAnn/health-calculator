@@ -9,12 +9,15 @@ export class BmiCalculator implements InterfaceBmiCalculator {
   }
 
   calculateBmiType(bmi: number): string {
+    const bmiRounded = Math.round(bmi)
     for (const range of bmiRanges) {
-      if (bmi >= range.min && bmi <= range.max) {
+      if (bmiRounded >= range.min && bmiRounded <= range.max) {
         return range.type
       }
     }
-    return 'BMI out of range. Please check you values.'
+    throw new Error(
+      `BMI type out of range. Please check you values. Bmi: ${bmiRounded}`
+    )
   }
 
   calculateIdealWeight(user: User): [number, number] {

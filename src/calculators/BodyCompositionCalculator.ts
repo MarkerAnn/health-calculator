@@ -1,7 +1,7 @@
 import { InterfaceBodyCompositionCalculator } from '../interfaces/InterfaceBodyCompositionCalculator'
 import { User } from '../models/User'
 
-export class BodycompositionCalculator
+export class BodyCompositionCalculator
   implements InterfaceBodyCompositionCalculator
 {
   calculateBodyFatPercantage(user: User): number {
@@ -33,38 +33,46 @@ export class BodycompositionCalculator
   }
 
   calculateBodyFatPercentage(user: User): number {
-    if (user.waist && user.neck) {
-      const heightInCentimeter = user.height * 100
-      if (user.gender === 'male') {
-        const heightFactor = 70.041 * Math.log10(heightInCentimeter)
-        const waistNeckFactor = 86.01 * Math.log10(user.waist - user.neck)
-        const constantFactor = 36.76
+    const heightInCentimeter = user.height * 100
 
-        const bodyFatPercentage =
-          waistNeckFactor - heightFactor + constantFactor
-        return bodyFatPercentage
-      }
-      if (user.gender === 'female') {
-        if (user.hip) {
-          const heightFactor = 97.684 * Math.log10(heightInCentimeter)
-          const waistHipNeckFactor =
-            163.205 * Math.log10(user.waist + user.hip - user.neck)
-          const constantFactor = 78.387
-
-          const bodyFatPercentage =
-            waistHipNeckFactor - heightFactor - constantFactor
-          return bodyFatPercentage
-        } else {
-          throw new Error(
-            'If the user is a female, hip value is required for calculateBodyFatPercantage method'
-          )
-        }
-      }
-    } else {
+    if (!user.waist) {
       throw new Error(
-        'Waist and neck is required for calculateBodyFatPercanteage method'
+        'Waist value is required to calculate body fat percentage.'
       )
     }
-    throw new Error('Something went wrong')
+
+    if (!user.neck) {
+      throw new Error(
+        'Neck value is required to calculate body fat percentage.'
+      )
+    }
+
+    if (user.gender === 'male') {
+      const heightFactor = 70.041 * Math.log10(heightInCentimeter)
+      const waistNeckFactor = 86.01 * Math.log10(user.waist - user.neck)
+      const constantFactor = 36.76
+
+      const bodyFatPercentage = waistNeckFactor - heightFactor + constantFactor
+      return bodyFatPercentage
+    }
+
+    if (user.gender === 'female') {
+      if (!user.hip) {
+        throw new Error(
+          'Hip value is required for females to calculate body fat percentage.'
+        )
+      }
+
+      const heightFactor = 97.684 * Math.log10(heightInCentimeter)
+      const waistHipNeckFactor =
+        163.205 * Math.log10(user.waist + user.hip - user.neck)
+      const constantFactor = 78.387
+
+      const bodyFatPercentage =
+        waistHipNeckFactor - heightFactor - constantFactor
+      return bodyFatPercentage
+    }
+
+    throw new Error('Invalid gender. Gender must be either "male" or "female".')
   }
 }

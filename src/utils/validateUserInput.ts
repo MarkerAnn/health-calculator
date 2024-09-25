@@ -67,7 +67,7 @@ function validateHeight(
     )
   }
   if (unitSystem === 'metric') {
-    if (height < 0 || height > 2.5) {
+    if (height <= 0 || height >= 2.5) {
       throw new RangeError(
         `Height using the metric system must be between 0-2.5 meters. Check the height value in ${JSON.stringify(
           user
