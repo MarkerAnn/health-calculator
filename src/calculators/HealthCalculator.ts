@@ -40,7 +40,7 @@ export class HealthCalculator implements InterfaceHealthCalculator {
   }
 
   getBodyFatPercantage(): number {
-    return this.bodycompositionCalculator.calculateBodyFatPercantage(this.user)
+    return this.bodycompositionCalculator.calculateBodyFatPercentage(this.user)
   }
 
   getBmrHarrisBenedict(): number {

@@ -193,11 +193,79 @@ const normalWeightMaleMetric: User = {
   activityLevel: 'moderately',
 }
 
+const overweightFemaleMetric: User = {
+  weight: 75,
+  height: 1.65,
+  age: 35,
+  gender: 'female',
+  waist: 85,
+  hip: 100,
+  neck: 34,
+  unitSystem: 'metric',
+  activityLevel: 'sedentary',
+}
+
 const healthCalc = HealthCalculatorFactory.createHealthCalculator(
   underweightMaleImperial
 )
 
+// const calcOverweight = HealthCalculatorFactory.createHealthCalculator(
+//   overweightFemaleMetric
+// )
+
 const healthCalc2 = HealthCalculatorFactory.createHealthCalculator(
   normalWeightMaleMetric
 )
-console.log('BmiPrime', healthCalc.getBmi(), healthCalc.getBmiType())
+
+// console.log('Fat percentage:', calcOverweight.getBodyFatPercantage())
+
+console.log(
+  'BmiPrime',
+  healthCalc.getBmi(),
+  healthCalc.getBmiType(),
+  healthCalc.getBodyFatPercantage()
+)
+
+const heightInCm = 165
+const waistHipNeckSum = 85 + 100 - 34
+
+const heightFactor = 97.684 * Math.log10(heightInCm)
+const waistHipNeckFactor = 163.205 * Math.log10(waistHipNeckSum)
+const constantFactor = 78.387
+
+const bodyFatPercentage = waistHipNeckFactor - heightFactor - constantFactor
+
+console.log(
+  `Manuellt beräknad kroppsfettsprocent: ${bodyFatPercentage.toFixed(2)}%`
+)
+
+// Använd din fabriksmetod för att jämföra
+const calcOverweight = HealthCalculatorFactory.createHealthCalculator(
+  overweightFemaleMetric
+)
+console.log(
+  `Fabriksmetod beräknad kroppsfettsprocent: ${calcOverweight
+    .getBodyFatPercantage()
+    .toFixed(2)}%`
+)
+
+const normalWeightFemaleMetric: User = {
+  weight: 60,
+  height: 1.65,
+  age: 30,
+  gender: 'female',
+  waist: 70,
+  hip: 90,
+  neck: 32,
+  unitSystem: 'metric',
+  activityLevel: 'sedentary',
+}
+
+const calcNormalWeight = HealthCalculatorFactory.createHealthCalculator(
+  normalWeightFemaleMetric
+)
+
+console.log(
+  'Fat percentage for normal weight female:',
+  calcNormalWeight.getBodyFatPercantage().toFixed(2) + '%'
+)

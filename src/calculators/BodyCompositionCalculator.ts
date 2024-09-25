@@ -4,12 +4,6 @@ import { User } from '../models/User'
 export class BodyCompositionCalculator
   implements InterfaceBodyCompositionCalculator
 {
-  calculateBodyFatPercantage(user: User): number {
-    throw new Error('Method not implemented.')
-  }
-  calculateWaitToHeightRatio(user: User): number {
-    throw new Error('Method not implemented.')
-  }
   calculateWaistToHipRatio(user: User): number {
     if (user.waist && user.hip) {
       const waistToHipRatio = user.waist / user.hip
@@ -48,8 +42,15 @@ export class BodyCompositionCalculator
     }
 
     if (user.gender === 'male') {
+      const waistNeckDifference = user.waist - user.neck
+      if (waistNeckDifference <= 0) {
+        throw new Error(
+          'Invalid values: waist must be greater than neck for males.'
+        )
+      }
+
       const heightFactor = 70.041 * Math.log10(heightInCentimeter)
-      const waistNeckFactor = 86.01 * Math.log10(user.waist - user.neck)
+      const waistNeckFactor = 86.01 * Math.log10(waistNeckDifference)
       const constantFactor = 36.76
 
       const bodyFatPercentage = waistNeckFactor - heightFactor + constantFactor
@@ -63,9 +64,16 @@ export class BodyCompositionCalculator
         )
       }
 
+      const waistHipNeckSum = user.waist + user.hip - user.neck
+
+      if (waistHipNeckSum <= 0) {
+        throw new Error(
+          'Invalid values: the sum of waist + hip - neck must be greater than zero for females.'
+        )
+      }
+
       const heightFactor = 97.684 * Math.log10(heightInCentimeter)
-      const waistHipNeckFactor =
-        163.205 * Math.log10(user.waist + user.hip - user.neck)
+      const waistHipNeckFactor = 163.205 * Math.log10(waistHipNeckSum)
       const constantFactor = 78.387
 
       const bodyFatPercentage =
@@ -76,3 +84,5 @@ export class BodyCompositionCalculator
     throw new Error('Invalid gender. Gender must be either "male" or "female".')
   }
 }
+
+// TODO: Överväg att lägga in andra metoder för fett procent. U.S navy används nu
