@@ -167,8 +167,6 @@ import { User } from './models/User'
 
 // TODO: Exception om heigh > 2.5 (=angett längd i cm istället för m)
 
-// TODO: lägga till typescript som dependencies i package.json?
-
 const underweightMaleImperial: User = {
   weight: 121, // lbs
   height: 5.9, // feet
@@ -181,17 +179,17 @@ const underweightMaleImperial: User = {
   activityLevel: 'very',
 }
 
-const normalWeightMaleMetric: User = {
-  weight: 70,
-  height: 1.75,
-  age: 30,
-  gender: 'male',
-  waist: 80,
-  hip: 95,
-  neck: 37,
-  unitSystem: 'metric',
-  activityLevel: 'moderately',
-}
+// const normalWeightMaleMetric: User = {
+//   weight: 70,
+//   height: 1.75,
+//   age: 30,
+//   gender: 'male',
+//   waist: 80,
+//   hip: 95,
+//   neck: 37,
+//   unitSystem: 'metric',
+//   activityLevel: 'moderately',
+// }
 
 const overweightFemaleMetric: User = {
   weight: 75,
@@ -213,9 +211,9 @@ const healthCalc = HealthCalculatorFactory.createHealthCalculator(
 //   overweightFemaleMetric
 // )
 
-const healthCalc2 = HealthCalculatorFactory.createHealthCalculator(
-  normalWeightMaleMetric
-)
+// const healthCalc2 = HealthCalculatorFactory.createHealthCalculator(
+//   normalWeightMaleMetric
+// )
 
 // console.log('Fat percentage:', calcOverweight.getBodyFatPercantage())
 
