@@ -16,7 +16,7 @@ export default [
       prettier,
     },
     rules: {
-      semi: ["error", "always"],
+      semi: ["error", "never"],
       quotes: ["error", "single"],
       "@typescript-eslint/no-unused-vars": [
         "error",
@@ -28,5 +28,5 @@ export default [
       ],
     },
   },
-  prettierConfig, // ESLint config för att stänga av ESLint-regler som krockar med Prettier
+  prettierConfig,
 ];
