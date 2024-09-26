@@ -9,10 +9,7 @@ export class BodyCompositionCalculator
   implements InterfaceBodyCompositionCalculator
 {
   /**
-   * Calculates the waist-to-hip ratio for the user.
-   *
-   * @param {User} user - The user object containing waist and hip measurements.
-   * @returns {number} The waist-to-hip ratio.
+   * @inheritdoc
    * @throws {Error} Throws an error if waist or hip measurements are missing.
    */
   calculateWaistToHipRatio(user: User): number {
@@ -27,10 +24,7 @@ export class BodyCompositionCalculator
   }
 
   /**
-   * Calculates the waist-to-height ratio for the user.
-   *
-   * @param {User} user - The user object containing waist and height measurements.
-   * @returns {number} The waist-to-height ratio.
+   * @inheritdoc
    * @throws {Error} Throws an error if waist or height measurements are missing.
    */
   calculateWaistToHeightRatio(user: User): number {
@@ -46,13 +40,7 @@ export class BodyCompositionCalculator
   }
 
   /**
-   * Calculates the body fat percentage based on the user's measurements and gender.
-   *
-   * For males, the calculation uses the waist and neck values, while for females,
-   * it also includes the hip value.
-   *
-   * @param {User} user - The user object containing waist, neck, and optionally hip measurements for females.
-   * @returns {number} The calculated body fat percentage.
+   * @inheritdoc
    * @throws {Error} Throws an error if required measurements (waist, neck, hip) are missing or invalid.
    */
   calculateBodyFatPercentage(user: User): number {

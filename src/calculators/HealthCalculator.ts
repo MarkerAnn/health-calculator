@@ -31,18 +31,14 @@ export class HealthCalculator implements InterfaceHealthCalculator {
   ) {}
 
   /**
-   * Calculates the Body Mass Index (BMI) for the user.
-   *
-   * @returns The BMI as a number.
+   * @inheritdoc
    */
   getBmi(): number {
     return this.bmiCalculator.calculateBmi(this.user)
   }
 
   /**
-   * Determines the BMI classification based on the calculated BMI.
-   *
-   * @returns A string representing the BMI type (e.g., 'Underweight', 'Normal', 'Overweight', etc.).
+   * @inheritdoc
    */
   getBmiType(): string {
     const bmi = this.getBmi()
@@ -50,9 +46,7 @@ export class HealthCalculator implements InterfaceHealthCalculator {
   }
 
   /**
-   * Calculates the BMI Prime, which is a ratio of the user's BMI to the upper limit of normal BMI (25).
-   *
-   * @returns The BMI Prime as a number.
+   * @inheritdoc
    */
   getBmiPrime(): number {
     const bmi = this.getBmi()
@@ -60,63 +54,49 @@ export class HealthCalculator implements InterfaceHealthCalculator {
   }
 
   /**
-   * Calculates the user's ideal weight range based on their height.
-   *
-   * @returns A tuple containing the lower and upper ideal weight limits in kilograms.
+   * @inheritdoc
    */
   getIdealWeight(): [number, number] {
     return this.bmiCalculator.calculateIdealWeight(this.user)
   }
 
   /**
-   * Calculates the user's waist-to-hip ratio.
-   *
-   * @returns The waist-to-hip ratio as a number.
+   * @inheritdoc
    */
   getWaistToHipRatio(): number {
     return this.bodycompositionCalculator.calculateWaistToHipRatio(this.user)
   }
 
   /**
-   * Calculates the user's waist-to-height ratio.
-   *
-   * @returns The waist-to-height ratio as a number.
+   * @inheritdoc
    */
   getWaistToHeightRatio(): number {
     return this.bodycompositionCalculator.calculateWaistToHeightRatio(this.user)
   }
 
   /**
-   * Calculates the user's body fat percentage based on their measurements.
-   *
-   * @returns The body fat percentage as a number.
+   * @inheritdoc
    */
   getBodyFatPercantage(): number {
     return this.bodycompositionCalculator.calculateBodyFatPercentage(this.user)
   }
 
   /**
-   * Calculates the Basal Metabolic Rate (BMR) using the Harris-Benedict equation.
-   *
-   * @returns The BMR as a number in calories/day.
+   * @inheritdoc
    */
   getBmrHarrisBenedict(): number {
     return this.bmrCalculator.calculateBmrHarrisBenedict(this.user)
   }
 
   /**
-   * Calculates the Basal Metabolic Rate (BMR) using the Mifflin-St Jeor equation.
-   *
-   * @returns The BMR as a number in calories/day.
+   * @inheritdoc
    */
   getBmrMifflinStJeor(): number {
     return this.bmrCalculator.calculateBmrMifflinStJeor(this.user)
   }
 
   /**
-   * Calculates the Total Daily Energy Expenditure (TDEE) using the Harris-Benedict equation.
-   *
-   * @returns The TDEE as a number in calories/day.
+   * @inheritdoc
    */
   getTdeeHarrisBenedict(): number {
     const bmrHarrisBenedict = this.getBmrHarrisBenedict()
@@ -127,9 +107,7 @@ export class HealthCalculator implements InterfaceHealthCalculator {
   }
 
   /**
-   * Calculates the Total Daily Energy Expenditure (TDEE) using the Mifflin-St Jeor equation.
-   *
-   * @returns The TDEE as a number in calories/day.
+   * @inheritdoc
    */
   getTdeeMifflinStJeor(): number {
     const bmrMifflinStJeor = this.getBmrMifflinStJeor()
