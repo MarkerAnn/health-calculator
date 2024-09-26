@@ -6,11 +6,7 @@ import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator'
  * Provides methods to calculate TDEE using different equations.
  */ export class TdeeCalculator implements InterfaceTdeeCalculator {
   /**
-   * Calculates the Total Daily Energy Expenditure (TDEE) using the Mifflin-St Jeor equation.
-   *
-   * @param user - The user object containing age and activity level.
-   * @param bmrMifflinStJeor - The Basal Metabolic Rate (BMR) calculated using the Mifflin-St Jeor equation.
-   * @returns The calculated TDEE based on the user's activity level.
+   * @inheritdoc
    * @throws Will throw an error if the user's age or activity level is not provided.
    */
   calculateTdeeMifflinStJeor(user: User, bmrMifflinStJeor: number): number {
@@ -38,11 +34,7 @@ import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator'
   }
 
   /**
-   * Calculates the Total Daily Energy Expenditure (TDEE) using the Harris-Benedict equation.
-   *
-   * @param {User} user - The user object containing age and activity level.
-   * @param {number} bmrHarrisBenedict - The Basal Metabolic Rate (BMR) calculated using the Harris-Benedict equation.
-   * @returns {number} - The calculated TDEE.
+   * @inheritdoc
    * @throws {Error} - Throws an error if age or activity level is not provided in the user object.
    */
   calculateTdeeHarrisBenedict(user: User, bmrHarrisBenedict: number): number {

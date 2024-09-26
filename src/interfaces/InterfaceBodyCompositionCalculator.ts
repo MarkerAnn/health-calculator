@@ -6,6 +6,7 @@ import { User } from '../models/User'
 export interface InterfaceBodyCompositionCalculator {
   /**
    * Calculates the waist-to-hip ratio for a given user.
+   *
    * @param user - The user for whom the waist-to-hip ratio is to be calculated.
    * @returns The waist-to-hip ratio.
    */
@@ -13,6 +14,7 @@ export interface InterfaceBodyCompositionCalculator {
 
   /**
    * Calculates the waist-to-height ratio for a given user.
+   *
    * @param user - The user for whom the waist-to-height ratio is to be calculated.
    * @returns The waist-to-height ratio.
    */

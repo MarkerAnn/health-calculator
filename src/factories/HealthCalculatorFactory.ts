@@ -9,7 +9,19 @@ import { validateUserInput } from '../utils/validateUserInput'
 import { copyUser } from '../utils/copyUser'
 import { convertUserToMetric } from '../utils/unitConverter'
 
+/**
+ * Factory class for creating HealthCalculator instances.
+ * This class encapsulates the creation logic for HealthCalculator objects,
+ * including input validation and unit conversion.
+ */
 export class HealthCalculatorFactory {
+  /**
+   * Creates and returns a new HealthCalculator instance.
+   *
+   * @param user - The user data for which to create a HealthCalculator.
+   * @returns A new instance of InterfaceHealthCalculator.
+   * @throws Will throw an error if user input validation fails.
+   */
   static createHealthCalculator(user: User): InterfaceHealthCalculator {
     validateUserInput(user)
     const userCopy = copyUser(user)

@@ -7,10 +7,7 @@ import { InterfaceBmrCalculator } from '../interfaces/InterfaceBmrCalculator'
  */
 export class BmrCalculator implements InterfaceBmrCalculator {
   /**
-   * Calculates the Basal Metabolic Rate (BMR) using the Harris-Benedict equation.
-   *
-   * @param {User} user - The user object containing age, weight, height, and gender.
-   * @returns {number} The calculated BMR in calories/day.
+   * @inheritdoc
    * @throws {Error} Throws an error if age or gender is not provided or if the gender is invalid.
    */
   calculateBmrHarrisBenedict(user: User): number {
@@ -41,10 +38,7 @@ export class BmrCalculator implements InterfaceBmrCalculator {
   }
 
   /**
-   * Calculates the Basal Metabolic Rate (BMR) using the Mifflin-St Jeor equation.
-   *
-   * @param {User} user - The user object containing age, weight, height, and gender.
-   * @returns {number} The calculated BMR in calories/day.
+   * @inheritdoc
    * @throws {Error} Throws an error if age is not provided or if the gender is invalid.
    */
   calculateBmrMifflinStJeor(user: User): number {

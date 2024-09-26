@@ -8,10 +8,7 @@ import { BmiType, bmiRanges } from '../enums/constants'
  */
 export class BmiCalculator implements InterfaceBmiCalculator {
   /**
-   * Calculates the Body Mass Index (BMI) for the given user.
-   *
-   * @param {User} user - The user object containing weight (in kilograms) and height (in meters).
-   * @returns {number} The calculated BMI.
+   * @inheritdoc
    */
   calculateBmi(user: User): number {
     const bmi = user.weight / Math.pow(user.height, 2)
@@ -19,10 +16,7 @@ export class BmiCalculator implements InterfaceBmiCalculator {
   }
 
   /**
-   * Determines the BMI classification (type) based on the calculated BMI.
-   *
-   * @param {number} bmi - The calculated BMI value.
-   * @returns {string} The BMI type (e.g., 'Underweight', 'Normal', 'Overweight', etc.).
+   * @ineheritdoc
    * @throws {Error} Throws an error if the BMI value is out of the defined ranges.
    */
   calculateBmiType(bmi: number): string {
@@ -38,11 +32,7 @@ export class BmiCalculator implements InterfaceBmiCalculator {
   }
 
   /**
-   * Calculates the ideal weight range for the user based on their height.
-   * The range is calculated using the 'Normal' BMI range.
-   *
-   * @param {User} user - The user object containing height (in meters).
-   * @returns {[number, number]} A tuple containing the minimum and maximum ideal weight in kilograms.
+   * @inheritdoc
    * @throws {Error} Throws an error if the BMI range cannot be found or if the user object is missing valid height data.
    */
   calculateIdealWeight(user: User): [number, number] {
@@ -66,10 +56,8 @@ export class BmiCalculator implements InterfaceBmiCalculator {
   }
 
   /**
-   * Calculates the BMI Prime, which is the ratio of the user's BMI to the upper limit of the normal BMI range (25).
    *
-   * @param {number} bmi - The calculated BMI value.
-   * @returns {number} The BMI Prime value.
+   * @inheritdoc
    */
   calculateBmiPrime(bmi: number): number {
     const bmiPrime = bmi / 25
