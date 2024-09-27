@@ -132,8 +132,3 @@ function validateActivityLevel(
     )
   }
 }
-
-// TODO: nästlade for-loopar !!
-// TODO: Warning age används inte i BMI
-// TODO: Vad är best practice, att bryta vid felaktigt värde eller att köra vidare med ett rangeError samt det orimliga värdet som kommer med?
-// TODO: private functions?

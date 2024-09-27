@@ -117,7 +117,3 @@ export class HealthCalculator implements InterfaceHealthCalculator {
     )
   }
 }
-
-// // TODO: gå ingeom metoderna, fett procent är ganska stor, flytta över något till validate?
-// // TODO: lägg in en gemensam hjälpfunktion heightToCentimeter?
-// // TODO: Lägg in JSDoc, input och return

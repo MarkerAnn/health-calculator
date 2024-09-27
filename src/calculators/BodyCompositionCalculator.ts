@@ -101,5 +101,3 @@ export class BodyCompositionCalculator
     throw new Error('Invalid gender. Gender must be either "male" or "female".')
   }
 }
-
-// TODO: Överväg att lägga in andra metoder för fett procent. U.S navy används nu

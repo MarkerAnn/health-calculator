@@ -29,5 +29,3 @@ function lbsToKg(lbs: number): number {
 function inchesToCentimeters(inches: number): number {
   return inches * 2.54
 }
-
-// TODO: namngivningen, förkortar lbs och kg, men inte meters och centimeter, reflektera

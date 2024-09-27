@@ -1,78 +1,3 @@
-// // testData.ts
-
-// import { User } from '../models/User'
-
-// export const adamUser: User = {
-//   weight: 70,
-//   height: 1.75,
-//   age: 30,
-//   gender: 'male',
-//   unitSystem: 'metric',
-//   activityLevel: 'moderately',
-// }
-
-// export const beatriceUser: User = {
-//   weight: 154,
-//   height: 5.74,
-//   age: 40,
-//   gender: 'female',
-//   unitSystem: 'imperial',
-//   activityLevel: 'lightly',
-// }
-
-// export const CeasarUnderweightUser: User = {
-//   weight: 50,
-//   height: 1.75,
-//   age: 60,
-//   gender: 'male',
-//   unitSystem: 'metric',
-//   activityLevel: 'very',
-// }
-
-// export const DianaOverweightUser: User = {
-//   weight: 90,
-//   height: 1.75,
-//   age: 18,
-//   gender: 'female',
-//   unitSystem: 'metric',
-//   activityLevel: 'extremely',
-// }
-
-// export const outOfRangeBmiMetricUser: User = {
-//   weight: 600,
-//   height: 1.5,
-//   gender: 'male',
-//   unitSystem: 'metric',
-// }
-
-// export const outOfRangeBmiImperialUser: User = {
-//   weight: 1322,
-//   height: 3.28,
-//   age: 52,
-//   gender: 'female',
-//   unitSystem: 'imperial',
-// }
-
-// export const bmiInvalidWeightValuesMetricUser: User = {
-//   weight: -10,
-//   height: 2,
-//   unitSystem: 'metric',
-// }
-
-// export const bmiInvalidWeightValuesImperialUser: User = {
-//   weight: -10,
-//   height: 2,
-//   unitSystem: 'imperial',
-// }
-
-// // TODO. reflektera över namngivning
-// // TODO: testa under 18
-// testData.ts
-
-// testData.ts
-
-// testData.ts
-
 import { User } from '../models/User'
 
 export const testUsers: { [key: string]: User } = {
@@ -102,24 +27,24 @@ export const testUsers: { [key: string]: User } = {
 
   // Imperial Users
   underweightMaleImperial: {
-    weight: 121, // lbs
-    height: 5.9, // feet
+    weight: 121,
+    height: 5.9,
     age: 25,
     gender: 'male',
-    waist: 29.5, // inches
-    hip: 35.4, // inches
-    neck: 13.8, // inches
+    waist: 29.5,
+    hip: 35.4,
+    neck: 13.8,
     unitSystem: 'imperial',
     activityLevel: 'very',
   },
   obeseFemaleImperial: {
-    weight: 198, // lbs
-    height: 5.25, // inches
+    weight: 198,
+    height: 5.25,
     age: 40,
     gender: 'female',
-    waist: 37.4, // inches
-    hip: 43.3, // inches
-    neck: 14.2, // inches
+    waist: 37.4,
+    hip: 43.3,
+    neck: 14.2,
     unitSystem: 'imperial',
     activityLevel: 'lightly',
   },

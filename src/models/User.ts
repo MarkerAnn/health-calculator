@@ -21,4 +21,3 @@ export interface User {
   /** User's activity level (optional) */
   activityLevel?: 'sedentary' | 'lightly' | 'moderately' | 'very' | 'extremely'
 }
-// TODO: testa om det gör skillnad på stora och små bokstäver

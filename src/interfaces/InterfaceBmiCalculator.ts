@@ -36,5 +36,3 @@ export interface InterfaceBmiCalculator {
    */
   calculateBmiPrime(bmi: number): number
 }
-
-// TODO: JSDoc på alla interface och fabric
