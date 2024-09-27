@@ -23,6 +23,12 @@ jobs:
         with:
           node-version: '20.x'
 
+      - name: Clear TypeScript cache
+        run: rm -rf src/**/*.js.map src/**/*.js
+
+      - name: TypeScript Compilation
+        run: npx tsc --noEmit
+
       # Cache npm dependencies to speed up future builds
       - name: Cache npm dependencies
         uses: actions/cache@v3

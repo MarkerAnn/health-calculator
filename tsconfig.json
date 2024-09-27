@@ -11,9 +11,9 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "*": ["*", "utils/*"]
+      "@utils/*": ["src/utils/*"]
     },
     "types": ["jest", "node"],
     "typeRoots": ["./node_modules/@types", "./src/@types"],

@@ -7,7 +7,7 @@ import { BmrCalculator } from '../calculators/BmrCalculator'
 import { TdeeCalculator } from '../calculators/TdeeCalculator'
 import { validateUserInput } from '../utils/validateUserInput'
 import { copyUser } from '../utils/copyUser'
-import { convertUserToMetric } from '../utils/unitConverter'
+import { convertUserToMetric } from '@utils/unitConverter'
 
 /**
  * Factory class for creating HealthCalculator instances.
