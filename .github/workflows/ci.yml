@@ -43,3 +43,11 @@ jobs:
       # Run Jest tests with coverage
       - name: Run Jest tests
         run: npm test -- --coverage
+
+      - name: Debug info
+        run: |
+          echo "Node version: $(node -v)"
+          echo "NPM version: $(npm -v)"
+          echo "Current directory: $(pwd)"
+          echo "Directory contents:"
+          ls -R

@@ -8,9 +8,13 @@
     "start": "node dist/app.js",
     "dev": "tsc && node dist/app.js",
     "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "lint": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint 'src/**/*.ts' --fix",
-    "format": "prettier --write 'src/**/*.ts'"
+    "format": "prettier --write 'src/**/*.ts'",
+    "prepare": "npm run build",
+    "pretest": "npm run build"
   },
   "keywords": [],
   "author": "Angelica Marker",
