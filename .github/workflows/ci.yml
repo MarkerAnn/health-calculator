@@ -13,19 +13,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Check out the code from the repository
       - name: Check out code
         uses: actions/checkout@v3
 
+      # Set up Node.js with a specific version
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "lts/*"
+          node-version: '20.x'
 
+      # Cache npm dependencies to speed up future builds
+      - name: Cache npm dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # Install dependencies using npm ci for a clean install
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
+      # Run ESLint for code quality checks
       - name: Run ESLint
         run: npm run lint
 
+      # Run Jest tests with coverage
       - name: Run Jest tests
         run: npm test -- --coverage
