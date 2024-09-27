@@ -13,7 +13,7 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@utils/*": ["src/utils/*"]
+      "*": ["*", "utils/*"]
     },
     "types": ["jest", "node"],
     "typeRoots": ["./node_modules/@types", "./src/@types"],

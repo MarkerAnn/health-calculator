@@ -1,4 +1,4 @@
-name: CI - Run Jest Tests
+name: CI
 
 on:
   push:
@@ -13,47 +13,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Check out the code from the repository
       - name: Check out code
         uses: actions/checkout@v3
 
-      # Set up Node.js with a specific version
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
+          node-version: '18'
 
-      - name: Clear TypeScript cache
-        run: rm -rf src/**/*.js.map src/**/*.js
-
-      - name: TypeScript Compilation
-        run: npx tsc --noEmit
-
-      # Cache npm dependencies to speed up future builds
-      - name: Cache npm dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      # Install dependencies using npm ci for a clean install
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      # Run ESLint for code quality checks
-      - name: Run ESLint
+      - name: Lint code with ESLint
         run: npm run lint
 
-      # Run Jest tests with coverage
-      - name: Run Jest tests
-        run: npm test -- --coverage
+      - name: Format code with Prettier
+        run: npm run format
 
-      - name: Debug info
-        run: |
-          echo "Node version: $(node -v)"
-          echo "NPM version: $(npm -v)"
-          echo "Current directory: $(pwd)"
-          echo "Directory contents:"
-          ls -R
+      - name: Run tests
+        run: npm run test

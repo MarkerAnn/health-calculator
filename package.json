@@ -13,8 +13,11 @@
     "lint": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint 'src/**/*.ts' --fix",
     "format": "prettier --write 'src/**/*.ts'",
+    "format:check": "prettier --check 'src/**/*.ts'",
+    "lint:check": "eslint 'src/**/*.ts' && prettier --check 'src/**/*.ts'",
     "prepare": "npm run build",
-    "pretest": "npm run build"
+    "pretest": "npm run build",
+    "precommit": "npm run lint && npm run format:check"
   },
   "keywords": [],
   "author": "Angelica Marker",
