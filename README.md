@@ -128,7 +128,7 @@ This module is designed to have minimal dependencies to ensure easy integration 
 
 ## Contributing
 
-I welcome contributions to improve the Body Measurements module. Please see our [CONTRIBUTING.md](CONTRIBUTING.md) file for details on how to contribute.
+I welcome contributions to improve the Body Measurements module. Please see our [CONTRIBUTING.md](CONTRIBUTING/CONTRIBUTING.md) file for details on how to contribute.
 
 ## License
 

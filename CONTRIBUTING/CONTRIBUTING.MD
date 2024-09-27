@@ -10,8 +10,10 @@ Thank you for your interest in contributing to the Body Measurements Module! Thi
 4. [Coding Standards](#coding-standards)
 5. [Testing](#testing)
 6. [Documentation](#documentation)
-7. [Submitting Changes](#submitting-changes)
-8. [Code Review Process](#code-review-process)
+7. [Continuous Integration](#continuous-integration)
+8. [Using the Issue Board](#using-the-issue-board)
+9. [Submitting Changes](#submitting-changes)
+10. [Code Review Process](#code-review-process)
 
 ## Getting Started
 
@@ -19,7 +21,7 @@ Thank you for your interest in contributing to the Body Measurements Module! Thi
 2. Clone your fork locally:
    ```
    git clone https://github.com/MarkerAnn/health-calculator
-   cd body-measurements
+   cd health-calculator
    ```
 3. Install dependencies:
    ```
@@ -35,7 +37,7 @@ Thank you for your interest in contributing to the Body Measurements Module! Thi
 The project is structured as follows:
 
 ```
-body-measurements/
+health-calculator/
 ├── src/
 │   ├── calculators/
 │   ├── factories/
@@ -117,17 +119,61 @@ npm run test:coverage
 - Document all public methods and interfaces with JSDoc comments.
 - Keep inline comments concise and relevant.
 
+## Continuous Integration
+
+We use GitHub Actions for continuous integration. The CI workflow is defined in `.github/workflows/ci.yml`. This workflow runs automatically on every push to the main branch and for all pull requests. It performs the following checks:
+
+1. Lints the code with ESLint
+2. Checks code formatting with Prettier
+3. Builds the project
+4. Runs all tests
+
+Before submitting a pull request, make sure your changes pass all these checks locally. You can run the following command to perform all checks:
+
+```
+npm run precommit
+```
+
+If the CI checks fail on your pull request, please fix the issues and update your branch.
+
+## Using the Issue Board
+
+I encourage all contributors to make use of our GitHub Issue Board. It's a great place to:
+
+- Report bugs you've found
+- Suggest new features or improvements
+- Discuss potential changes before starting work on them
+- Track the progress of ongoing work
+
+Before starting work on a new feature or significant change, please check the Issue Board to see if it's already being discussed or worked on. If not, feel free to create a new issue to start the conversation.
+
+To access the Issue Board:
+
+1. Go to the project's GitHub page
+2. Click on the "Issues" tab
+3. Browse existing issues or create a new one
+   Or you can just follow this [link](https://github.com/MarkerAnn/health-calculator/issues)
+
+When creating a new issue:
+
+- Use a clear and descriptive title
+- Provide as much relevant information as possible in the description
+- Add appropriate labels (e.g., "bug", "enhancement", "help wanted")
+
+I value your input and contributions, so don't hesitate to use the Issue Board to get involved in the project's development!
+
 ## Submitting Changes
 
-1. Commit your changes:
+1. Ensure all CI checks pass locally.
+2. Commit your changes:
    ```
    git commit -am "Add your descriptive commit message"
    ```
-2. Push to your fork:
+3. Push to your fork:
    ```
    git push origin feature/your-feature-name
    ```
-3. Submit a pull request through the GitHub website.
+4. Submit a pull request through the GitHub website.
 
 ## Code Review Process
 
