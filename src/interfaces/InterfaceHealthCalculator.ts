@@ -1,4 +1,9 @@
 /**
+ * @license
+ * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
+ */
+
+/**
  * Interface representing a health calculator with various health-related metrics.
  */
 export interface InterfaceHealthCalculator {

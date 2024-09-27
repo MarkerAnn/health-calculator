@@ -1,3 +1,8 @@
+/**
+ * @license
+ * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
+ */
+
 import { InterfaceBodyCompositionCalculator } from '../interfaces/InterfaceBodyCompositionCalculator'
 import { User } from '../models/User'
 

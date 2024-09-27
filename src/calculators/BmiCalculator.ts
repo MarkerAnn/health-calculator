@@ -1,3 +1,8 @@
+/**
+ * @license
+ * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
+ */
+
 import { InterfaceBmiCalculator } from '../interfaces/InterfaceBmiCalculator'
 import { User } from '../models/User'
 import { BmiType, bmiRanges } from '../enums/constants'

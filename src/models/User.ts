@@ -1,4 +1,9 @@
 /**
+ * @license
+ * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
+ */
+
+/**
  * Represents a user with health-related attributes.
  */
 export interface User {

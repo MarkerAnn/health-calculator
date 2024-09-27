@@ -1,3 +1,8 @@
+/**
+ * @license
+ * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
+ */
+
 import { User } from '../models/User'
 import { InterfaceHealthCalculator } from '../interfaces/InterfaceHealthCalculator'
 import { InterfaceBmiCalculator } from '../interfaces/InterfaceBmiCalculator'
