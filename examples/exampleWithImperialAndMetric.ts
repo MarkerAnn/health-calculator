@@ -44,7 +44,7 @@ console.log(
 )
 console.log(
   'Metric User - Body Fat Percentage:',
-  metricHealthCalculator.getBodyFatPercantage()
+  metricHealthCalculator.getBodyFatPercentage()
 )
 
 // Create HealthCalculator instance for the imperial user
@@ -64,5 +64,5 @@ console.log(
 )
 console.log(
   'Imperial User - Body Fat Percentage:',
-  imperialHealthCalculator.getBodyFatPercantage()
+  imperialHealthCalculator.getBodyFatPercentage()
 )

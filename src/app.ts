@@ -33,7 +33,7 @@ console.log(
   'BmiPrime',
   healthCalc.getBmi(),
   healthCalc.getBmiType(),
-  healthCalc.getBodyFatPercantage()
+  healthCalc.getBodyFatPercentage()
 )
 
 const heightInCm = 165
@@ -54,7 +54,7 @@ const calcOverweight = HealthCalculatorFactory.createHealthCalculator(
 )
 console.log(
   `Fabriksmetod beräknad kroppsfettsprocent: ${calcOverweight
-    .getBodyFatPercantage()
+    .getBodyFatPercentage()
     .toFixed(2)}%`
 )
 
@@ -76,7 +76,7 @@ const calcNormalWeight = HealthCalculatorFactory.createHealthCalculator(
 
 console.log(
   'Fat percentage for normal weight female:',
-  calcNormalWeight.getBodyFatPercantage().toFixed(2) + '%'
+  calcNormalWeight.getBodyFatPercentage().toFixed(2) + '%'
 )
 
 //TODO: Ta bort denna

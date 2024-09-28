@@ -70,7 +70,7 @@ describe('BodyCompositionCalculator', () => {
       const user = testUsers.normalWeightMaleMetric
       const healthCalculator =
         HealthCalculatorFactory.createHealthCalculator(user)
-      const bodyFatPercentage = healthCalculator.getBodyFatPercantage()
+      const bodyFatPercentage = healthCalculator.getBodyFatPercentage()
       expect(bodyFatPercentage).toBeCloseTo(20.14, 1)
     })
 
@@ -78,7 +78,7 @@ describe('BodyCompositionCalculator', () => {
       const user = testUsers.overweightFemaleMetric
       const healthCalculator =
         HealthCalculatorFactory.createHealthCalculator(user)
-      const bodyFatPercentage = healthCalculator.getBodyFatPercantage()
+      const bodyFatPercentage = healthCalculator.getBodyFatPercentage()
       expect(bodyFatPercentage).toBeCloseTo(60.62, 1)
     })
 

@@ -45,7 +45,7 @@ const healthCalculator = HealthCalculatorFactory.createHealthCalculator(user)
 
 console.log('BMI:', healthCalculator.getBmi())
 console.log('BMI Type:', healthCalculator.getBmiType())
-console.log('Body Fat Percentage:', healthCalculator.getBodyFatPercantage())
+console.log('Body Fat Percentage:', healthCalculator.getBodyFatPercentage())
 console.log('TDEE (Mifflin-St Jeor):', healthCalculator.getTdeeMifflinStJeor())
 ```
 
@@ -73,7 +73,7 @@ The `User` object is used to provide input data for calculations. It has the fol
 - `getIdealWeight()`: Returns the ideal weight range as [min, max]
 - `getWaistToHipRatio()`: Calculates Waist-to-Hip Ratio
 - `getWaistToHeightRatio()`: Calculates Waist-to-Height Ratio
-- `getBodyFatPercantage()`: Estimates body fat percentage
+- `getBodyFatPercentage()`: Estimates body fat percentage
 - `getBmrHarrisBenedict()`: Calculates BMR using Harris-Benedict equation
 - `getBmrMifflinStJeor()`: Calculates BMR using Mifflin-St Jeor equation
 - `getTdeeHarrisBenedict()`: Calculates TDEE using Harris-Benedict equation
@@ -87,7 +87,7 @@ The `User` object is used to provide input data for calculations. It has the fol
 | getIdealWeight()        |        | X      |     |        |       |     |      | X          |               |
 | getWaistToHipRatio()    |        |        |     |        | X     | X   |      | X          |               |
 | getWaistToHeightRatio() |        | X      |     |        | X     |     |      | X          |               |
-| getBodyFatPercantage()  |        | X      |     | X      | X     | X\* | X    | X          |               |
+| getBodyFatPercentage()  |        | X      |     | X      | X     | X\* | X    | X          |               |
 | getBmrHarrisBenedict()  | X      | X      | X   | X      |       |     |      | X          |               |
 | getBmrMifflinStJeor()   | X      | X      | X   | X      |       |     |      | X          |               |
 | getTdeeHarrisBenedict() | X      | X      | X   | X      |       |     |      | X          | X             |

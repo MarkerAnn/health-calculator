@@ -47,7 +47,7 @@ export interface InterfaceHealthCalculator {
    * Calculates the body fat percentage. Using the U.S Navy equation
    * @returns {number} The body fat percentage.
    */
-  getBodyFatPercantage(): number
+  getBodyFatPercentage(): number
 
   /**
    * Calculates the Basal Metabolic Rate (BMR) using the Harris-Benedict equation.

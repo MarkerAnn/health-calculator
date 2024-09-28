@@ -82,7 +82,7 @@ export class HealthCalculator implements InterfaceHealthCalculator {
   /**
    * @inheritdoc
    */
-  getBodyFatPercantage(): number {
+  getBodyFatPercentage(): number {
     return this.bodycompositionCalculator.calculateBodyFatPercentage(this.user)
   }
 

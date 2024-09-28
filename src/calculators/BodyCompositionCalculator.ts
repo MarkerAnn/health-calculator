@@ -74,7 +74,6 @@ export class BodyCompositionCalculator
       const heightFactor = 70.041 * Math.log10(heightInCentimeter)
       const waistNeckFactor = 86.01 * Math.log10(waistNeckDifference)
       const constantFactor = 36.76
-
       const bodyFatPercentage = waistNeckFactor - heightFactor + constantFactor
       return bodyFatPercentage
     }
@@ -97,12 +96,11 @@ export class BodyCompositionCalculator
       const heightFactor = 97.684 * Math.log10(heightInCentimeter)
       const waistHipNeckFactor = 163.205 * Math.log10(waistHipNeckSum)
       const constantFactor = 78.387
-
       const bodyFatPercentage =
         waistHipNeckFactor - heightFactor - constantFactor
+
       return bodyFatPercentage
     }
-
     throw new Error('Invalid gender. Gender must be either "male" or "female".')
   }
 }
