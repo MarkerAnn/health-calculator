@@ -15,27 +15,15 @@ import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator'
    * @throws Will throw an error if the user's age or activity level is not provided.
    */
   calculateTdeeMifflinStJeor(user: User, bmrMifflinStJeor: number): number {
-    if (user.age && user.activityLevel) {
-      const bmr = bmrMifflinStJeor
-      let activityFactor = 0
-      if (user.activityLevel === 'sedentary') {
-        activityFactor = 1.2
-      } else if (user.activityLevel === 'lightly') {
-        activityFactor = 1.375
-      } else if (user.activityLevel === 'moderately') {
-        activityFactor = 1.55
-      } else if (user.activityLevel === 'very') {
-        activityFactor = 1.725
-      } else if (user.activityLevel === 'extremely') {
-        activityFactor = 1.9
-      }
-      const tdee = bmr * activityFactor
-      return tdee
-    } else {
+    if (!user.age || !user.activityLevel) {
       throw new Error(
         'Age and activity level is required for calculateTdeeMifflinStJeor method'
       )
     }
+    const bmr = bmrMifflinStJeor
+    const activityFactor = this.getActivityFactor(user.activityLevel)
+    const tdee = bmr * activityFactor
+    return tdee
   }
 
   /**
@@ -43,26 +31,35 @@ import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator'
    * @throws {Error} - Throws an error if age or activity level is not provided in the user object.
    */
   calculateTdeeHarrisBenedict(user: User, bmrHarrisBenedict: number): number {
-    if (user.age && user.activityLevel) {
-      const bmr = bmrHarrisBenedict
-      let activityFactor = 0
-      if (user.activityLevel === 'sedentary') {
-        activityFactor = 1.2
-      } else if (user.activityLevel === 'lightly') {
-        activityFactor = 1.375
-      } else if (user.activityLevel === 'moderately') {
-        activityFactor = 1.55
-      } else if (user.activityLevel === 'very') {
-        activityFactor = 1.725
-      } else if (user.activityLevel === 'extremely') {
-        activityFactor = 1.9
-      }
-      const tdee = bmr * activityFactor
-      return tdee
-    } else {
+    if (!user.age || !user.activityLevel) {
       throw new Error(
         'Age and activity level is required for calculateTdeeHarrisBenedict method'
       )
     }
+    const bmr = bmrHarrisBenedict
+    const activityFactor = this.getActivityFactor(user.activityLevel)
+    const tdee = bmr * activityFactor
+    return tdee
+  }
+
+  private getActivityFactor(activityLevel: string): number {
+    if (activityLevel === 'sedentary') {
+      return 1.2
+    }
+    if (activityLevel === 'lightly') {
+      return 1.375
+    }
+    if (activityLevel === 'moderately') {
+      return 1.55
+    }
+    if (activityLevel === 'very') {
+      return 1.725
+    }
+    if (activityLevel === 'extremely') {
+      return 1.9
+    }
+    throw new Error(
+      'Activity level must be sedentary, lightly moderately, very or extremely'
+    )
   }
 }
