@@ -11,4 +11,15 @@ module.exports = {
       tsconfig: 'tsconfig.json',
     },
   },
+  reporters: [
+    'default',
+    [
+      'jest-html-reporter',
+      {
+        pageTitle: 'Test Report',
+        outputPath: './testReport.html',
+        includeFailureMsg: true,
+      },
+    ],
+  ],
 }

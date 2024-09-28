@@ -61,7 +61,6 @@ export class BmiCalculator implements InterfaceBmiCalculator {
   }
 
   /**
-   *
    * @inheritdoc
    */
   calculateBmiPrime(bmi: number): number {

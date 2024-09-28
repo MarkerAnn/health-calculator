@@ -33,5 +33,30 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Run tests
+      - name: Run tests and generate report
         run: npm run test
+
+      - name: Generate Markdown report
+        run: |
+          echo "# Test Report" > TESTREPORT.md
+          echo "## Test Results" >> TESTREPORT.md
+          echo "\`\`\`" >> TESTREPORT.md
+          cat testReport.html | sed 's/<[^>]*>//g' >> TESTREPORT.md
+          echo "\`\`\`" >> TESTREPORT.md
+          echo "## Test Run Information" >> TESTREPORT.md
+          echo "- Date: $(date)" >> TESTREPORT.md
+          echo "- Commit: ${{ github.sha }}" >> TESTREPORT.md
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-report
+          path: TESTREPORT.md
+
+      - name: Commit and push if there are changes
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add TESTREPORT.md
+          git commit -m "Update test results in TESTREPORT.md" || echo "No changes to commit"
+          git push
