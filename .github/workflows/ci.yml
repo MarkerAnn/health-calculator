@@ -39,10 +39,12 @@ jobs:
       - name: Generate Markdown report
         run: |
           echo "# Test Report" > TESTREPORT.md
-          echo "## Test Results" >> TESTREPORT.md
-          echo "\`\`\`" >> TESTREPORT.md
-          cat testReport.html | sed 's/<[^>]*>//g' >> TESTREPORT.md
-          echo "\`\`\`" >> TESTREPORT.md
+          echo "## Test Summary" >> TESTREPORT.md
+          grep -A 4 "^Test Summary" testReport.html | sed 's/<[^>]*>//g' >> TESTREPORT.md
+          echo "## Test Suites" >> TESTREPORT.md
+          grep "<div class=\"summary-" testReport.html | sed 's/<[^>]*>//g' >> TESTREPORT.md
+          echo "## Detailed Test Results" >> TESTREPORT.md
+          grep "<div class=\"test-result" -A 2 testReport.html | sed 's/<[^>]*>//g' | sed '/^\s*$/d' >> TESTREPORT.md
           echo "## Test Run Information" >> TESTREPORT.md
           echo "- Date: $(date)" >> TESTREPORT.md
           echo "- Commit: ${{ github.sha }}" >> TESTREPORT.md
