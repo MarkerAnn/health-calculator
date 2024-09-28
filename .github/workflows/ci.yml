@@ -2,32 +2,29 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out code
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Lint code with ESLint
+      - name: Lint code
         run: npm run lint
 
-      - name: Format code with Prettier
+      - name: Check code formatting
         run: npm run format:check
 
       - name: Build project
@@ -38,60 +35,47 @@ jobs:
 
       - name: Generate Markdown report
         run: |
-          echo "# Test Report" > TESTREPORT.md
-          echo "" >> TESTREPORT.md
-          echo "## Summary" >> TESTREPORT.md
-          echo "- **Date:** $(date)" >> TESTREPORT.md
-          echo "- **Commit:** ${{ github.sha }}" >> TESTREPORT.md
-          echo "" >> TESTREPORT.md
+          cat << EOF > TESTREPORT.md
+          # Test Report
 
-          # Extract test summary
-          echo "## Test Results" >> TESTREPORT.md
-          suites=$(grep -oP '(?<=Suites \().*?(?=\))' testReport.html)
-          tests=$(grep -oP '(?<=Tests \().*?(?=\))' testReport.html)
-          echo "- Suites: $suites" >> TESTREPORT.md
-          echo "- Tests: $tests" >> TESTREPORT.md
-          echo "" >> TESTREPORT.md
+          ## Summary
+          - **Date:** $(date)
+          - **Commit:** ${{ github.sha }}
 
-          echo "## Test Suites" >> TESTREPORT.md
-          echo "" >> TESTREPORT.md
-          echo "| Suite | Tests | Duration |" >> TESTREPORT.md
-          echo "|-------|-------|----------|" >> TESTREPORT.md
+          ## Test Results
+          $(grep -oP '(?<=Suites \().*?(?=\))' testReport.html | sed 's/^/- Suites: /')
+          $(grep -oP '(?<=Tests \().*?(?=\))' testReport.html | sed 's/^/- Tests: /')
 
-          # Extract test suite information
-          grep -oP '(?<=<div class="suite-info">).*?(?=</div>)' testReport.html | 
-          sed -E 's#.*/__test__/(.*)\.test\.ts.*#\1#' |
-          while read -r suite; do
-            tests=$(grep -c "$suite" <<< "$(grep -oP '(?<=<div class="test-suitename">).*?(?=</div>)' testReport.html)")
-            duration=$(grep -oP "(?<=$suite\.test\.ts</div><div class=\"suite-time\">).*?(?=</div>)" testReport.html)
-            echo "| $suite | $tests | $duration |" >> TESTREPORT.md
-          done
+          ## Test Suites
 
-          echo "" >> TESTREPORT.md
-          echo "## Detailed Test Results" >> TESTREPORT.md
-          echo "" >> TESTREPORT.md
+          | Suite | Tests | Duration |
+          |-------|-------|----------|
+          $(grep -oP '(?<=<div class="suite-info">).*?(?=</div>)' testReport.html | 
+            sed -E 's#.*/__test__/(.*)\.test\.ts.*#\1#' |
+            while read -r suite; do
+              tests=$(grep -c "$suite" <<< "$(grep -oP '(?<=<div class="test-suitename">).*?(?=</div>)' testReport.html)")
+              duration=$(grep -oP "(?<=$suite\.test\.ts</div><div class=\"suite-time\">).*?(?=</div>)" testReport.html)
+              echo "| $suite | $tests | $duration |"
+            done)
 
-          # Extract detailed test results
-          grep -oP '(?<=<div class="test-info">).*?(?=</div></div>)' testReport.html |
-          while IFS= read -r line; do
-            suite=$(echo "$line" | grep -oP '(?<=<div class="test-suitename">).*?(?=</div>)')
-            title=$(echo "$line" | grep -oP '(?<=<div class="test-title">).*?(?=</div>)')
-            status=$(echo "$line" | grep -oP '(?<=<div class="test-status">).*?(?=</div>)')
-            duration=$(echo "$line" | grep -oP '(?<=<div class="test-duration">).*?(?=</div>)')
-            
-            if [[ "$suite" != "$current_suite" ]]; then
-              echo "" >> TESTREPORT.md
-              echo "### $suite" >> TESTREPORT.md
-              current_suite="$suite"
-            fi
-            
-            icon="✅"
-            if [[ "$status" != "passed" ]]; then
-              icon="❌"
-            fi
-            
-            echo "$icon $title ($duration)" >> TESTREPORT.md
-          done
+          ## Detailed Test Results
+
+          $(grep -oP '(?<=<div class="test-info">).*?(?=</div></div>)' testReport.html |
+            while IFS= read -r line; do
+              suite=$(echo "$line" | grep -oP '(?<=<div class="test-suitename">).*?(?=</div>)')
+              title=$(echo "$line" | grep -oP '(?<=<div class="test-title">).*?(?=</div>)')
+              status=$(echo "$line" | grep -oP '(?<=<div class="test-status">).*?(?=</div>)')
+              duration=$(echo "$line" | grep -oP '(?<=<div class="test-duration">).*?(?=</div>)')
+              
+              if [[ "$suite" != "$current_suite" ]]; then
+                echo -e "\n### $suite"
+                current_suite="$suite"
+              fi
+              
+              icon=$([ "$status" = "passed" ] && echo "✅" || echo "❌")
+              echo "$icon $title ($duration)"
+            done)
+          EOF
 
       - name: Upload test report
         uses: actions/upload-artifact@v3
@@ -99,10 +83,9 @@ jobs:
           name: test-report
           path: TESTREPORT.md
 
-      - name: Commit and push if there are changes
+      - name: Commit and push changes
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add TESTREPORT.md
-          git commit -m "Update test results in TESTREPORT.md" || echo "No changes to commit"
-          git push
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update test results" && git push)
