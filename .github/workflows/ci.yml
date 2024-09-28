@@ -43,19 +43,35 @@ jobs:
           echo "## Summary" >> TESTREPORT.md
           echo "- **Date:** $(date)" >> TESTREPORT.md
           echo "- **Commit:** ${{ github.sha }}" >> TESTREPORT.md
-          echo "- **Test Suites:** $(grep 'Test Suites' testReport.html | sed 's/<[^>]*>//g')" >> TESTREPORT.md
-          echo "- **Tests:** $(grep 'Tests:' testReport.html | sed 's/<[^>]*>//g')" >> TESTREPORT.md
+
+          # Extract test summary
+          test_summary=$(grep -A 3 "Test Summary" testReport.html | sed 's/<[^>]*>//g' | sed '/^\s*$/d')
+          echo "$test_summary" >> TESTREPORT.md
+
           echo "" >> TESTREPORT.md
           echo "## Test Suites" >> TESTREPORT.md
           echo "" >> TESTREPORT.md
           echo "| Suite | Tests | Duration |" >> TESTREPORT.md
           echo "|-------|-------|----------|" >> TESTREPORT.md
-          grep -E "test/.*\.test\.ts" testReport.html | sed -E 's#.*/([^/]+)\.test\.ts</div>([0-9.]+s)#| \1 | - | \2 |#' >> TESTREPORT.md
+
+          # Extract test suite information
+          grep -E "test-result passed" testReport.html | 
+          sed -E 's#.*src/test/(.*)\.test\.ts.*#\1#' | 
+          sort | uniq -c | 
+          while read count suite; do
+            duration=$(grep -E "test/.*$suite.*\.test\.ts" testReport.html | sed -E 's/.*>([0-9.]+s)<.*/\1/')
+            echo "| $suite | $count | $duration |" >> TESTREPORT.md
+          done
+
           echo "" >> TESTREPORT.md
           echo "## Detailed Test Results" >> TESTREPORT.md
           echo "" >> TESTREPORT.md
+
+          # Extract detailed test results
           current_suite=""
-          grep -E "test-result|suite-info" testReport.html | sed 's/<[^>]*>//g' | while read -r line; do
+          grep -E "test-result|suite-info" testReport.html | 
+          sed 's/<[^>]*>//g' | 
+          while read -r line; do
             if [[ $line == *".test.ts"* ]]; then
               current_suite=$(echo $line | sed -E 's#.*/([^/]+)\.test\.ts.*#\1#')
               echo "" >> TESTREPORT.md
