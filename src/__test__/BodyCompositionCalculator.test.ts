@@ -89,7 +89,9 @@ describe('BodyCompositionCalculator', () => {
       }
       expect(() =>
         bodyCompositionCalculator.calculateBodyFatPercentage(userWithoutWaist)
-      ).toThrow('Waist value is required')
+      ).toThrow(
+        'Waist and neck is required to calculate body fat percentage for male'
+      )
     })
 
     it('should throw an error when neck measurement is missing', () => {
@@ -99,7 +101,9 @@ describe('BodyCompositionCalculator', () => {
       }
       expect(() =>
         bodyCompositionCalculator.calculateBodyFatPercentage(userWithoutNeck)
-      ).toThrow('Neck value is required')
+      ).toThrow(
+        'Waist and neck is required to calculate body fat percentage for male'
+      )
     })
 
     it('should throw an error when hip measurement is missing for female', () => {
@@ -111,7 +115,9 @@ describe('BodyCompositionCalculator', () => {
         bodyCompositionCalculator.calculateBodyFatPercentage(
           femaleUserWithoutHip
         )
-      ).toThrow('Hip value is required for females')
+      ).toThrow(
+        'Waist, hip and neck is required to calculate body fat percentage for female'
+      )
     })
 
     it('should throw an error for invalid gender', () => {
