@@ -25,7 +25,7 @@ jobs:
         id: versions
         run: |
           echo "node_version=$(node -v)" >> $GITHUB_OUTPUT
-          echo "jest_version=$(npm list jest | grep jest)" >> $GITHUB_OUTPUT
+          echo "jest_version=$(node -p "require('./package.json').devDependencies.jest")" >> $GITHUB_OUTPUT
 
       - name: Lint code
         run: npm run lint
