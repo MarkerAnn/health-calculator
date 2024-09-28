@@ -43,24 +43,28 @@ jobs:
           echo "## Summary" >> TESTREPORT.md
           echo "- **Date:** $(date)" >> TESTREPORT.md
           echo "- **Commit:** ${{ github.sha }}" >> TESTREPORT.md
+          echo "" >> TESTREPORT.md
 
           # Extract test summary
-          test_summary=$(grep -A 3 "Test Summary" testReport.html | sed 's/<[^>]*>//g' | sed '/^\s*$/d')
-          echo "$test_summary" >> TESTREPORT.md
-
+          echo "## Test Results" >> TESTREPORT.md
+          suites=$(grep -oP '(?<=Suites \().*?(?=\))' testReport.html)
+          tests=$(grep -oP '(?<=Tests \().*?(?=\))' testReport.html)
+          echo "- Suites: $suites" >> TESTREPORT.md
+          echo "- Tests: $tests" >> TESTREPORT.md
           echo "" >> TESTREPORT.md
+
           echo "## Test Suites" >> TESTREPORT.md
           echo "" >> TESTREPORT.md
           echo "| Suite | Tests | Duration |" >> TESTREPORT.md
           echo "|-------|-------|----------|" >> TESTREPORT.md
 
           # Extract test suite information
-          grep -E "test-result passed" testReport.html | 
-          sed -E 's#.*src/test/(.*)\.test\.ts.*#\1#' | 
-          sort | uniq -c | 
-          while read count suite; do
-            duration=$(grep -E "test/.*$suite.*\.test\.ts" testReport.html | sed -E 's/.*>([0-9.]+s)<.*/\1/')
-            echo "| $suite | $count | $duration |" >> TESTREPORT.md
+          grep -oP '(?<=<div class="suite-info">).*?(?=</div>)' testReport.html | 
+          sed -E 's#.*/__test__/(.*)\.test\.ts.*#\1#' |
+          while read -r suite; do
+            tests=$(grep -c "$suite" <<< "$(grep -oP '(?<=<div class="test-suitename">).*?(?=</div>)' testReport.html)")
+            duration=$(grep -oP "(?<=$suite\.test\.ts</div><div class=\"suite-time\">).*?(?=</div>)" testReport.html)
+            echo "| $suite | $tests | $duration |" >> TESTREPORT.md
           done
 
           echo "" >> TESTREPORT.md
@@ -68,20 +72,25 @@ jobs:
           echo "" >> TESTREPORT.md
 
           # Extract detailed test results
-          current_suite=""
-          grep -E "test-result|suite-info" testReport.html | 
-          sed 's/<[^>]*>//g' | 
-          while read -r line; do
-            if [[ $line == *".test.ts"* ]]; then
-              current_suite=$(echo $line | sed -E 's#.*/([^/]+)\.test\.ts.*#\1#')
+          grep -oP '(?<=<div class="test-info">).*?(?=</div></div>)' testReport.html |
+          while IFS= read -r line; do
+            suite=$(echo "$line" | grep -oP '(?<=<div class="test-suitename">).*?(?=</div>)')
+            title=$(echo "$line" | grep -oP '(?<=<div class="test-title">).*?(?=</div>)')
+            status=$(echo "$line" | grep -oP '(?<=<div class="test-status">).*?(?=</div>)')
+            duration=$(echo "$line" | grep -oP '(?<=<div class="test-duration">).*?(?=</div>)')
+            
+            if [[ "$suite" != "$current_suite" ]]; then
               echo "" >> TESTREPORT.md
-              echo "### $current_suite" >> TESTREPORT.md
-            elif [[ $line == "passed"* ]]; then
-              test_name=$(echo "$previous_line" | sed -E 's/^[^>]+> ?//')
-              duration=$(echo $line | awk '{print $2}')
-              echo "✅ $test_name ($duration)" >> TESTREPORT.md
+              echo "### $suite" >> TESTREPORT.md
+              current_suite="$suite"
             fi
-            previous_line=$line
+            
+            icon="✅"
+            if [[ "$status" != "passed" ]]; then
+              icon="❌"
+            fi
+            
+            echo "$icon $title ($duration)" >> TESTREPORT.md
           done
 
       - name: Upload test report
