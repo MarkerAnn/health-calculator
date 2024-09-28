@@ -21,6 +21,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Get versions
+        id: versions
+        run: |
+          echo "node_version=$(node -v)" >> $GITHUB_OUTPUT
+          echo "jest_version=$(npm list jest | grep jest)" >> $GITHUB_OUTPUT
+
       - name: Lint code
         run: npm run lint
 
@@ -37,6 +43,10 @@ jobs:
         run: |
           cat << EOF > TESTREPORT.md
           # Test Report
+
+          ## Environment
+          - Node.js version: ${{ steps.versions.outputs.node_version }}
+          - Jest version: ${{ steps.versions.outputs.jest_version }}
 
           ## Summary
           - **Date:** $(date)
