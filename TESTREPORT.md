@@ -1,8 +1,12 @@
 # Test Report
 
+## Environment
+- Node.js version: v20.17.0
+- Jest version: ^29.7.0
+
 ## Summary
-- **Date:** Sat Sep 28 01:17:46 UTC 2024
-- **Commit:** f76350a591bb3914af5362ea8e2f6cb81da3ae3a
+- **Date:** Sat Sep 28 01:26:31 UTC 2024
+- **Commit:** 0946f4a07c0af6bb1ac518ec25ae3695a8b65ee6
 
 ## Test Results
 - Suites: 5
@@ -12,11 +16,11 @@
 
 | Suite | Tests | Duration |
 |-------|-------|----------|
-| BmrCalculator | 10 | 3.083s |
-| BodyCompositionCalculator | 12 | 3.064s |
-| TdeeCalculator | 20 | 3.065s |
-| BmiCalculator | 0 | 0.136s |
-| validateUserInput | 10 | 0.162s |
+| BmrCalculator | 10 | 2.955s |
+| BodyCompositionCalculator | 12 | 3s |
+| TdeeCalculator | 20 | 3.008s |
+| BmiCalculator | 0 | 0.155s |
+| validateUserInput | 10 | 0.177s |
 
 ## Detailed Test Results
 
