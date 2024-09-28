@@ -39,15 +39,34 @@ jobs:
       - name: Generate Markdown report
         run: |
           echo "# Test Report" > TESTREPORT.md
-          echo "## Test Summary" >> TESTREPORT.md
-          grep -A 4 "^Test Summary" testReport.html | sed 's/<[^>]*>//g' >> TESTREPORT.md
+          echo "" >> TESTREPORT.md
+          echo "## Summary" >> TESTREPORT.md
+          echo "- **Date:** $(date)" >> TESTREPORT.md
+          echo "- **Commit:** ${{ github.sha }}" >> TESTREPORT.md
+          echo "- **Test Suites:** $(grep 'Test Suites' testReport.html | sed 's/<[^>]*>//g')" >> TESTREPORT.md
+          echo "- **Tests:** $(grep 'Tests:' testReport.html | sed 's/<[^>]*>//g')" >> TESTREPORT.md
+          echo "" >> TESTREPORT.md
           echo "## Test Suites" >> TESTREPORT.md
-          grep "<div class=\"summary-" testReport.html | sed 's/<[^>]*>//g' >> TESTREPORT.md
+          echo "" >> TESTREPORT.md
+          echo "| Suite | Tests | Duration |" >> TESTREPORT.md
+          echo "|-------|-------|----------|" >> TESTREPORT.md
+          grep -E "test/.*\.test\.ts" testReport.html | sed -E 's#.*/([^/]+)\.test\.ts</div>([0-9.]+s)#| \1 | - | \2 |#' >> TESTREPORT.md
+          echo "" >> TESTREPORT.md
           echo "## Detailed Test Results" >> TESTREPORT.md
-          grep "<div class=\"test-result" -A 2 testReport.html | sed 's/<[^>]*>//g' | sed '/^\s*$/d' >> TESTREPORT.md
-          echo "## Test Run Information" >> TESTREPORT.md
-          echo "- Date: $(date)" >> TESTREPORT.md
-          echo "- Commit: ${{ github.sha }}" >> TESTREPORT.md
+          echo "" >> TESTREPORT.md
+          current_suite=""
+          grep -E "test-result|suite-info" testReport.html | sed 's/<[^>]*>//g' | while read -r line; do
+            if [[ $line == *".test.ts"* ]]; then
+              current_suite=$(echo $line | sed -E 's#.*/([^/]+)\.test\.ts.*#\1#')
+              echo "" >> TESTREPORT.md
+              echo "### $current_suite" >> TESTREPORT.md
+            elif [[ $line == "passed"* ]]; then
+              test_name=$(echo "$previous_line" | sed -E 's/^[^>]+> ?//')
+              duration=$(echo $line | awk '{print $2}')
+              echo "✅ $test_name ($duration)" >> TESTREPORT.md
+            fi
+            previous_line=$line
+          done
 
       - name: Upload test report
         uses: actions/upload-artifact@v3
