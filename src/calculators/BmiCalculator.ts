@@ -16,7 +16,8 @@ export class BmiCalculator implements InterfaceBmiCalculator {
    * @inheritdoc
    */
   calculateBmi(user: User): number {
-    const bmi = user.weight / Math.pow(user.height, 2)
+    const heightExponent = 2
+    const bmi = user.weight / Math.pow(user.height, heightExponent)
     return bmi
   }
 
@@ -48,9 +49,12 @@ export class BmiCalculator implements InterfaceBmiCalculator {
     if (normalBmiRange) {
       const minNormalBmi = normalBmiRange.min
       const maxNormalBmi = normalBmiRange.max
+      const heightExponent = 2
 
-      const minIdealWeight = minNormalBmi * Math.pow(user.height, 2)
-      const maxIdealWeight = maxNormalBmi * Math.pow(user.height, 2)
+      const minIdealWeight =
+        minNormalBmi * Math.pow(user.height, heightExponent)
+      const maxIdealWeight =
+        maxNormalBmi * Math.pow(user.height, heightExponent)
 
       return [minIdealWeight, maxIdealWeight]
     } else {
@@ -64,7 +68,8 @@ export class BmiCalculator implements InterfaceBmiCalculator {
    * @inheritdoc
    */
   calculateBmiPrime(bmi: number): number {
-    const bmiPrime = bmi / 25
+    const denominator = 25
+    const bmiPrime = bmi / denominator
     return bmiPrime
   }
 }

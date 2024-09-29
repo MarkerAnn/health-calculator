@@ -15,15 +15,11 @@ import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator'
    * @throws Will throw an error if the user's age or activity level is not provided.
    */
   calculateTdeeMifflinStJeor(user: User, bmrMifflinStJeor: number): number {
-    if (!user.age || !user.activityLevel) {
-      throw new Error(
-        'Age and activity level is required for calculateTdeeMifflinStJeor method'
-      )
-    }
+    this.validateAgeAndActivityLevel(user)
     const bmr = bmrMifflinStJeor
     const activityFactor = this.getActivityFactor(user.activityLevel)
-    const tdee = bmr * activityFactor
-    return tdee
+
+    return this.calculateTdee(bmr, activityFactor)
   }
 
   /**
@@ -31,15 +27,11 @@ import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator'
    * @throws {Error} - Throws an error if age or activity level is not provided in the user object.
    */
   calculateTdeeHarrisBenedict(user: User, bmrHarrisBenedict: number): number {
-    if (!user.age || !user.activityLevel) {
-      throw new Error(
-        'Age and activity level is required for calculateTdeeHarrisBenedict method'
-      )
-    }
+    this.validateAgeAndActivityLevel(user)
     const bmr = bmrHarrisBenedict
     const activityFactor = this.getActivityFactor(user.activityLevel)
-    const tdee = bmr * activityFactor
-    return tdee
+
+    return this.calculateTdee(bmr, activityFactor)
   }
 
   private getActivityFactor(activityLevel: string): number {
@@ -61,5 +53,17 @@ import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator'
     throw new Error(
       'Activity level must be sedentary, lightly moderately, very or extremely'
     )
+  }
+
+  private validateAgeAndActivityLevel(
+    user: User
+  ): asserts user is User & { activityLevel: string } {
+    if (!user.age || !user.activityLevel) {
+      throw new Error('Age and activity level is required for TDEE methods')
+    }
+  }
+
+  private calculateTdee(bmr: number, activityFactor: number): number {
+    return bmr * activityFactor
   }
 }
