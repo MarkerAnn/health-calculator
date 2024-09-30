@@ -137,7 +137,7 @@ export class HealthCalculator implements InterfaceHealthCalculator {
   getCaloricSurplusOrDeficit(): number {
     const tdee = this.getTdeeHarrisBenedict()
     return this.calorieCalculator.calculateCaloricSurplusOrDeficit(
-      dailyCalorie,
+      this.user,
       tdee
     )
   }
@@ -145,20 +145,40 @@ export class HealthCalculator implements InterfaceHealthCalculator {
   /**
    * @inheritdoc
    */
-  getEstimatedWeightChangeWeekly(): number {}
+  getEstimatedWeightChangeWeekly(): number {
+    const calorieSurplusOrDeficit = this.getCaloricSurplusOrDeficit()
+    return this.calorieCalculator.calculateEstimatedWeightChangeWeekly(
+      calorieSurplusOrDeficit,
+      this.user
+    )
+  }
 
   /**
    * @inheritdoc
    */
-  getEstimatedWeightChangeMonthly(): number {}
+  getEstimatedWeightChangeMonthly(): number {
+    const calorieSurplusOrDeficit = this.getCaloricSurplusOrDeficit()
+    return this.calorieCalculator.calculateEstimatedWeightChangeWeekly(
+      calorieSurplusOrDeficit,
+      this.user
+    )
+  }
 
   /**
    * @inheritdoc
    */
-  getEstimateTimeToWeightGoal(): number {}
+  getEstimateTimeToWeightGoal(): number {
+    const calorieSurplusOrDeficit = this.getCaloricSurplusOrDeficit()
+    return this.calorieCalculator.calculateEstimatedWeeksToWeightGoal(
+      calorieSurplusOrDeficit,
+      this.user
+    )
+  }
 
   /**
    * @inheritdoc
    */
-  getCaloriesForWeightGoal(): number {}
+  getCaloriesForWeightGoal(): number {
+    return this.calorieCalculator.calculateCaloriesForWeightGoal(this.user)
+  }
 }

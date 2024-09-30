@@ -18,6 +18,8 @@ export function convertUserToMetric(user: User) {
       hip: user.hip !== undefined ? inchesToCentimeters(user.hip) : undefined,
       neck:
         user.neck !== undefined ? inchesToCentimeters(user.neck) : undefined,
+      weightGoal:
+        user.weightGoal !== undefined ? lbsToKg(user.weightGoal) : undefined,
       unitSystem: 'metric',
     }
   }

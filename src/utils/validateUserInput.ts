@@ -67,7 +67,7 @@ function validateWeight(
   unitSystem: 'metric' | 'imperial',
   user: User
 ) {
-  if (weight === undefined && typeof weight !== 'number') {
+  if (weight === undefined || typeof weight !== 'number') {
     throw new Error(
       `Weight is required and must be a number. Check the weight value in ${JSON.stringify(user)}`
     )
@@ -96,7 +96,7 @@ function validateHeight(
   unitSystem: 'metric' | 'imperial',
   user: User
 ) {
-  if (height === undefined && typeof height !== 'number') {
+  if (height === undefined || typeof height !== 'number') {
     throw new Error(
       `Height is required and must be a number. Check the height value in ${JSON.stringify(user)}`
     )
@@ -184,7 +184,7 @@ function validateWeightGoal(weightGoal?: number, user?: User) {
   if (weightGoal === undefined) {
     return
   }
-  if (weightGoal > 0) {
+  if (weightGoal < 0) {
     throw new Error(
       `The weight goal can't be 0, leave the field empty if you don't want to use calorie calculation. User objekt- ${JSON.stringify(
         user

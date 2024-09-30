@@ -13,7 +13,7 @@ import { TdeeCalculator } from '../calculators/TdeeCalculator'
 import { validateUserInput } from '../utils/validateUserInput'
 import { copyUser } from '../utils/copyUser'
 import { convertUserToMetric } from '../utils/unitConverter'
-import { CalorieCalculator } from 'src/calculators/CalorieCalculator'
+import { CalorieCalculator } from '../calculators/CalorieCalculator'
 
 /**
  * Factory class for creating HealthCalculator instances.

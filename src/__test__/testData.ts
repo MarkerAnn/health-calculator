@@ -91,4 +91,61 @@ export const testUsers: { [key: string]: User } = {
       | 'very'
       | 'extremely', // Type assertion to bypass TypeScript errors
   },
+
+  //***************** TestData with more properties in User object ******************/
+  userWithValidGoals: {
+    weight: 70,
+    height: 1.75,
+    unitSystem: 'metric',
+    dailyCalories: 2000,
+    weightGoal: 65,
+    weeksToWeightGoal: 12,
+  },
+
+  userWithInvalidDailyCalories: {
+    weight: 70,
+    height: 1.75,
+    unitSystem: 'metric',
+    dailyCalories: -500,
+  },
+
+  userWithInvalidWeightGoal: {
+    weight: 70,
+    height: 1.75,
+    unitSystem: 'metric',
+    weightGoal: -5,
+  },
+
+  userWithInvalidWeeksToWeightGoal: {
+    weight: 70,
+    height: 1.75,
+    unitSystem: 'metric',
+    weeksToWeightGoal: -2,
+  },
+
+  // Testdata for typeError
+  userWithNonNumericWeight: {
+    weight: '70' as any, // Type assertion to bypass TypeScript errors
+    height: 1.75,
+    unitSystem: 'metric',
+  },
+
+  userWithNonNumericHeight: {
+    weight: 70,
+    height: '1.75' as any, // Type assertion to bypass TypeScript errors
+    unitSystem: 'metric',
+  },
+
+  userWithNonNumericFields: {
+    weight: 70,
+    height: 1.75,
+    unitSystem: 'metric',
+    age: '30' as any,
+    waist: '80' as any,
+    hip: '95' as any,
+    neck: '37' as any,
+    dailyCalories: '2000' as any,
+    weightGoal: '65' as any,
+    weeksToWeightGoal: '12' as any,
+  },
 }
