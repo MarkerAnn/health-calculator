@@ -50,6 +50,11 @@ export interface InterfaceHealthCalculator {
   getBodyFatPercentage(): number
 
   /**
+   * Calculates the fat free mass. Using the Boer equation
+   */
+  getLeanBodyMass(): number
+
+  /**
    * Calculates the Basal Metabolic Rate (BMR) using the Harris-Benedict equation.
    * @returns {number} The BMR value.
    */

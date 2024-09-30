@@ -89,6 +89,10 @@ export class HealthCalculator implements InterfaceHealthCalculator {
   /**
    * @inheritdoc
    */
+  getLeanBodyMass(): number {}
+  /**
+   * @inheritdoc
+   */
   getBmrHarrisBenedict(): number {
     return this.bmrCalculator.calculateBmrHarrisBenedict(this.user)
   }
