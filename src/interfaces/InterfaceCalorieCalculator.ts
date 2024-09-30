@@ -3,17 +3,19 @@
  * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
  */
 
+import { User } from 'src/models/User'
+
 /**
  * Interface to calculate various metrics based on calories and individual weight goals.
  */
 export interface InterfaceCalorieCalculator {
   /**
    * Calculates the caloric surplus or deficit based on daily caloric intake.
-   * @param dailyCalories - The daily caloric intake goal.
+   * @param user - The user object containing daily calories intake
    * @param tdee - the Total Daily Energy Expenditure (TDEE) using the Harris-Benedict equation
    * @returns {number} The caloric surplus or deficit.
    */
-  calculateCaloricSurplusOrDeficit(dailyCalories: number, tdee: number): number
+  calculateCaloricSurplusOrDeficit(user: User, tdee: number): number
 
   /**
    * Calculates the estimated weekly weight change based on calorie surplus or calorie deficit
@@ -34,11 +36,11 @@ export interface InterfaceCalorieCalculator {
   /**
    * Calculates the estimated time in weeks to reach a specific weigh goal, based on daily caloric intake and weight goal
    * @param caloricSurplusOrDeficit
-   * @param weightGoal
+   * @param user - The user object containing weight goal
    */
   calculateEstimateTimeToWeightGoal(
     caloricSurplusOrDeficit: number,
-    weightGoal: number
+    user: User
   ): number
 
   /**
@@ -48,4 +50,3 @@ export interface InterfaceCalorieCalculator {
    */
   calculateCaloriesForWeightGoal(goalWeight: number, weeks: number): number
 }
-// TODO: Docs

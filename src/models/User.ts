@@ -25,4 +25,10 @@ export interface User {
   unitSystem: 'metric' | 'imperial'
   /** User's activity level (optional) */
   activityLevel?: 'sedentary' | 'lightly' | 'moderately' | 'very' | 'extremely'
+  /** User's daily calories intake */
+  dailyCalories?: number
+  /** User's weight goal */
+  weightGoal?: number
+  /** User's time frame to reach a certain weigh goal, in weeks  */
+  weeksToWeightGoal?: number
 }

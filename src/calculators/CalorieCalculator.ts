@@ -3,9 +3,14 @@
  * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
  */
 
-import { User } from '../models/User'
 import { InterfaceCalorieCalculator } from 'src/interfaces/InterfaceCalorieCalculator'
+import { User } from 'src/models/User'
 
+/**
+ * Class representing a calorie calculator that provides various methods
+ * to calculate caloric surplus/deficit and estimate weight changes based on calorie intake.
+ * Implements the InterfaceCalorieCalculator interface.
+ */
 export class CalorieCalculator implements InterfaceCalorieCalculator {
   calculateCaloricSurplusOrDeficit(user: User, tdee: number): number {
     throw new Error('Method not implemented.')
@@ -20,10 +25,13 @@ export class CalorieCalculator implements InterfaceCalorieCalculator {
   ): number {
     throw new Error('Method not implemented.')
   }
-  calculateEstimateTimeToWeightGoal(user: User): number {
+  calculateEstimateTimeToWeightGoal(
+    caloricSurplusOrDeficit: number,
+    user: User
+  ): number {
     throw new Error('Method not implemented.')
   }
-  calculateCaloriesForWeightGoal(user: User): number {
+  calculateCaloriesForWeightGoal(goalWeight: number, weeks: number): number {
     throw new Error('Method not implemented.')
   }
 }

@@ -9,6 +9,7 @@ import { InterfaceBmiCalculator } from '../interfaces/InterfaceBmiCalculator'
 import { InterfaceBodyCompositionCalculator } from '../interfaces/InterfaceBodyCompositionCalculator'
 import { InterfaceBmrCalculator } from '../interfaces/InterfaceBmrCalculator'
 import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator'
+import { InterfaceCalorieCalculator } from 'src/interfaces/InterfaceCalorieCalculator'
 
 /**
  * HealthCalculator is responsible for calculating various health-related metrics
@@ -26,13 +27,15 @@ export class HealthCalculator implements InterfaceHealthCalculator {
    * @param bodycompositionCalculator - An instance of a body composition calculator implementing the InterfaceBodyCompositionCalculator.
    * @param bmrCalculator - An instance of a BMR calculator implementing the InterfaceBmrCalculator.
    * @param tdeeCalculator - An instance of a TDEE calculator implementing the InterfaceTdeeCalculator.
+   * @param calorieCalculator - An instance of a calorieCalculator implementing the InterfaceCalorieCalculator
    */
   constructor(
     private user: User,
     private bmiCalculator: InterfaceBmiCalculator,
     private bodycompositionCalculator: InterfaceBodyCompositionCalculator,
     private bmrCalculator: InterfaceBmrCalculator,
-    private tdeeCalculator: InterfaceTdeeCalculator
+    private tdeeCalculator: InterfaceTdeeCalculator,
+    private calorieCalculator: InterfaceCalorieCalculator
   ) {}
 
   /**
@@ -127,4 +130,35 @@ export class HealthCalculator implements InterfaceHealthCalculator {
       bmrMifflinStJeor
     )
   }
+
+  /**
+   * @inheritdoc
+   */
+  getCaloricSurplusOrDeficit(): number {
+    const tdee = this.getTdeeHarrisBenedict()
+    return this.calorieCalculator.calculateCaloricSurplusOrDeficit(
+      dailyCalorie,
+      tdee
+    )
+  }
+
+  /**
+   * @inheritdoc
+   */
+  getEstimatedWeightChangeWeekly(): number {}
+
+  /**
+   * @inheritdoc
+   */
+  getEstimatedWeightChangeMonthly(): number {}
+
+  /**
+   * @inheritdoc
+   */
+  getEstimateTimeToWeightGoal(): number {}
+
+  /**
+   * @inheritdoc
+   */
+  getCaloriesForWeightGoal(): number {}
 }

@@ -13,6 +13,7 @@ import { TdeeCalculator } from '../calculators/TdeeCalculator'
 import { validateUserInput } from '../utils/validateUserInput'
 import { copyUser } from '../utils/copyUser'
 import { convertUserToMetric } from '../utils/unitConverter'
+import { CalorieCalculator } from 'src/calculators/CalorieCalculator'
 
 /**
  * Factory class for creating HealthCalculator instances.
@@ -36,13 +37,15 @@ export class HealthCalculatorFactory {
     const bodyCompositionCalculator = new BodyCompositionCalculator()
     const bmrCalculator = new BmrCalculator()
     const tdeeCalculator = new TdeeCalculator()
+    const calorieCalculator = new CalorieCalculator()
 
     return new HealthCalculator(
       metricUser,
       bmiCalculator,
       bodyCompositionCalculator,
       bmrCalculator,
-      tdeeCalculator
+      tdeeCalculator,
+      calorieCalculator
     )
   }
 }
