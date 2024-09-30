@@ -89,7 +89,9 @@ export class HealthCalculator implements InterfaceHealthCalculator {
   /**
    * @inheritdoc
    */
-  getLeanBodyMass(): number {}
+  getLeanBodyMass(): number {
+    return this.bodycompositionCalculator.calculateLeanBodyMass(this.user)
+  }
   /**
    * @inheritdoc
    */

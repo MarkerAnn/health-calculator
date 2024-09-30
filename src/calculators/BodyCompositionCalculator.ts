@@ -151,7 +151,7 @@ export class BodyCompositionCalculator
     throw new Error('Invalid gender. Gender must be either "male" or "female".')
   }
 
-  private calculateLanBodyMassBasedOnGender(
+  private calculateLeanBodyMassBasedOnGender(
     user: User,
     heightInCentimeter: number
   ): number {
