@@ -17,14 +17,7 @@ export class BmrCalculator implements InterfaceBmrCalculator {
    */
   calculateBmrHarrisBenedict(user: User): number {
     const heightInCentimeter = this.convertHeightToCentimeter(user.height)
-
-    if (user.gender === 'male') {
-      return this.harrisBenedictMale(user, heightInCentimeter)
-    }
-    if (user.gender === 'female') {
-      return this.harrisBenedictFemale(user, heightInCentimeter)
-    }
-    throw new Error("Invalid gender, Gender must be either 'male' or 'female'.")
+    return this.calculateBmrBasedOnGender(user, heightInCentimeter)
   }
 
   /**
@@ -32,9 +25,8 @@ export class BmrCalculator implements InterfaceBmrCalculator {
    * @throws {Error} Throws an error if age is not provided or if the gender is invalid.
    */
   calculateBmrMifflinStJeor(user: User): number {
-    if (!user.age) {
-      throw new Error('Age is required for calculateBmrMifflinStJeor method')
-    }
+    this.validateAge(user)
+
     const heightInCentimeter = this.convertHeightToCentimeter(user.height)
     const weightFactor = 10 * user.weight
     const heightFactor = 6.25 * heightInCentimeter
@@ -51,9 +43,8 @@ export class BmrCalculator implements InterfaceBmrCalculator {
   }
 
   private harrisBenedictFemale(user: User, heightInCentimeter: number): number {
-    if (!user.age) {
-      throw new Error('Age is required for calculateBmRHarrisBenedict method')
-    }
+    this.validateAge(user)
+
     const weightFactor = 9.247 * user.weight
     const lengthFactor = 3.098 * heightInCentimeter
     const ageFactor = 4.33 * user.age
@@ -63,14 +54,32 @@ export class BmrCalculator implements InterfaceBmrCalculator {
   }
 
   private harrisBenedictMale(user: User, heightInCentimeter: number): number {
-    if (!user.age) {
-      throw new Error('Age is required for calculateBmRHarrisBenedict method')
-    }
+    this.validateAge(user)
+
     const weightFactor = 13.397 * user.weight
     const lengthFactor = 4.799 * heightInCentimeter
     const ageFactor = 5.677 * user.age
 
     const bmrMale = 88.362 + weightFactor + lengthFactor - ageFactor
     return bmrMale
+  }
+
+  private calculateBmrBasedOnGender(
+    user: User,
+    heightInCentimeter: number
+  ): number {
+    if (user.gender === 'male') {
+      return this.harrisBenedictMale(user, heightInCentimeter)
+    }
+    if (user.gender === 'female') {
+      return this.harrisBenedictFemale(user, heightInCentimeter)
+    }
+    throw new Error("Invalid gender, Gender must be either 'male' or 'female'.")
+  }
+
+  private validateAge(user: User): asserts user is User & { age: number } {
+    if (!user.age) {
+      throw new Error('Age is required for calculateBmRHarrisBenedict method')
+    }
   }
 }

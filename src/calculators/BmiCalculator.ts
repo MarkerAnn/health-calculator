@@ -26,15 +26,14 @@ export class BmiCalculator implements InterfaceBmiCalculator {
    * @throws {Error} Throws an error if the BMI value is out of the defined ranges.
    */
   calculateBmiType(bmi: number): string {
-    const bmiRounded = Math.round(bmi)
-    for (const range of bmiRanges) {
-      if (bmiRounded >= range.min && bmiRounded <= range.max) {
-        return range.type
-      }
+    this.validateBmi(bmi)
+    const bmiRounded = this.roundBmi(bmi)
+    const bmiType = this.findBmiType(bmiRounded)
+    if (bmiType) {
+      return bmiType
     }
-    throw new Error(
-      `BMI type out of range. Please check your values. BMI: ${bmiRounded}`
-    )
+
+    throw new Error(`BMI type out of range. BMI: ${bmiRounded}`)
   }
 
   /**
@@ -42,26 +41,11 @@ export class BmiCalculator implements InterfaceBmiCalculator {
    * @throws {Error} Throws an error if the BMI range cannot be found or if the user object is missing valid height data.
    */
   calculateIdealWeight(user: User): [number, number] {
-    const normalBmiRange = bmiRanges.find(
-      (range) => range.type === BmiType.Normal
-    )
+    const normalBmiRange = this.getNormalBmiRange()
+    const minIdealWeight = this.calculateWeight(normalBmiRange.min, user.height)
+    const maxIdealWeight = this.calculateWeight(normalBmiRange.max, user.height)
 
-    if (normalBmiRange) {
-      const minNormalBmi = normalBmiRange.min
-      const maxNormalBmi = normalBmiRange.max
-      const heightExponent = 2
-
-      const minIdealWeight =
-        minNormalBmi * Math.pow(user.height, heightExponent)
-      const maxIdealWeight =
-        maxNormalBmi * Math.pow(user.height, heightExponent)
-
-      return [minIdealWeight, maxIdealWeight]
-    } else {
-      throw new Error(
-        'Could not find BMI range, check User object height value'
-      )
-    }
+    return [minIdealWeight, maxIdealWeight]
   }
 
   /**
@@ -71,5 +55,41 @@ export class BmiCalculator implements InterfaceBmiCalculator {
     const denominator = 25
     const bmiPrime = bmi / denominator
     return bmiPrime
+  }
+
+  private validateBmi(bmi: number): void {
+    if (bmi <= 0 || bmi > 100) {
+      throw new Error(`BMI out of range. Please check your values. BMI: ${bmi}`)
+    }
+  }
+
+  private roundBmi(bmi: number): number {
+    return Math.round(bmi)
+  }
+
+  private findBmiType(bmi: number): string | null {
+    for (const range of bmiRanges) {
+      if (bmi >= range.min && bmi <= range.max) {
+        return range.type
+      }
+    }
+    return null
+  }
+
+  private getNormalBmiRange(): { min: number; max: number } {
+    const normalBmiRange = bmiRanges.find(
+      (range) => range.type === BmiType.Normal
+    )
+
+    if (!normalBmiRange) {
+      throw new Error('Could not find normal BMI range.')
+    }
+
+    return normalBmiRange
+  }
+
+  private calculateWeight(bmi: number, height: number): number {
+    const heightExponent = 2
+    return bmi * Math.pow(height, heightExponent)
   }
 }

@@ -18,14 +18,9 @@ export class BodyCompositionCalculator
    * @throws {Error} Throws an error if waist or hip measurements are missing.
    */
   calculateWaistToHipRatio(user: User): number {
-    if (user.waist && user.hip) {
-      const waistToHipRatio = user.waist / user.hip
-      return waistToHipRatio
-    } else {
-      throw new Error(
-        'Waist and hip measurements are required for waist to hip calculation.'
-      )
-    }
+    this.validateWaistAndHip(user)
+    const waistToHipRatio = user.waist / user.hip
+    return waistToHipRatio
   }
 
   /**
@@ -33,15 +28,11 @@ export class BodyCompositionCalculator
    * @throws {Error} Throws an error if waist or height measurements are missing.
    */
   calculateWaistToHeightRatio(user: User): number {
+    this.validateWaistAndHeight(user)
     const heightInCentimeter = this.convertHeightToCentimeter(user.height)
-    if (user.waist && user.height) {
-      const waistToHeightRatio = user.waist / heightInCentimeter
-      return waistToHeightRatio
-    } else {
-      throw new Error(
-        'Waist and height are required for Waist to height ratio calculation.'
-      )
-    }
+    const waistToHeightRatio = user.waist / heightInCentimeter
+
+    return waistToHeightRatio
   }
 
   /**
@@ -50,16 +41,7 @@ export class BodyCompositionCalculator
    */
   calculateBodyFatPercentage(user: User): number {
     const heightInCentimeter = this.convertHeightToCentimeter(user.height)
-
-    if (user.gender === 'male') {
-      return this.calculateMaleBodyFat(user, heightInCentimeter)
-    }
-
-    if (user.gender === 'female') {
-      return this.calculateFemaleBodyFat(user, heightInCentimeter)
-    }
-
-    throw new Error('Invalid gender. Gender must be either "male" or "female".')
+    return this.calculateBodyFatBasedOnGender(user, heightInCentimeter)
   }
 
   private convertHeightToCentimeter(heightInMeter: number): number {
@@ -68,20 +50,16 @@ export class BodyCompositionCalculator
   }
 
   private calculateMaleBodyFat(user: User, heightInCentimeter: number): number {
-    if (!user.waist || !user.neck) {
-      throw new Error(
-        'Waist and neck is required to calculate body fat percentage for male'
-      )
-    }
+    this.validateWaistAndNeck(user)
     const waistNeckDifference = user.waist - user.neck
-    if (waistNeckDifference <= 0) {
-      throw new Error(
-        'Invalid values: waist must be greater than neck for males.'
-      )
-    }
-
-    const heightFactor = 70.041 * Math.log10(heightInCentimeter)
-    const waistNeckFactor = 86.01 * Math.log10(waistNeckDifference)
+    this.validateDifference(
+      waistNeckDifference,
+      'Invalid values: waist must be greater than neck for males.'
+    )
+    const heightLogFactor = 70.041
+    const waistNeckLogFactor = 86.01
+    const heightFactor = heightLogFactor * Math.log10(heightInCentimeter)
+    const waistNeckFactor = waistNeckLogFactor * Math.log10(waistNeckDifference)
     const constantFactor = 36.76
 
     return waistNeckFactor - heightFactor + constantFactor
@@ -91,22 +69,80 @@ export class BodyCompositionCalculator
     user: User,
     heightInCentimeter: number
   ): number {
+    this.validateWaistHipAndNeck(user)
+    const waistHipNeckDifference = user.waist + user.hip - user.neck
+    this.validateDifference(
+      waistHipNeckDifference,
+      'Invalid values: the sum of waist + hip - neck must be greater than zero for females.'
+    )
+    const heightLogFactor = 97.684
+    const waistHipNeckLogFactor = 163.205
+    const heightFactor = heightLogFactor * Math.log10(heightInCentimeter)
+    const waistHipNeckFactor =
+      waistHipNeckLogFactor * Math.log10(waistHipNeckDifference)
+    const constantFactor = 78.387
+
+    return waistHipNeckFactor - heightFactor - constantFactor
+  }
+
+  private validateWaistAndHip(
+    user: User
+  ): asserts user is User & { waist: number; hip: number } {
+    if (!user.waist || !user.hip) {
+      throw new Error(
+        'Waist and hip measurements are required for waist to hip calculation.'
+      )
+    }
+  }
+
+  private validateWaistAndHeight(
+    user: User
+  ): asserts user is User & { waist: number; height: number } {
+    if (!user.waist || !user.height) {
+      throw new Error(
+        'Waist and height measurements are required for waist to height calculation.'
+      )
+    }
+  }
+
+  private validateWaistHipAndNeck(
+    user: User
+  ): asserts user is User & { waist: number; hip: number; neck: number } {
     if (!user.waist || !user.neck || !user.hip) {
       throw new Error(
         'Waist, hip and neck is required to calculate body fat percentage for female'
       )
     }
-    const waistHipNeckSum = user.waist + user.hip - user.neck
-    if (waistHipNeckSum <= 0) {
+  }
+
+  private validateWaistAndNeck(
+    user: User
+  ): asserts user is User & { waist: number; neck: number } {
+    if (!user.waist || !user.neck) {
       throw new Error(
-        'Invalid values: the sum of waist + hip - neck must be greater than zero for females.'
+        'Waist and neck is required to calculate body fat percentage for male'
       )
     }
+  }
 
-    const heightFactor = 97.684 * Math.log10(heightInCentimeter)
-    const waistHipNeckFactor = 163.205 * Math.log10(waistHipNeckSum)
-    const constantFactor = 78.387
+  private validateDifference(difference: number, errorMessage: string): void {
+    if (difference <= 0) {
+      throw new Error(errorMessage)
+    }
+  }
 
-    return waistHipNeckFactor - heightFactor - constantFactor
+  private calculateBodyFatBasedOnGender(
+    user: User,
+    heightInCentimeter: number
+  ): number {
+    if (user.gender === 'male') {
+      return this.calculateMaleBodyFat(user, heightInCentimeter)
+    }
+
+    if (user.gender === 'female') {
+      return this.calculateFemaleBodyFat(user, heightInCentimeter)
+    }
+
+    throw new Error('Invalid gender. Gender must be either "male" or "female".')
   }
 }

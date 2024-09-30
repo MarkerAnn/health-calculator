@@ -61,7 +61,9 @@ describe('BodyCompositionCalculator', () => {
       }
       expect(() =>
         bodyCompositionCalculator.calculateWaistToHeightRatio(userWithoutWaist)
-      ).toThrow('Waist and height are required')
+      ).toThrow(
+        'Waist and height measurements are required for waist to height calculation.'
+      )
     })
   })
 
