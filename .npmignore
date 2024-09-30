@@ -1,3 +1,14 @@
 eslint.config.mjs
 .prettierrc
+.gitignore
+jest.config.js
+tsconfig.json
+testReport.html
+TESTREPORT.md
 node_modules/
+daniel/
+coverage/
+.github/
+examples/
+src/__test__/
+CONTRIBUTING/
