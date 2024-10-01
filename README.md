@@ -42,6 +42,9 @@ const user = {
   neck: 37, // cm
   unitSystem: 'metric',
   activityLevel: 'moderately',
+  dailyCalories: 2500,
+  weightGoal: 65,
+  weeksToWeightGoal: 15,
 }
 
 const healthCalculator = HealthCalculatorFactory.createHealthCalculator(user)
