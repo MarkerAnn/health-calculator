@@ -3,7 +3,7 @@
  * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
  */
 
-import { User } from '../models/User'
+import { User } from '../models/User.js'
 /**
  * Interface for body composition calculators.
  * Provides methods to calculate various body composition metrics.
@@ -34,4 +34,12 @@ export interface InterfaceBodyCompositionCalculator {
    * @returns The body fat percentage.
    */
   calculateBodyFatPercentage(user: User): number
+
+  /**
+   * Calculates the fat free mass on the body, based on the user's gender,weight and height. Using Boer equation
+   *
+   * @param user - The user whom the lean body mass is to be calulated
+   * @returns The fat free body mass in kilo
+   */
+  calculateLeanBodyMass(user: User): number
 }

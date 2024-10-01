@@ -3,16 +3,20 @@
  * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
  */
 
-import { User } from '../models/User'
+import { User } from '../models/User.js'
 
 export function validateUserInput(user: User): void {
   try {
+    validateNumericFields(user)
     validateWeight(user.weight, user.unitSystem, user)
     validateHeight(user.height, user.unitSystem, user)
     validateGender(user.gender, user)
     validateAge(user.age, user)
     validateActivityLevel(user.activityLevel, user)
     validateUnitSystem(user.unitSystem, user)
+    validateDailyCalories(user.dailyCalories, user)
+    validateWeightGoal(user.weightGoal, user)
+    validateWeeksToWeightGoal(user.weeksToWeightGoal, user)
     console.log('Validation succeeded!')
   } catch (error) {
     const errorMessage = `Validation error in user object: ${JSON.stringify(
@@ -22,7 +26,33 @@ export function validateUserInput(user: User): void {
   }
 }
 
+function validateNumericFields(user: User): void {
+  const numericFields: (keyof User)[] = [
+    'age',
+    'waist',
+    'hip',
+    'neck',
+    'dailyCalories',
+    'weightGoal',
+    'weeksToWeightGoal',
+  ]
+  numericFields.forEach((field) => {
+    if (field in user && user[field] !== undefined) {
+      if (typeof user[field] !== 'number') {
+        throw new TypeError(`${field} must be a number if provided`)
+      }
+    }
+  })
+}
+
 function validateUnitSystem(unitSystem: 'metric' | 'imperial', user: User) {
+  if (typeof unitSystem !== 'string') {
+    throw new TypeError(
+      `Unit system must be a string. Check the unitSystem value in ${JSON.stringify(
+        user
+      )}`
+    )
+  }
   if (unitSystem === undefined) {
     throw new Error(
       `Unit system is required, imperial or metric. Check the unitSystem value in ${JSON.stringify(
@@ -37,9 +67,9 @@ function validateWeight(
   unitSystem: 'metric' | 'imperial',
   user: User
 ) {
-  if (weight === undefined) {
+  if (weight === undefined || typeof weight !== 'number') {
     throw new Error(
-      `Weight is required. Check the weight value in ${JSON.stringify(user)}`
+      `Weight is required and must be a number. Check the weight value in ${JSON.stringify(user)}`
     )
   }
   if (unitSystem === 'metric') {
@@ -66,9 +96,9 @@ function validateHeight(
   unitSystem: 'metric' | 'imperial',
   user: User
 ) {
-  if (height === undefined) {
+  if (height === undefined || typeof height !== 'number') {
     throw new Error(
-      `Height is required. Check the height value in ${JSON.stringify(user)}`
+      `Height is required and must be a number. Check the height value in ${JSON.stringify(user)}`
     )
   }
   if (unitSystem === 'metric') {
@@ -132,6 +162,44 @@ function validateActivityLevel(
   ) {
     throw new TypeError(
       `Activity level must be sedentary, lightly, moderately, very or extremely. Check the activityLevel value in ${JSON.stringify(
+        user
+      )}`
+    )
+  }
+}
+
+function validateDailyCalories(dailyCalories?: number, user?: User) {
+  if (dailyCalories === undefined) {
+    return
+  }
+  if (dailyCalories < 0)
+    throw new Error(
+      `Daily calories can't be 0, leave the field empty if you don't want to use calorie calculation. User objekt - ${JSON.stringify(
+        user
+      )}`
+    )
+}
+
+function validateWeightGoal(weightGoal?: number, user?: User) {
+  if (weightGoal === undefined) {
+    return
+  }
+  if (weightGoal < 0) {
+    throw new Error(
+      `The weight goal can't be 0, leave the field empty if you don't want to use calorie calculation. User objekt- ${JSON.stringify(
+        user
+      )}`
+    )
+  }
+}
+
+function validateWeeksToWeightGoal(weeks?: number, user?: User) {
+  if (weeks === undefined) {
+    return
+  }
+  if (weeks < 0) {
+    throw new Error(
+      `Weeks to reach weight goal must be equal or greater than 0. User objekt- ${JSON.stringify(
         user
       )}`
     )

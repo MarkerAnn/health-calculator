@@ -3,16 +3,17 @@
  * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
  */
 
-import { User } from '../models/User'
-import { InterfaceHealthCalculator } from '../interfaces/InterfaceHealthCalculator'
-import { HealthCalculator } from '../calculators/HealthCalculator'
-import { BmiCalculator } from '../calculators/BmiCalculator'
-import { BodyCompositionCalculator } from '../calculators/BodyCompositionCalculator'
-import { BmrCalculator } from '../calculators/BmrCalculator'
-import { TdeeCalculator } from '../calculators/TdeeCalculator'
-import { validateUserInput } from '../utils/validateUserInput'
-import { copyUser } from '../utils/copyUser'
-import { convertUserToMetric } from '../utils/unitConverter'
+import { User } from '../models/User.js'
+import { InterfaceHealthCalculator } from '../interfaces/InterfaceHealthCalculator.js'
+import { HealthCalculator } from '../calculators/HealthCalculator.js'
+import { BmiCalculator } from '../calculators/BmiCalculator.js'
+import { BodyCompositionCalculator } from '../calculators/BodyCompositionCalculator.js'
+import { BmrCalculator } from '../calculators/BmrCalculator.js'
+import { TdeeCalculator } from '../calculators/TdeeCalculator.js'
+import { validateUserInput } from '../utils/validateUserInput.js'
+import { copyUser } from '../utils/copyUser.js'
+import { convertUserToMetric } from '../utils/unitConverter.js'
+import { CalorieCalculator } from '../calculators/CalorieCalculator.js'
 
 /**
  * Factory class for creating HealthCalculator instances.
@@ -36,13 +37,15 @@ export class HealthCalculatorFactory {
     const bodyCompositionCalculator = new BodyCompositionCalculator()
     const bmrCalculator = new BmrCalculator()
     const tdeeCalculator = new TdeeCalculator()
+    const calorieCalculator = new CalorieCalculator()
 
     return new HealthCalculator(
       metricUser,
       bmiCalculator,
       bodyCompositionCalculator,
       bmrCalculator,
-      tdeeCalculator
+      tdeeCalculator,
+      calorieCalculator
     )
   }
 }

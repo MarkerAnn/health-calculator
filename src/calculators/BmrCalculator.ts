@@ -3,8 +3,8 @@
  * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
  */
 
-import { User } from '../models/User'
-import { InterfaceBmrCalculator } from '../interfaces/InterfaceBmrCalculator'
+import { User } from '../models/User.js'
+import { InterfaceBmrCalculator } from '../interfaces/InterfaceBmrCalculator.js'
 
 /**
  * BmrCalculator class calculates the Basal Metabolic Rate (BMR) for a given user

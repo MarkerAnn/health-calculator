@@ -1,6 +1,6 @@
-import { TdeeCalculator } from '../calculators/TdeeCalculator'
-import { testUsers } from './testData'
-import { HealthCalculatorFactory } from '../factories/HealthCalculatorFactory'
+import { TdeeCalculator } from '../calculators/TdeeCalculator.js'
+import { testUsers } from './testData.js'
+import { HealthCalculatorFactory } from '../factories/HealthCalculatorFactory.js'
 
 describe('TdeeCalculator', () => {
   let tdeeCalculator: TdeeCalculator

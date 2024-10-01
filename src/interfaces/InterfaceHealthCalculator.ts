@@ -50,6 +50,11 @@ export interface InterfaceHealthCalculator {
   getBodyFatPercentage(): number
 
   /**
+   * Calculates the fat free mass. Using the Boer equation
+   */
+  getLeanBodyMass(): number
+
+  /**
    * Calculates the Basal Metabolic Rate (BMR) using the Harris-Benedict equation.
    * @returns {number} The BMR value.
    */
@@ -72,4 +77,34 @@ export interface InterfaceHealthCalculator {
    * @returns {number} The TDEE value.
    */
   getTdeeMifflinStJeor(): number
+
+  /**
+   * Calculates the caloric surplus or deficit based on daily calorie intake and TDEE.
+   * @returns {number} The caloric surplus (positive) or deficit (negative).
+   */
+  getCaloricSurplusOrDeficit(): number
+
+  /**
+   * Estimates the weekly weight change based on caloric surplus or deficit.
+   * @returns {number} The estimated weight change (in kilograms) over a week.
+   */
+  getEstimatedWeightChangeWeekly(): number
+
+  /**
+   * Estimates the monthly weight change based on caloric surplus or deficit.
+   * @returns {number} The estimated weight change (in kilograms) over a month.
+   */
+  getEstimatedWeightChangeMonthly(): number
+
+  /**
+   * Estimates the time needed to reach a weight goal based on caloric surplus or deficit.
+   * @returns {number} The estimated time (in weeks) to reach the target weight.
+   */
+  getEstimateTimeToWeightGoal(): number
+
+  /**
+   * Calculates the daily caloric intake needed to achieve a specific weight goal within a given timeframe.
+   * @returns {number} The required daily caloric intake to reach the target weight in the given time frame.
+   */
+  getCaloriesForWeightGoal(): number
 }

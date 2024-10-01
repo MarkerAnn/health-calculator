@@ -3,7 +3,7 @@
  * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
  */
 
-import { User } from '../models/User'
+import { User } from '../models/User.js'
 
 export function convertUserToMetric(user: User) {
   if (user.unitSystem === 'metric') {
@@ -18,6 +18,8 @@ export function convertUserToMetric(user: User) {
       hip: user.hip !== undefined ? inchesToCentimeters(user.hip) : undefined,
       neck:
         user.neck !== undefined ? inchesToCentimeters(user.neck) : undefined,
+      weightGoal:
+        user.weightGoal !== undefined ? lbsToKg(user.weightGoal) : undefined,
       unitSystem: 'metric',
     }
   }

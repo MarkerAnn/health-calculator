@@ -3,8 +3,8 @@
  * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
  */
 
-import { InterfaceBodyCompositionCalculator } from '../interfaces/InterfaceBodyCompositionCalculator'
-import { User } from '../models/User'
+import { InterfaceBodyCompositionCalculator } from '../interfaces/InterfaceBodyCompositionCalculator.js'
+import { User } from '../models/User.js'
 
 /**
  * The BodyCompositionCalculator class is responsible for calculating various body composition-related metrics
@@ -42,6 +42,11 @@ export class BodyCompositionCalculator
   calculateBodyFatPercentage(user: User): number {
     const heightInCentimeter = this.convertHeightToCentimeter(user.height)
     return this.calculateBodyFatBasedOnGender(user, heightInCentimeter)
+  }
+
+  calculateLeanBodyMass(user: User): number {
+    const heightInCentimeter = this.convertHeightToCentimeter(user.height)
+    return this.calculateLeanBodyMassBasedOnGender(user, heightInCentimeter)
   }
 
   private convertHeightToCentimeter(heightInMeter: number): number {
@@ -144,5 +149,49 @@ export class BodyCompositionCalculator
     }
 
     throw new Error('Invalid gender. Gender must be either "male" or "female".')
+  }
+
+  private calculateLeanBodyMassBasedOnGender(
+    user: User,
+    heightInCentimeter: number
+  ): number {
+    if (user.gender === 'male') {
+      return this.calculateMaleLeanBodyMass(user, heightInCentimeter)
+    }
+    if (user.gender === 'female') {
+      return this.calculateFemaleLeanBodyMass(user, heightInCentimeter)
+    }
+
+    throw new Error('Invalid gender. Gender must be either "male" or "female".')
+  }
+
+  private calculateMaleLeanBodyMass(
+    user: User,
+    heightInCentimeter: number
+  ): number {
+    const weightFactor = 0.407
+    const heightFactor = 0.267
+    const subtractionConstant = 19.2
+
+    const leanBodyMass =
+      weightFactor * user.weight +
+      heightFactor * heightInCentimeter -
+      subtractionConstant
+    return leanBodyMass
+  }
+
+  private calculateFemaleLeanBodyMass(
+    user: User,
+    heightInCentimeter: number
+  ): number {
+    const weightFactor = 0.252
+    const heightFactor = 0.473
+    const subtractionConstant = 48.3
+
+    const leanBodyMass =
+      weightFactor * user.weight +
+      heightFactor * heightInCentimeter -
+      subtractionConstant
+    return leanBodyMass
   }
 }

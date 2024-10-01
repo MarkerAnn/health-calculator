@@ -48,6 +48,10 @@ This project relies on several development dependencies to ensure code quality, 
 - **eslint-config-prettier**: `eslint-config-prettier@^9.1.0` - Turns off ESLint rules that might conflict with Prettier.
 - **eslint-plugin-prettier**: `eslint-plugin-prettier@^5.2.1` - Runs Prettier as an ESLint rule.
 - **jest-html-reporter**: `jest-html-reporter@^3.10.2` - Generates HTML test reports for Jest.
+- **Babel**: Used for ES module support in the test environment.
+  - **@babel/core**: @babel/core@^7.25.2 - Babel core.
+  - **@babel/preset-env**: @babel/preset-env@^7.25.4 - Allows Babel to transpile modern JavaScript to older versions.
+  - **babel-jest**: babel-jest@^29.7.0 - Jest transformer for Babel.
 
 If you need to add a new dependency, please discuss it in an issue first.
 
@@ -68,7 +72,9 @@ health-calculator/
 ├── package.json
 ├── tsconfig.json
 ├── .eslintrc.json
-└── jest.config.js
+├── jest.config.mjs
+└── .babelrc
+
 ```
 
 - `src/`: Contains the source code

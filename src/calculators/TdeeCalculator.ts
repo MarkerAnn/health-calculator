@@ -3,8 +3,8 @@
  * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
  */
 
-import { User } from '../models/User'
-import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator'
+import { User } from '../models/User.js'
+import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator.js'
 
 /**
  * Class representing a TDEE (Total Daily Energy Expenditure) calculator.

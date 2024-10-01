@@ -3,9 +3,9 @@
  * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
  */
 
-import { InterfaceBmiCalculator } from '../interfaces/InterfaceBmiCalculator'
-import { User } from '../models/User'
-import { BmiType, bmiRanges } from '../enums/constants'
+import { InterfaceBmiCalculator } from '../interfaces/InterfaceBmiCalculator.js'
+import { User } from '../models/User.js'
+import { BmiType, bmiRanges } from '../enums/constants.js'
 
 /**
  * The BmiCalculator class is responsible for calculating Body Mass Index (BMI),
@@ -29,11 +29,8 @@ export class BmiCalculator implements InterfaceBmiCalculator {
     this.validateBmi(bmi)
     const bmiRounded = this.roundBmi(bmi)
     const bmiType = this.findBmiType(bmiRounded)
-    if (bmiType) {
-      return bmiType
-    }
 
-    throw new Error(`BMI type out of range. BMI: ${bmiRounded}`)
+    return bmiType
   }
 
   /**
@@ -67,13 +64,13 @@ export class BmiCalculator implements InterfaceBmiCalculator {
     return Math.round(bmi)
   }
 
-  private findBmiType(bmi: number): string | null {
+  private findBmiType(bmi: number): string {
     for (const range of bmiRanges) {
       if (bmi >= range.min && bmi <= range.max) {
         return range.type
       }
     }
-    return null
+    throw new Error(`Bmi Type could not be found`)
   }
 
   private getNormalBmiRange(): { min: number; max: number } {

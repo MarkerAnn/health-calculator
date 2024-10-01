@@ -1,8 +1,8 @@
 // validateUserInput.test.ts
 
-import { validateUserInput } from '../utils/validateUserInput'
-import { testUsers } from './testData'
-import { User } from '../models/User'
+import { validateUserInput } from '../utils/validateUserInput.js'
+import { testUsers } from './testData.js'
+import { User } from '../models/User.js'
 
 describe('validateUserInput', () => {
   it('should validate correct metric user input without throwing', () => {
@@ -79,5 +79,39 @@ describe('validateUserInput', () => {
       height: 8.3,
     }
     expect(() => validateUserInput(tallUser)).toThrow()
+  })
+
+  it('should validate user with valid goals without throwing', () => {
+    expect(() => validateUserInput(testUsers.userWithValidGoals)).not.toThrow()
+  })
+
+  it('should throw for negative daily calories', () => {
+    expect(() =>
+      validateUserInput(testUsers.userWithInvalidDailyCalories)
+    ).toThrow()
+  })
+
+  it('should throw for invalid weight goal', () => {
+    expect(() =>
+      validateUserInput(testUsers.userWithInvalidWeightGoal)
+    ).toThrow()
+  })
+
+  it('should throw for negative weeks to weight goal', () => {
+    expect(() =>
+      validateUserInput(testUsers.userWithInvalidWeeksToWeightGoal)
+    ).toThrow()
+  })
+
+  it('should throw for non-numeric weight', () => {
+    expect(() =>
+      validateUserInput(testUsers.userWithNonNumericWeight)
+    ).toThrow()
+  })
+
+  it('should throw for non-numeric height', () => {
+    expect(() => validateUserInput(testUsers.userWithNonNumericHeight)).toThrow(
+      'Height is required and must be a number'
+    )
   })
 })

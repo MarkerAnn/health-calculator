@@ -3,12 +3,13 @@
  * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
  */
 
-import { User } from '../models/User'
-import { InterfaceHealthCalculator } from '../interfaces/InterfaceHealthCalculator'
-import { InterfaceBmiCalculator } from '../interfaces/InterfaceBmiCalculator'
-import { InterfaceBodyCompositionCalculator } from '../interfaces/InterfaceBodyCompositionCalculator'
-import { InterfaceBmrCalculator } from '../interfaces/InterfaceBmrCalculator'
-import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator'
+import { User } from '../models/User.js'
+import { InterfaceHealthCalculator } from '../interfaces/InterfaceHealthCalculator.js'
+import { InterfaceBmiCalculator } from '../interfaces/InterfaceBmiCalculator.js'
+import { InterfaceBodyCompositionCalculator } from '../interfaces/InterfaceBodyCompositionCalculator.js'
+import { InterfaceBmrCalculator } from '../interfaces/InterfaceBmrCalculator.js'
+import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator.js'
+import { InterfaceCalorieCalculator } from 'src/interfaces/InterfaceCalorieCalculator.js'
 
 /**
  * HealthCalculator is responsible for calculating various health-related metrics
@@ -26,13 +27,15 @@ export class HealthCalculator implements InterfaceHealthCalculator {
    * @param bodycompositionCalculator - An instance of a body composition calculator implementing the InterfaceBodyCompositionCalculator.
    * @param bmrCalculator - An instance of a BMR calculator implementing the InterfaceBmrCalculator.
    * @param tdeeCalculator - An instance of a TDEE calculator implementing the InterfaceTdeeCalculator.
+   * @param calorieCalculator - An instance of a calorieCalculator implementing the InterfaceCalorieCalculator
    */
   constructor(
     private user: User,
     private bmiCalculator: InterfaceBmiCalculator,
     private bodycompositionCalculator: InterfaceBodyCompositionCalculator,
     private bmrCalculator: InterfaceBmrCalculator,
-    private tdeeCalculator: InterfaceTdeeCalculator
+    private tdeeCalculator: InterfaceTdeeCalculator,
+    private calorieCalculator: InterfaceCalorieCalculator
   ) {}
 
   /**
@@ -89,6 +92,12 @@ export class HealthCalculator implements InterfaceHealthCalculator {
   /**
    * @inheritdoc
    */
+  getLeanBodyMass(): number {
+    return this.bodycompositionCalculator.calculateLeanBodyMass(this.user)
+  }
+  /**
+   * @inheritdoc
+   */
   getBmrHarrisBenedict(): number {
     return this.bmrCalculator.calculateBmrHarrisBenedict(this.user)
   }
@@ -119,6 +128,61 @@ export class HealthCalculator implements InterfaceHealthCalculator {
     return this.tdeeCalculator.calculateTdeeMifflinStJeor(
       this.user,
       bmrMifflinStJeor
+    )
+  }
+
+  /**
+   * @inheritdoc
+   */
+  getCaloricSurplusOrDeficit(): number {
+    const tdee = this.getTdeeHarrisBenedict()
+    return this.calorieCalculator.calculateCaloricSurplusOrDeficit(
+      this.user,
+      tdee
+    )
+  }
+
+  /**
+   * @inheritdoc
+   */
+  getEstimatedWeightChangeWeekly(): number {
+    const calorieSurplusOrDeficit = this.getCaloricSurplusOrDeficit()
+    return this.calorieCalculator.calculateEstimatedWeightChangeWeekly(
+      calorieSurplusOrDeficit,
+      this.user
+    )
+  }
+
+  /**
+   * @inheritdoc
+   */
+  getEstimatedWeightChangeMonthly(): number {
+    const calorieSurplusOrDeficit = this.getCaloricSurplusOrDeficit()
+    return this.calorieCalculator.calculateEstimatedWeightChangeMonthly(
+      calorieSurplusOrDeficit,
+      this.user
+    )
+  }
+
+  /**
+   * @inheritdoc
+   */
+  getEstimateTimeToWeightGoal(): number {
+    const calorieSurplusOrDeficit = this.getCaloricSurplusOrDeficit()
+    return this.calorieCalculator.calculateEstimatedWeeksToWeightGoal(
+      calorieSurplusOrDeficit,
+      this.user
+    )
+  }
+
+  /**
+   * @inheritdoc
+   */
+  getCaloriesForWeightGoal(): number {
+    const tdee = this.getTdeeHarrisBenedict()
+    return this.calorieCalculator.calculateCaloriesForWeightGoal(
+      this.user,
+      tdee
     )
   }
 }
