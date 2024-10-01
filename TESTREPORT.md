@@ -5,8 +5,8 @@
 - Jest version: ^29.7.0
 
 ## Summary
-- **Date:** Tue Oct  1 17:29:56 UTC 2024
-- **Commit:** a40fb53e9b264f9fd898282c3b17cd35d8f44252
+- **Date:** Tue Oct  1 18:28:29 UTC 2024
+- **Commit:** 4571ccc6f762f7382a31f7c1b31f03e1c9921b11
 
 ## Test Results
 - Suites: 6
@@ -16,12 +16,12 @@
 
 | Suite | Tests | Duration |
 |-------|-------|----------|
-| CalorieCalculator | 14 | 4.021s |
-| TdeeCalculator | 20 | 4.262s |
-| BodyCompositionCalculator | 15 | 4.267s |
-| BmrCalculator | 10 | 0.251s |
-| BmiCalculator | 0 | 0.203s |
-| validateUserInput | 16 | 0.214s |
+| CalorieCalculator | 14 | 3.864s |
+| TdeeCalculator | 20 | 4.195s |
+| BmrCalculator | 10 | 0.326s |
+| BodyCompositionCalculator | 15 | 4.23s |
+| BmiCalculator | 0 | 0.127s |
+| validateUserInput | 16 | 0.164s |
 
 ## Detailed Test Results
 
@@ -78,6 +78,20 @@
 ✅ should use correct activity factor for very activity ()
 ✅ should use correct activity factor for extremely activity ()
 
+### BmrCalculator &gt; calculateBmrHarrisBenedict
+✅ should calculate correct BMR for normal weight male (metric) ()
+✅ should calculate correct BMR for overweight female (metric) ()
+✅ should calculate correct BMR for underweight male (imperial) ()
+✅ should calculate correct BMR for obese female (imperial) ()
+✅ should throw an error when age is missing ()
+
+### BmrCalculator &gt; calculateBmrMifflinStJeor
+✅ should calculate correct BMR for normal weight male (metric) ()
+✅ should calculate correct BMR for overweight female (metric) ()
+✅ should calculate correct BMR for underweight male (imperial) ()
+✅ should calculate correct BMR for obese female (imperial) ()
+✅ should throw an error when age is missing ()
+
 ### BodyCompositionCalculator &gt; calculateWaistToHipRatio
 ✅ should calculate correct waist to hip ratio for normal weight male (metric) ()
 ✅ should calculate correct waist to hip ratio for overweight female (metric) ()
@@ -100,20 +114,6 @@
 ✅ should calculate correct lean body mass for normal weight male (metric) ()
 ✅ should calculate correct lean body mass for overweight female (metric) ()
 ✅ should throw an error for invalid gender ()
-
-### BmrCalculator &gt; calculateBmrHarrisBenedict
-✅ should calculate correct BMR for normal weight male (metric) ()
-✅ should calculate correct BMR for overweight female (metric) ()
-✅ should calculate correct BMR for underweight male (imperial) ()
-✅ should calculate correct BMR for obese female (imperial) ()
-✅ should throw an error when age is missing ()
-
-### BmrCalculator &gt; calculateBmrMifflinStJeor
-✅ should calculate correct BMR for normal weight male (metric) ()
-✅ should calculate correct BMR for overweight female (metric) ()
-✅ should calculate correct BMR for underweight male (imperial) ()
-✅ should calculate correct BMR for obese female (imperial) ()
-✅ should throw an error when age is missing ()
 
 ### HealthCalculatorFactory and BMI calculations &gt; Metric users
 ✅ should calculate correct BMI for normal weight male ()
