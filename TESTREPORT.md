@@ -5,8 +5,8 @@
 - Jest version: ^29.7.0
 
 ## Summary
-- **Date:** Tue Oct  1 18:50:51 UTC 2024
-- **Commit:** df2846bb0e5f35bb8b7fe6c172a07b1d01043408
+- **Date:** Tue Oct  1 18:52:47 UTC 2024
+- **Commit:** a6cf2f1b6efcaaf6213ebcf288b81376811c4e56
 
 ## Test Results
 - Suites: 6
@@ -16,12 +16,12 @@
 
 | Suite | Tests | Duration |
 |-------|-------|----------|
-| CalorieCalculator | 14 | 4.154s |
-| BodyCompositionCalculator | 15 | 4.209s |
-| TdeeCalculator | 20 | 4.193s |
-| BmrCalculator | 10 | 0.223s |
-| BmiCalculator | 0 | 0.207s |
-| validateUserInput | 16 | 0.242s |
+| CalorieCalculator | 14 | 3.862s |
+| TdeeCalculator | 20 | 4.126s |
+| BmrCalculator | 10 | 0.273s |
+| BodyCompositionCalculator | 15 | 4.177s |
+| BmiCalculator | 0 | 0.145s |
+| validateUserInput | 16 | 0.165s |
 
 ## Detailed Test Results
 
@@ -49,29 +49,6 @@
 ✅ should calculate daily calories for weight loss goal correctly ()
 ✅ should throw an error if weightGoal is not provided ()
 ✅ should throw an error if weeksToWeightGoal is not provided ()
-
-### BodyCompositionCalculator &gt; calculateWaistToHipRatio
-✅ should calculate correct waist to hip ratio for normal weight male (metric) ()
-✅ should calculate correct waist to hip ratio for overweight female (metric) ()
-✅ should throw an error when waist or hip measurements are missing ()
-
-### BodyCompositionCalculator &gt; calculateWaistToHeightRatio
-✅ should calculate correct waist to height ratio for normal weight male (metric) ()
-✅ should calculate correct waist to height ratio for overweight female (metric) ()
-✅ should throw an error when waist or height measurements are missing ()
-
-### BodyCompositionCalculator &gt; calculateBodyFatPercentage
-✅ should calculate correct body fat percentage for normal weight male (metric) ()
-✅ should calculate correct body fat percentage for overweight female (metric) ()
-✅ should throw an error when waist measurement is missing ()
-✅ should throw an error when neck measurement is missing ()
-✅ should throw an error when hip measurement is missing for female ()
-✅ should throw an error for invalid gender ()
-
-### BodyCompositionCalculator &gt; calculateLeanBodyMass
-✅ should calculate correct lean body mass for normal weight male (metric) ()
-✅ should calculate correct lean body mass for overweight female (metric) ()
-✅ should throw an error for invalid gender ()
 
 ### TdeeCalculator &gt; calculateTdeeMifflinStJeor
 ✅ should calculate correct TDEE for normal weight male (metric) with moderate activity ()
@@ -114,6 +91,29 @@
 ✅ should calculate correct BMR for underweight male (imperial) ()
 ✅ should calculate correct BMR for obese female (imperial) ()
 ✅ should throw an error when age is missing ()
+
+### BodyCompositionCalculator &gt; calculateWaistToHipRatio
+✅ should calculate correct waist to hip ratio for normal weight male (metric) ()
+✅ should calculate correct waist to hip ratio for overweight female (metric) ()
+✅ should throw an error when waist or hip measurements are missing ()
+
+### BodyCompositionCalculator &gt; calculateWaistToHeightRatio
+✅ should calculate correct waist to height ratio for normal weight male (metric) ()
+✅ should calculate correct waist to height ratio for overweight female (metric) ()
+✅ should throw an error when waist or height measurements are missing ()
+
+### BodyCompositionCalculator &gt; calculateBodyFatPercentage
+✅ should calculate correct body fat percentage for normal weight male (metric) ()
+✅ should calculate correct body fat percentage for overweight female (metric) ()
+✅ should throw an error when waist measurement is missing ()
+✅ should throw an error when neck measurement is missing ()
+✅ should throw an error when hip measurement is missing for female ()
+✅ should throw an error for invalid gender ()
+
+### BodyCompositionCalculator &gt; calculateLeanBodyMass
+✅ should calculate correct lean body mass for normal weight male (metric) ()
+✅ should calculate correct lean body mass for overweight female (metric) ()
+✅ should throw an error for invalid gender ()
 
 ### HealthCalculatorFactory and BMI calculations &gt; Metric users
 ✅ should calculate correct BMI for normal weight male ()
