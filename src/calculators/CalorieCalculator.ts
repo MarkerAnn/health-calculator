@@ -70,11 +70,16 @@ export class CalorieCalculator implements InterfaceCalorieCalculator {
   calculateCaloriesForWeightGoal(user: User): number {
     this.validateWeightGoal(user)
     this.validateWeeksInUser(user)
+
     const daysInWeek = 7
+    const caloriesPerKilo = 7700
     const kilosToChange = user.weightGoal - user.weight
     const absoluteKilosToChange = Math.abs(kilosToChange)
-    const calorieDifference = absoluteKilosToChange / user.weeksToWeightGoal
-    return calorieDifference / daysInWeek
+    const totalCaloriesToChange = absoluteKilosToChange * caloriesPerKilo
+    const calorieDifference =
+      totalCaloriesToChange / (user.weeksToWeightGoal * daysInWeek)
+
+    return calorieDifference
   }
 
   private validateDailyCalories(

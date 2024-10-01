@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1727721912784" clover="3.2.0">
-  <project timestamp="1727721912784" name="All files">
-    <metrics statements="313" coveredstatements="262" conditionals="101" coveredconditionals="86" methods="84" coveredmethods="70" elements="498" coveredelements="418" complexity="0" loc="313" ncloc="313" packages="5" files="12" classes="12"/>
+<coverage generated="1727723785146" clover="3.2.0">
+  <project timestamp="1727723785146" name="All files">
+    <metrics statements="315" coveredstatements="294" conditionals="101" coveredconditionals="89" methods="84" coveredmethods="79" elements="500" coveredelements="462" complexity="0" loc="315" ncloc="315" packages="5" files="12" classes="12"/>
     <package name="__test__">
       <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="testData.ts" path="/Users/angelicamarker/Desktop/LNU 2023-2026/lnu-ÅK2/courses/1dv610/examinations/L2-en-modul/health-calculator/src/__test__/testData.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="3" count="5" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
       </file>
     </package>
     <package name="calculators">
-      <metrics statements="212" coveredstatements="166" conditionals="42" coveredconditionals="36" methods="65" coveredmethods="51"/>
+      <metrics statements="214" coveredstatements="198" conditionals="42" coveredconditionals="39" methods="65" coveredmethods="60"/>
       <file name="BmiCalculator.ts" path="/Users/angelicamarker/Desktop/LNU 2023-2026/lnu-ÅK2/courses/1dv610/examinations/L2-en-modul/health-calculator/src/calculators/BmiCalculator.ts">
         <metrics statements="32" coveredstatements="28" conditionals="8" coveredconditionals="6" methods="10" coveredmethods="10"/>
         <line num="8" count="4" type="stmt"/>
@@ -147,38 +147,40 @@
         <line num="195" count="1" type="stmt"/>
       </file>
       <file name="CalorieCalculator.ts" path="/Users/angelicamarker/Desktop/LNU 2023-2026/lnu-ÅK2/courses/1dv610/examinations/L2-en-modul/health-calculator/src/calculators/CalorieCalculator.ts">
-        <metrics statements="31" coveredstatements="1" conditionals="3" coveredconditionals="0" methods="9" coveredmethods="0"/>
-        <line num="14" count="4" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="59" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="72" count="0" type="stmt"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="76" count="0" type="stmt"/>
-        <line num="77" count="0" type="stmt"/>
-        <line num="83" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="84" count="0" type="stmt"/>
-        <line num="91" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="92" count="0" type="stmt"/>
-        <line num="99" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="100" count="0" type="stmt"/>
-        <line num="111" count="0" type="stmt"/>
-        <line num="112" count="0" type="stmt"/>
-        <line num="114" count="0" type="stmt"/>
-        <line num="115" count="0" type="stmt"/>
-        <line num="116" count="0" type="stmt"/>
-        <line num="117" count="0" type="stmt"/>
+        <metrics statements="33" coveredstatements="33" conditionals="3" coveredconditionals="3" methods="9" coveredmethods="9"/>
+        <line num="14" count="5" type="stmt"/>
+        <line num="20" count="3" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="53" count="3" type="stmt"/>
+        <line num="54" count="2" type="stmt"/>
+        <line num="59" count="2" type="stmt"/>
+        <line num="60" count="2" type="stmt"/>
+        <line num="62" count="2" type="stmt"/>
+        <line num="63" count="2" type="stmt"/>
+        <line num="71" count="4" type="stmt"/>
+        <line num="72" count="3" type="stmt"/>
+        <line num="74" count="2" type="stmt"/>
+        <line num="75" count="2" type="stmt"/>
+        <line num="76" count="2" type="stmt"/>
+        <line num="77" count="2" type="stmt"/>
+        <line num="78" count="2" type="stmt"/>
+        <line num="80" count="2" type="stmt"/>
+        <line num="82" count="2" type="stmt"/>
+        <line num="88" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="89" count="1" type="stmt"/>
+        <line num="96" count="7" type="cond" truecount="1" falsecount="0"/>
+        <line num="97" count="2" type="stmt"/>
+        <line num="104" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="105" count="1" type="stmt"/>
+        <line num="116" count="6" type="stmt"/>
+        <line num="117" count="6" type="stmt"/>
+        <line num="119" count="6" type="stmt"/>
+        <line num="120" count="6" type="stmt"/>
+        <line num="121" count="6" type="stmt"/>
+        <line num="122" count="6" type="stmt"/>
       </file>
       <file name="HealthCalculator.ts" path="/Users/angelicamarker/Desktop/LNU 2023-2026/lnu-ÅK2/courses/1dv610/examinations/L2-en-modul/health-calculator/src/calculators/HealthCalculator.ts">
         <metrics statements="32" coveredstatements="23" conditionals="0" coveredconditionals="0" methods="18" coveredmethods="13"/>
