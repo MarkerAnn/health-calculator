@@ -19,6 +19,21 @@ This module provides a comprehensive set of tools for calculating various body m
 
 ## Installation
 
+To use this module, make sure you have `"type": "module"` in your `package.json`. This is necessary because the module uses ES6 modules.
+
+#### Example of `package.json`:
+
+```
+{
+  "name": "your-project",
+  "version": "1.0.0",
+  "type": "module",  // Add this line
+  "scripts": {
+    "start": "node index.js"
+  }
+}
+```
+
 To install the Body Measurements module, use npm:
 
 ```bash
