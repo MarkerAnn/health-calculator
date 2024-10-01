@@ -49,7 +49,7 @@ describe('CalorieCalculator', () => {
       const surplus = 500
       const weightChange =
         calorieCalculator.calculateEstimatedWeightChangeWeekly(surplus, user)
-      expect(weightChange).toBeCloseTo(0.45, 1) // Expecting about 0.45kg gain per week
+      expect(weightChange).toBeCloseTo(0.45, 1)
     })
 
     it('should calculate weekly weight loss correctly', () => {
@@ -57,7 +57,7 @@ describe('CalorieCalculator', () => {
       const deficit = -500
       const weightChange =
         calorieCalculator.calculateEstimatedWeightChangeWeekly(deficit, user)
-      expect(weightChange).toBeCloseTo(-0.45, 1) // Expecting about 0.45kg loss per week
+      expect(weightChange).toBeCloseTo(-0.45, 1)
     })
   })
 
@@ -67,7 +67,7 @@ describe('CalorieCalculator', () => {
       const surplus = 500
       const weightChange =
         calorieCalculator.calculateEstimatedWeightChangeMonthly(surplus, user)
-      expect(weightChange).toBeCloseTo(1.93, 1) // Expecting about 1.93kg gain per month
+      expect(weightChange).toBeCloseTo(1.93, 1)
     })
 
     it('should calculate monthly weight loss correctly', () => {
@@ -75,7 +75,7 @@ describe('CalorieCalculator', () => {
       const deficit = -500
       const weightChange =
         calorieCalculator.calculateEstimatedWeightChangeMonthly(deficit, user)
-      expect(weightChange).toBeCloseTo(-1.93, 1) // Expecting about 1.93kg loss per month
+      expect(weightChange).toBeCloseTo(-1.93, 1)
     })
   })
 
@@ -83,27 +83,27 @@ describe('CalorieCalculator', () => {
     it('should calculate weeks to weight gain goal correctly', () => {
       const user: User = {
         ...testUsers.normalWeightMaleMetric,
-        weightGoal: 75, // 5kg gain goal
+        weightGoal: 75,
       }
       const surplus = 500
       const weeks = calorieCalculator.calculateEstimatedWeeksToWeightGoal(
         surplus,
         user
       )
-      expect(weeks).toBe(11) // Expecting about 12 weeks to gain 5kg
+      expect(weeks).toBe(11)
     })
 
     it('should calculate weeks to weight loss goal correctly', () => {
       const user: User = {
         ...testUsers.normalWeightMaleMetric,
-        weightGoal: 65, // 5kg loss goal
+        weightGoal: 65,
       }
       const deficit = -500
       const weeks = calorieCalculator.calculateEstimatedWeeksToWeightGoal(
         deficit,
         user
       )
-      expect(weeks).toBe(11) // Expecting about 12 weeks to lose 5kg
+      expect(weeks).toBe(11)
     })
 
     it('should throw an error if weightGoal is not provided', () => {
@@ -122,9 +122,12 @@ describe('CalorieCalculator', () => {
         weightGoal: 75, // 5kg gain goal
         weeksToWeightGoal: 10,
       }
-      const dailyCalories =
-        calorieCalculator.calculateCaloriesForWeightGoal(user)
-      expect(dailyCalories).toBeCloseTo(550, 0) // Expecting about 550 extra calories per day
+      const tdee = 1600
+      const dailyCalories = calorieCalculator.calculateCaloriesForWeightGoal(
+        user,
+        tdee
+      )
+      expect(dailyCalories).toBeCloseTo(2150, 0)
     })
 
     it('should calculate daily calories for weight loss goal correctly', () => {
@@ -133,9 +136,12 @@ describe('CalorieCalculator', () => {
         weightGoal: 65, // 5kg loss goal
         weeksToWeightGoal: 10,
       }
-      const dailyCalories =
-        calorieCalculator.calculateCaloriesForWeightGoal(user)
-      expect(dailyCalories).toBeCloseTo(550, 0) // Expecting about 550 fewer calories per day
+      const tdee = 2200
+      const dailyCalories = calorieCalculator.calculateCaloriesForWeightGoal(
+        user,
+        tdee
+      )
+      expect(dailyCalories).toBeCloseTo(1650, 0)
     })
 
     it('should throw an error if weightGoal is not provided', () => {
@@ -143,8 +149,9 @@ describe('CalorieCalculator', () => {
         ...testUsers.normalWeightMaleMetric,
         weeksToWeightGoal: 10,
       }
+      const tdee = 2200
       expect(() =>
-        calorieCalculator.calculateCaloriesForWeightGoal(user)
+        calorieCalculator.calculateCaloriesForWeightGoal(user, tdee)
       ).toThrow()
     })
 
@@ -153,8 +160,9 @@ describe('CalorieCalculator', () => {
         ...testUsers.normalWeightMaleMetric,
         weightGoal: 75,
       }
+      const tdee = 2200
       expect(() =>
-        calorieCalculator.calculateCaloriesForWeightGoal(user)
+        calorieCalculator.calculateCaloriesForWeightGoal(user, tdee)
       ).toThrow()
     })
   })

@@ -55,7 +55,8 @@ export interface InterfaceCalorieCalculator {
   /**
    * Calculates the estimated daily calorie intake to reach a specific weigh goal, based on goal weight and time in weeks
    * @param user - The user object containing weight goal and weeks to reach that goal
-   * @returns A positive number representing the daily caloric surplus or deficit required to reach the weight goal, depending on whether the user aims to gain or lose weight.
+   * @param tdee - the Total Daily Energy Expenditure (TDEE) using the Harris-Benedict equation
+   * @returns Calculates and returns the calories needed to reach the weight goal.
    */
-  calculateCaloriesForWeightGoal(user: User): number
+  calculateCaloriesForWeightGoal(user: User, tdee: number): number
 }

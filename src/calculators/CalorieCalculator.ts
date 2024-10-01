@@ -58,8 +58,10 @@ export class CalorieCalculator implements InterfaceCalorieCalculator {
     )
     const kilosToChange = user.weightGoal - user.weight
     const absoluteWeightDifference = Math.abs(kilosToChange)
+
     const estimatedWeekToGoal =
       absoluteWeightDifference / Math.abs(weeklyWeightChange)
+
     return Math.ceil(estimatedWeekToGoal)
   }
 
@@ -67,7 +69,7 @@ export class CalorieCalculator implements InterfaceCalorieCalculator {
    * @inheritdoc
    * @throws Will throw an error if user.weighGoal or user.weeksToWeightGoal is not provided
    */
-  calculateCaloriesForWeightGoal(user: User): number {
+  calculateCaloriesForWeightGoal(user: User, tdee: number): number {
     this.validateWeightGoal(user)
     this.validateWeeksInUser(user)
 
@@ -75,11 +77,15 @@ export class CalorieCalculator implements InterfaceCalorieCalculator {
     const caloriesPerKilo = 7700
     const kilosToChange = user.weightGoal - user.weight
     const absoluteKilosToChange = Math.abs(kilosToChange)
-    const totalCaloriesToChange = absoluteKilosToChange * caloriesPerKilo
-    const calorieDifference =
-      totalCaloriesToChange / (user.weeksToWeightGoal * daysInWeek)
+    const weeklyweightChange = absoluteKilosToChange / user.weeksToWeightGoal
+    const dailyCalorieAdjustment =
+      (weeklyweightChange * caloriesPerKilo) / daysInWeek
 
-    return calorieDifference
+    const dailyCalorieForGoal =
+      kilosToChange > 0
+        ? Math.round(tdee + dailyCalorieAdjustment)
+        : Math.round(tdee - dailyCalorieAdjustment)
+    return dailyCalorieForGoal
   }
 
   private validateDailyCalories(

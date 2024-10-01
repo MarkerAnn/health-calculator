@@ -117,7 +117,7 @@ The `User` object is used to provide input data for calculations. It has the fol
 - `getEstimatedWeightChangeWeekly()`: Calculates the estimated weekly weight change based on daily caloric surplus or deficit. This value provides an approximation of how much weight the individual will gain or lose each week.
 - `getEstimatedWeightChangeMonthly()`: Calculates the estimated weekly weight change based on daily caloric surplus or deficit. This value provides an approximation of how much weight the individual will gain or lose each month.
 - `getEstimateTimeToWeightGoal()`: Calculates the estimated time (in weeks) to reach the weight goal, based on current weight, caloric intake, and desired weight change. This method provides a timeline for reaching a specific weight target. It returns a number in weeks.
-- `getCaloriesForWeightGoal()`: Calculates the calories needed to reach the weight goal. Returns the daily caloric difference required to either lose or gain weight, indicating whether a surplus or deficit is needed to achieve the goal within a given timeframe. Note that the returning value is positive.
+- `getCaloriesForWeightGoal()`: Calculates and returns the calories needed to reach the weight goal.
 
 | Method                            | weight | height | age | gender | waist | hip | neck | unitSystem | activityLevel | dailyCalories | weightGoal | weeksToWeightGoal |
 | --------------------------------- | ------ | ------ | --- | ------ | ----- | --- | ---- | ---------- | ------------- | ------------- | ---------- | ----------------- |
@@ -137,7 +137,7 @@ The `User` object is used to provide input data for calculations. It has the fol
 | getEstimatedWeightChangeWeekly()  | X      | X      | X   | X      |       |     |      | X          | X             | X             |            |                   |
 | getEstimatedWeightChangeMonthly() | X      | X      | X   | X      |       |     |      | X          | X             | X             |            |                   |
 | getEstimateTimeToWeightGoal()     | X      | X      | X   | X      |       |     |      | X          | X             | X             | X          |                   |
-| getCaloriesForWeightGoal()        | X      |        |     |        |       |     |      | X          |               |               | X          | X                 |
+| getCaloriesForWeightGoal()        | X      | X      | X   | X      |       |     |      | X          | X             |               | X          | X                 |
 
 `*`Hip measurement is required for females only when calculating body fat percentage.
 

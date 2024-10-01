@@ -158,7 +158,7 @@ export class HealthCalculator implements InterfaceHealthCalculator {
    */
   getEstimatedWeightChangeMonthly(): number {
     const calorieSurplusOrDeficit = this.getCaloricSurplusOrDeficit()
-    return this.calorieCalculator.calculateEstimatedWeightChangeWeekly(
+    return this.calorieCalculator.calculateEstimatedWeightChangeMonthly(
       calorieSurplusOrDeficit,
       this.user
     )
@@ -179,6 +179,10 @@ export class HealthCalculator implements InterfaceHealthCalculator {
    * @inheritdoc
    */
   getCaloriesForWeightGoal(): number {
-    return this.calorieCalculator.calculateCaloriesForWeightGoal(this.user)
+    const tdee = this.getTdeeHarrisBenedict()
+    return this.calorieCalculator.calculateCaloriesForWeightGoal(
+      this.user,
+      tdee
+    )
   }
 }
