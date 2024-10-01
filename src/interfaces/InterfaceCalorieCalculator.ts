@@ -3,7 +3,7 @@
  * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
  */
 
-import { User } from 'src/models/User'
+import { User } from 'src/models/User.js'
 
 /**
  * Interface to calculate various metrics based on calories and individual weight goals.

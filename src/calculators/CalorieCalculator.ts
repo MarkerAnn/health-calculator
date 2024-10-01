@@ -3,8 +3,8 @@
  * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
  */
 
-import { InterfaceCalorieCalculator } from 'src/interfaces/InterfaceCalorieCalculator'
-import { User } from 'src/models/User'
+import { InterfaceCalorieCalculator } from 'src/interfaces/InterfaceCalorieCalculator.js'
+import { User } from 'src/models/User.js'
 
 /**
  * Class representing a calorie calculator that provides various methods

@@ -1,6 +1,6 @@
-import { BmrCalculator } from '../calculators/BmrCalculator'
-import { testUsers } from './testData'
-import { HealthCalculatorFactory } from '../factories/HealthCalculatorFactory'
+import { BmrCalculator } from '../calculators/BmrCalculator.js'
+import { testUsers } from './testData.js'
+import { HealthCalculatorFactory } from '../factories/HealthCalculatorFactory.js'
 
 describe('BmrCalculator', () => {
   let bmrCalculator: BmrCalculator

@@ -1,8 +1,8 @@
 // validateUserInput.test.ts
 
-import { validateUserInput } from '../utils/validateUserInput'
-import { testUsers } from './testData'
-import { User } from '../models/User'
+import { validateUserInput } from '../utils/validateUserInput.js'
+import { testUsers } from './testData.js'
+import { User } from '../models/User.js'
 
 describe('validateUserInput', () => {
   it('should validate correct metric user input without throwing', () => {

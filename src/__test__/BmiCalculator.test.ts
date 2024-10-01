@@ -1,6 +1,6 @@
-import { HealthCalculatorFactory } from '../factories/HealthCalculatorFactory'
-import { testUsers } from './testData'
-import { InterfaceHealthCalculator } from '../interfaces/InterfaceHealthCalculator'
+import { HealthCalculatorFactory } from '../factories/HealthCalculatorFactory.js'
+import { testUsers } from './testData.js'
+import { InterfaceHealthCalculator } from '../interfaces/InterfaceHealthCalculator.js'
 
 describe('HealthCalculatorFactory and BMI calculations', () => {
   let healthCalculator: InterfaceHealthCalculator

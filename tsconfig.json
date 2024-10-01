@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "commonjs",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "moduleDetection": "force",
     "lib": ["es6", "dom"],
     "allowJs": true,
     "outDir": "./dist",
@@ -10,7 +12,6 @@
     "noImplicitAny": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
       "*": ["*", "utils/*"]
@@ -18,7 +19,9 @@
     "types": ["jest", "node"],
     "typeRoots": ["./node_modules/@types", "./src/@types"],
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "preserveSymlinks": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*.ts", "**/*.test.ts"],
   "exclude": ["node_modules", "**/*.spec.ts"]

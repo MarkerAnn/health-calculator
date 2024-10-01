@@ -1,6 +1,6 @@
-import { BodyCompositionCalculator } from '../calculators/BodyCompositionCalculator'
-import { testUsers } from './testData'
-import { HealthCalculatorFactory } from '../factories/HealthCalculatorFactory'
+import { BodyCompositionCalculator } from '../calculators/BodyCompositionCalculator.js'
+import { testUsers } from './testData.js'
+import { HealthCalculatorFactory } from '../factories/HealthCalculatorFactory.js'
 
 describe('BodyCompositionCalculator', () => {
   let bodyCompositionCalculator: BodyCompositionCalculator

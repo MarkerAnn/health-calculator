@@ -3,13 +3,13 @@
  * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
  */
 
-import { User } from '../models/User'
-import { InterfaceHealthCalculator } from '../interfaces/InterfaceHealthCalculator'
-import { InterfaceBmiCalculator } from '../interfaces/InterfaceBmiCalculator'
-import { InterfaceBodyCompositionCalculator } from '../interfaces/InterfaceBodyCompositionCalculator'
-import { InterfaceBmrCalculator } from '../interfaces/InterfaceBmrCalculator'
-import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator'
-import { InterfaceCalorieCalculator } from 'src/interfaces/InterfaceCalorieCalculator'
+import { User } from '../models/User.js'
+import { InterfaceHealthCalculator } from '../interfaces/InterfaceHealthCalculator.js'
+import { InterfaceBmiCalculator } from '../interfaces/InterfaceBmiCalculator.js'
+import { InterfaceBodyCompositionCalculator } from '../interfaces/InterfaceBodyCompositionCalculator.js'
+import { InterfaceBmrCalculator } from '../interfaces/InterfaceBmrCalculator.js'
+import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator.js'
+import { InterfaceCalorieCalculator } from 'src/interfaces/InterfaceCalorieCalculator.js'
 
 /**
  * HealthCalculator is responsible for calculating various health-related metrics

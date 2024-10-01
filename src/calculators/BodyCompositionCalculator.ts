@@ -3,8 +3,8 @@
  * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
  */
 
-import { InterfaceBodyCompositionCalculator } from '../interfaces/InterfaceBodyCompositionCalculator'
-import { User } from '../models/User'
+import { InterfaceBodyCompositionCalculator } from '../interfaces/InterfaceBodyCompositionCalculator.js'
+import { User } from '../models/User.js'
 
 /**
  * The BodyCompositionCalculator class is responsible for calculating various body composition-related metrics

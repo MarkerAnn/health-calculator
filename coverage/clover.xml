@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1727723785146" clover="3.2.0">
-  <project timestamp="1727723785146" name="All files">
-    <metrics statements="315" coveredstatements="294" conditionals="101" coveredconditionals="89" methods="84" coveredmethods="79" elements="500" coveredelements="462" complexity="0" loc="315" ncloc="315" packages="5" files="12" classes="12"/>
+<coverage generated="1727770287718" clover="3.2.0">
+  <project timestamp="1727770287718" name="All files">
+    <metrics statements="313" coveredstatements="293" conditionals="100" coveredconditionals="88" methods="84" coveredmethods="79" elements="497" coveredelements="460" complexity="0" loc="313" ncloc="313" packages="5" files="12" classes="12"/>
     <package name="__test__">
       <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="testData.ts" path="/Users/angelicamarker/Desktop/LNU 2023-2026/lnu-ÅK2/courses/1dv610/examinations/L2-en-modul/health-calculator/src/__test__/testData.ts">
@@ -10,9 +10,9 @@
       </file>
     </package>
     <package name="calculators">
-      <metrics statements="214" coveredstatements="198" conditionals="42" coveredconditionals="39" methods="65" coveredmethods="60"/>
+      <metrics statements="212" coveredstatements="197" conditionals="41" coveredconditionals="38" methods="65" coveredmethods="60"/>
       <file name="BmiCalculator.ts" path="/Users/angelicamarker/Desktop/LNU 2023-2026/lnu-ÅK2/courses/1dv610/examinations/L2-en-modul/health-calculator/src/calculators/BmiCalculator.ts">
-        <metrics statements="32" coveredstatements="28" conditionals="8" coveredconditionals="6" methods="10" coveredmethods="10"/>
+        <metrics statements="30" coveredstatements="27" conditionals="7" coveredconditionals="5" methods="10" coveredmethods="10"/>
         <line num="8" count="4" type="stmt"/>
         <line num="14" count="4" type="stmt"/>
         <line num="19" count="9" type="stmt"/>
@@ -21,30 +21,28 @@
         <line num="29" count="4" type="stmt"/>
         <line num="30" count="4" type="stmt"/>
         <line num="31" count="4" type="stmt"/>
-        <line num="32" count="4" type="cond" truecount="1" falsecount="0"/>
         <line num="33" count="4" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
         <line num="45" count="1" type="stmt"/>
-        <line num="46" count="1" type="stmt"/>
-        <line num="48" count="1" type="stmt"/>
-        <line num="55" count="1" type="stmt"/>
-        <line num="56" count="1" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
-        <line num="61" count="4" type="cond" truecount="2" falsecount="1"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="67" count="4" type="stmt"/>
-        <line num="71" count="4" type="stmt"/>
-        <line num="72" count="19" type="cond" truecount="3" falsecount="0"/>
-        <line num="73" count="4" type="stmt"/>
-        <line num="76" count="0" type="stmt"/>
-        <line num="80" count="1" type="stmt"/>
-        <line num="81" count="4" type="stmt"/>
-        <line num="84" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="88" count="1" type="stmt"/>
-        <line num="92" count="2" type="stmt"/>
-        <line num="93" count="2" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="58" count="4" type="cond" truecount="2" falsecount="1"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="64" count="4" type="stmt"/>
+        <line num="68" count="4" type="stmt"/>
+        <line num="69" count="19" type="cond" truecount="3" falsecount="0"/>
+        <line num="70" count="4" type="stmt"/>
+        <line num="73" count="0" type="stmt"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="78" count="4" type="stmt"/>
+        <line num="81" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="82" count="0" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="89" count="2" type="stmt"/>
+        <line num="90" count="2" type="stmt"/>
       </file>
       <file name="BmrCalculator.ts" path="/Users/angelicamarker/Desktop/LNU 2023-2026/lnu-ÅK2/courses/1dv610/examinations/L2-en-modul/health-calculator/src/calculators/BmrCalculator.ts">
         <metrics statements="32" coveredstatements="31" conditionals="5" coveredconditionals="5" methods="7" coveredmethods="7"/>

@@ -3,7 +3,7 @@
  * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
  */
 
-import { User } from '../models/User'
+import { User } from '../models/User.js'
 /**
  * Interface for body composition calculators.
  * Provides methods to calculate various body composition metrics.
