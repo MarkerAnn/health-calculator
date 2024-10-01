@@ -5,8 +5,8 @@
 - Jest version: ^29.7.0
 
 ## Summary
-- **Date:** Tue Oct  1 18:34:08 UTC 2024
-- **Commit:** da7d12a29430896450b261a731ca90fd6144459d
+- **Date:** Tue Oct  1 18:46:00 UTC 2024
+- **Commit:** ee1c850d188127708331961bf22777ea6185985c
 
 ## Test Results
 - Suites: 6
@@ -16,12 +16,12 @@
 
 | Suite | Tests | Duration |
 |-------|-------|----------|
-| CalorieCalculator | 14 | 3.974s |
-| BodyCompositionCalculator | 15 | 4.051s |
-| TdeeCalculator | 20 | 4.067s |
-| BmrCalculator | 10 | 0.256s |
-| BmiCalculator | 0 | 0.162s |
-| validateUserInput | 16 | 0.228s |
+| CalorieCalculator | 14 | 4.051s |
+| BodyCompositionCalculator | 15 | 4.092s |
+| TdeeCalculator | 20 | 4.095s |
+| BmrCalculator | 10 | 0.249s |
+| BmiCalculator | 0 | 0.188s |
+| validateUserInput | 16 | 0.235s |
 
 ## Detailed Test Results
 
