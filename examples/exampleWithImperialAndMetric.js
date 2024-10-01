@@ -19,60 +19,60 @@ const metricUser = {
 const metricCalculator =
   HealthCalculatorFactory.createHealthCalculator(metricUser)
 
-console.log('Metric - BMI:', metricCalculator.getBmi()) // Output: Metric BMI
-console.log('Metric - BMI Type:', metricCalculator.getBmiType()) // Output: Metric BMI Type
-console.log('Metric - BMI Prime:', metricCalculator.getBmiPrime()) // Output: Metric BMI Prime
-console.log('Metric - Ideal Weight Range:', metricCalculator.getIdealWeight()) // Output: Metric Ideal Weight Range
+console.log('Metric - BMI:', metricCalculator.getBmi()) // Output: 22.857142857142858
+console.log('Metric - BMI Type:', metricCalculator.getBmiType()) // Output: normal weight
+console.log('Metric - BMI Prime:', metricCalculator.getBmiPrime()) // Output: 0.9142857142857143
+console.log('Metric - Ideal Weight Range:', metricCalculator.getIdealWeight()) // Output: [ 56.65625, 76.25625 ]
 console.log(
   'Metric - Waist-to-Hip Ratio:',
   metricCalculator.getWaistToHipRatio()
-) // Output: Metric Waist-to-Hip Ratio
+) // Output: 0.8421052631578947
 console.log(
   'Metric - Waist-to-Height Ratio:',
   metricCalculator.getWaistToHeightRatio()
-) // Output: Metric Waist-to-Height Ratio
+) // Output: 0.45714285714285713
 console.log(
   'Metric - Body Fat Percentage:',
   metricCalculator.getBodyFatPercentage()
-) // Output: Metric Body Fat Percentage
-console.log('Metric - Lean Body Mass:', metricCalculator.getLeanBodyMass()) // Output: Metric Lean Body Mass
+) // Output: 20.149993896363505
+console.log('Metric - Lean Body Mass:', metricCalculator.getLeanBodyMass()) // Output: 56.015
 console.log(
   'Metric - BMR (Harris-Benedict):',
   metricCalculator.getBmrHarrisBenedict()
-) // Output: Metric BMR (Harris-Benedict)
+) // Output: 1695.6670000000001
 console.log(
   'Metric - BMR (Mifflin-St Jeor):',
   metricCalculator.getBmrMifflinStJeor()
-) // Output: Metric BMR (Mifflin-St Jeor)
+) // Output: 1648.75
 console.log(
   'Metric - TDEE (Harris-Benedict):',
   metricCalculator.getTdeeHarrisBenedict()
-) // Output: Metric TDEE (Harris-Benedict)
+) // Output: 2628.2838500000003
 console.log(
   'Metric - TDEE (Mifflin-St Jeor):',
   metricCalculator.getTdeeMifflinStJeor()
-) // Output: Metric TDEE (Mifflin-St Jeor)
+) // Output: 2555.5625
 
 console.log(
   'Metric - Caloric Surplus/Deficit:',
   metricCalculator.getCaloricSurplusOrDeficit()
-) // Output: Metric Caloric Surplus/Deficit
+) // Output: 128.28385000000026
 console.log(
   'Metric - Estimated Weekly Weight Change:',
   metricCalculator.getEstimatedWeightChangeWeekly()
-) // Output: Metric Estimated Weekly Weight Change
+) // Output: 0.11662168181818205
 console.log(
   'Metric - Estimated Monthly Weight Change:',
   metricCalculator.getEstimatedWeightChangeMonthly()
-) // Output: Metric Estimated Monthly Weight Change
+) // Output: 0.4998072077922088
 console.log(
   'Metric - Estimated Time to Weight Goal:',
   metricCalculator.getEstimateTimeToWeightGoal()
-) // Output: Metric Estimated Time to Weight Goal
+) // Output: 43
 console.log(
   'Metric - Calories for Weight Goal:',
   metricCalculator.getCaloriesForWeightGoal()
-) // Output: Metric Calories for Weight Goal
+) // Output: 2078
 
 // Create a User object in imperial units
 const imperialUser = {
@@ -92,60 +92,60 @@ const imperialUser = {
 const imperialCalculator =
   HealthCalculatorFactory.createHealthCalculator(imperialUser)
 
-console.log('Imperial - BMI:', imperialCalculator.getBmi()) // Output: Imperial BMI
-console.log('Imperial - BMI Type:', imperialCalculator.getBmiType()) // Output: Imperial BMI Type
-console.log('Imperial - BMI Prime:', imperialCalculator.getBmiPrime()) // Output: Imperial BMI Prime
+console.log('Imperial - BMI:', imperialCalculator.getBmi()) // Output: 21.599920789295435
+console.log('Imperial - BMI Type:', imperialCalculator.getBmiType()) // Output: normal weight
+console.log('Imperial - BMI Prime:', imperialCalculator.getBmiPrime()) // Output: 0.8639968315718174
 console.log(
   'Imperial - Ideal Weight Range:',
   imperialCalculator.getIdealWeight()
-) // Output: Imperial Ideal Weight Range
+) // Output: [ 59.828164214400005, 80.52547507776 ]
 console.log(
   'Imperial - Waist-to-Hip Ratio:',
   imperialCalculator.getWaistToHipRatio()
-) // Output: Imperial Waist-to-Hip Ratio
+) // Output: 0.842245989304813
 console.log(
   'Imperial - Waist-to-Height Ratio:',
   imperialCalculator.getWaistToHeightRatio()
-) // Output: Imperial Waist-to-Height Ratio
+) // Output: 0.4449152542372881
 console.log(
   'Imperial - Body Fat Percentage:',
   imperialCalculator.getBodyFatPercentage()
-) // Output: Imperial Body Fat Percentage
-console.log('Imperial - Lean Body Mass:', imperialCalculator.getLeanBodyMass()) // Output: Imperial Lean Body Mass
+) // Output: 19.47752194660007
+console.log('Imperial - Lean Body Mass:', imperialCalculator.getLeanBodyMass()) // Output: 57.24538337599999
 console.log(
   'Imperial - BMR (Harris-Benedict):',
   imperialCalculator.getBmrHarrisBenedict()
-) // Output: Imperial BMR (Harris-Benedict)
+) // Output: 1716.888659696
 console.log(
   'Imperial - BMR (Mifflin-St Jeor):',
   imperialCalculator.getBmrMifflinStJeor()
-) // Output: Imperial BMR (Mifflin-St Jeor)
+) // Output: 1677.4816799999999
 console.log(
   'Imperial - TDEE (Harris-Benedict):',
   imperialCalculator.getTdeeHarrisBenedict()
-) // Output: Imperial TDEE (Harris-Benedict)
+) // Output: 2661.1774225288004
 console.log(
   'Imperial - TDEE (Mifflin-St Jeor):',
   imperialCalculator.getTdeeMifflinStJeor()
-) // Output: Imperial TDEE (Mifflin-St Jeor)
+) // Output: 2600.096604
 
 console.log(
   'Imperial - Caloric Surplus/Deficit:',
   imperialCalculator.getCaloricSurplusOrDeficit()
-) // Output: Imperial Caloric Surplus/Deficit
+) // Output: 161.17742252880043
 console.log(
   'Imperial - Estimated Weekly Weight Change:',
   imperialCalculator.getEstimatedWeightChangeWeekly()
-) // Output: Imperial Estimated Weekly Weight Change
+) // Output: 0.14683292631788114
 console.log(
   'Imperial - Estimated Monthly Weight Change:',
   imperialCalculator.getEstimatedWeightChangeMonthly()
-) // Output: Imperial Estimated Monthly Weight Change
+) // Output: 0.6292839699337763
 console.log(
   'Imperial - Estimated Time to Weight Goal:',
   imperialCalculator.getEstimateTimeToWeightGoal()
-) // Output: Imperial Estimated Time to Weight Goal
+) // Output: 34
 console.log(
   'Imperial - Calories for Weight Goal:',
   imperialCalculator.getCaloriesForWeightGoal()
-) // Output: Imperial Calories for Weight Goal
+) // Output: 2112

@@ -80,6 +80,8 @@ console.log(
 )
 ```
 
+You can find more examples of usage on the projects [GitHub page](https://github.com/MarkerAnn/health-calculator/blob/main/examples/exampleWithImperialAndMetric.js)
+
 ## API Documentation
 
 ### User Object
@@ -108,7 +110,7 @@ The `User` object is used to provide input data for calculations. It has the fol
 - `getWaistToHipRatio()`: Calculates the Waist-to-Hip Ratio (WHR), which is used to assess the distribution of body fat and the associated risk of health conditions.
 - `getWaistToHeightRatio()`: Calculates the Waist-to-Height Ratio (WHtR), a metric used to measure an individual's risk of obesity-related health issues.
 - `getBodyFatPercentage()`: Estimates body fat percentage based on various measurements such as waist, hip, neck circumference, and weight. This value provides an indication of how much of an individual's total body mass is composed of fat.
-- `getLeanBodyMass()`: Calculates lean body mass. This represents the weight of everything other than fat (muscles, bones, organs, etc.) and is returned in kilograms.
+- `getLeanBodyMass()`: Calculates lean body mass, using the Boer equation. This represents the weight of everything other than fat (muscles, bones, organs, etc.) and is returned in kilograms.
 - `getBmrHarrisBenedict()`: Calculates Basal Metabolic Rate (BMR) using the Harris-Benedict equation. Returns the estimated daily calorie requirement to maintain basic bodily functions at rest, such as breathing and circulation.
 - `getBmrMifflinStJeor()`: Calculates Basal Metabolic Rate (BMR) using the Mifflin-St Jeor equation. Returns the estimated daily calorie requirement to maintain basic bodily functions at rest.
 - `getTdeeHarrisBenedict()`: Calculates Total Daily Energy Expenditure (TDEE) using the Harris-Benedict equation, which takes into account BMR and activity level to estimate the total number of calories needed to maintain the current weight.

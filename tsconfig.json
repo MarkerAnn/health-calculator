@@ -1,17 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es2018",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "moduleDetection": "force",
-    "lib": ["es6", "dom"],
-    "allowJs": true,
+    "lib": ["es2018", "dom"],
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "declaration": true,
     "baseUrl": ".",
     "paths": {
       "*": ["*", "utils/*"]
@@ -20,9 +19,8 @@
     "typeRoots": ["./node_modules/@types", "./src/@types"],
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "preserveSymlinks": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src/**/*.ts", "**/*.test.ts"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
 }
