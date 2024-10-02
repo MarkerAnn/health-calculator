@@ -17,7 +17,6 @@ export function validateUserInput(user: User): void {
     validateDailyCalories(user.dailyCalories, user)
     validateWeightGoal(user.weightGoal, user)
     validateWeeksToWeightGoal(user.weeksToWeightGoal, user)
-    console.log('Validation succeeded!')
   } catch (error) {
     const errorMessage = `Validation error in user object: ${JSON.stringify(
       user
