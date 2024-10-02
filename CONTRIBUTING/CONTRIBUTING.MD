@@ -17,6 +17,7 @@ To read about the module, please see the [README.md](../README.md).
 10. [Using the Issue Board](#using-the-issue-board)
 11. [Submitting Changes](#submitting-changes)
 12. [Code Review Process](#code-review-process)
+13. [Npm](#npm)
 
 ## Getting Started
 
@@ -274,5 +275,12 @@ This will sync the latest `TESTREPORT.md` and other changes from GitHub to avoid
 2. We may suggest changes or improvements.
 3. Make any requested changes and push them to your branch.
 4. Once approved, we will merge your pull request.
+
+## Npm
+
+**HealthCalculator on Npm**: [Published here](https://www.npmjs.com/package/body-measurements)
+**Publishing**: Only authorized maintainers have permission to publish new versions of the module on npm. If you believe your changes are ready for a new release, mention it in your pull request, and one of the maintainers will handle the publishing process.
+
+---
 
 Thank you for contributing to the Body Measurements Module! Your efforts help improve the project for everyone.

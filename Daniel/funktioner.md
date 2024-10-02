@@ -35,7 +35,7 @@ function validateHeight(
 ```
 
 Detta är min absolut sämsta funktion, den bryter mot fler regler än den följer. - Den är alldeles för lång. Den bryter mot gör en sak-principen (Do One Thing) genom att göra flera saker, den validerar att höjden finns, kontrollerar om höjden ligger inom rätt intervall beroende på mätsystem, och kastar felmeddelanden. Funktionen har för många ansvar. Den bryter också mot _En abstraktionsnivå per funktion_ genom att blanda detaljerad logik med felhantering i samma funktion. Den borde bara hantera de olika `unitSystem` i olika funktioner. Den bryter då även mot _Undvik flaggargument_ eftersom `unitSystem` fungerar som en flagga som styr vilken logik som ska köras beroende på om det är "metric" eller "imperial". Detta leder till att funktionen blir onödigt komplex. Om jag har förstått boken rätt.
-Det den faktiskt gör rätt är att den använder _undantag_ för felhantering, vilket är rätt sätt att hantera fel enligt Clean Code-principer. Den gör att fel kan fångas upp i programmet, och utvecklaren tvingas ta hand om fel på ett tydligt sätt. Namnen på parametrarna och funktionen är _beskrivande_, vilket förhoppningsvis gör det enkelt att förstå vad funktionen gör och vad parametrarna representerar.
+Det den faktiskt gör rätt är att den använder _undantag_ för felhantering, vilket är rätt sätt att hantera fel enligt Clean Code-principer. Den gör att fel kan fångas upp i programmet, och utvecklaren tvingas ta hand om fel på ett tydligt sätt. Namnen på parametrarna och funktionen är _beskrivande_, vilket förhoppningsvis gör det enkelt att förstå vad funktionen gör och vad parametrarna representerar. Jag har lagt in denna på min issue-board och kommer förbättra den.
 
 `validateActivityLevel` (src/utils/validateUserInput.ts)
 Antal rader: 20
@@ -92,7 +92,7 @@ Antal rader: 19
   }
 ```
 
-Funktionen följer _några_ Clean Code-regler, som att ha ett bra beskrivande namn och göra en sak. Felhanteringen genomförs också korrekt. Dock bryter den mot andra principer. Den använder if-satser istället för polymorfism, tar en mindre säker sträng som input istället för en enum, och upprepar liknande kod vilket bryter mot DRY-principen. För att förbättra koden borde jag använda en enum även för aktivitetsnivåer och ett objekt för att mappa dessa till faktorer, det skulle eliminera if-satserna och göra koden mer skalbar.
+Funktionen följer _några_ Clean Code-regler, som att ha ett bra beskrivande namn och göra en sak. Felhanteringen genomförs också korrekt. Dock bryter den mot andra principer. Den använder fler if-satser i rad vilket boken förespråkar att man ska undvika för att öka läsbarheten, funktionen använder också "magic strings" istället för en enum, och upprepar liknande kod vilket bryter mot DRY-principen. För att förbättra koden borde jag använda en enum även för aktivitetsnivåer och en switch-sats istället för if-satserna.
 
 `convertUserToMetric` (src/utils/unitConverter)
 Antal rader: 16
@@ -117,8 +117,8 @@ export function convertUserToMetric(user: User) {
 }
 ```
 
-För det första, följer även denna funktionen principen att göra “en sak”. Funktionen har ett tydligt och avgränsat syfte – att konvertera användarens mått till det metriska systemet om användaren använder imperial system. Funktionen har också ett intention-revealing namn. Namnet `convertUserToMetric` beskriver exakt vad funktionen gör, vilket överensstämmer med regeln.
-Däremot bryter funktionen mot regeln att undvika flaggor. Genom att använda `user.unitSystem === 'metric'` skapar funktionen indirekt ett flaggargument. Flaggargument anses dåliga eftersom de kan introducera komplexitet och dolda beroenden, om jag förstått det rätt. En lösning som kanske skulle förbättra det är att abstrahera olika måttsystem i separata funktioner istället för att direkt kontrollera om användaren redan använder det metriska systemet.
+För det första, följer även denna funktionen principen att göra “en sak”. Funktionen har ett tydligt och avgränsat syfte – att konvertera användarens mått till det metriska systemet om användaren använder imperial system. Funktionen har också ett intention-revealing namn. Namnet `convertUserToMetric` beskriver exakt vad funktionen gör, vilket överensstämmer med regeln. Användningen av magic string 'metric' skulle kunna ersättas med en konstant eller enum för att följa principen "Avoid Mental Mapping"
+En annan lösning som kanske skulle förbättra det är att abstrahera olika måttsystem i separata funktioner istället för att direkt kontrollera om användaren redan använder det metriska systemet.
 Funktionen bryter också mot _DRY_-principen (Don’t Repeat Yourself) genom att ha upprepade logiska uttryck för att konvertera olika mått (t.ex. waist, hip, neck). Detta skulle jag kunna förbättra genom att skapa en hjälpfunktion som hanterar de upprepade konverteringarna på ett mer effektivt sätt. Exempelvis kan man använda en funktion som `convertMeasurement`.
 
 `private calculateFemaleBodyFat` (src/calculators/BodyCompositionCalculator.ts)
@@ -146,14 +146,11 @@ Antal rader: 18
   }
 ```
 
-Denna funktionen sparar magic numbers i variabler, precis som boken förespråkar. Den har också ett beskrivande namn och håller sig under 20 rader. Funktionen har också en relativt sekventiell struktur som -jag hoppas, gör den enkel att följa och förstå. Det som jag skulle kunna förbättra är att flytta valideringsfunktionerna som anropas i metoden till en och samma, för att hålla själva beräkningen mer fokuserad. Jag skulle också kunna flytta konstanterna (de numeriska värdena) till klasskonstanter så att de är lättare att hitta och underhålla, och för att undvika upprepningar.
+Denna funktionen sparar magic numbers i variabler, precis som boken förespråkar. Den har också ett beskrivande namn och håller sig under 20 rader. Funktionen gör dock flera saker och har även sidoeffekter.
+Det som jag skulle kunna förbättra är att flytta valideringsfunktionerna som anropas i metoden till en och samma, för att hålla själva beräkningen mer fokuserad. Jag skulle också kunna flytta konstanterna (de numeriska värdena) till klasskonstanter så att de är lättare att hitta och underhålla, och för att undvika upprepningar.
 
 ### Reflektion:
 
-Jag känner trots allt att jag har utvecklats! Jag är mer noggrann med att kasta undantag snarare än felkoder, något jag inte gjorde i samma utsträckning tidigare.Vilket gör koden tydligare och enklare att felsöka. Jag har också börjat skriva kortare funktioner, det hjälper mig att hålla koden mer lättläst, välstrukturerad och lättare att underhålla.
-
-När jag analyserade min kod insåg jag dock att jag fortfarande hade ett problem med att mina funktioner ibland gör mer än en sak, ibland två eller fler. Den bristen blev jag väldigt medveten om, även om jag refaktoriserat koden och la till en hel del privata metoder i klasserna, så finns det en bit kvar Att separera ansvaret i funktionerna har jag förstått, är en av de viktigaste principerna från _Clean Code_.
-
-Något jag däremot är nöjd med är att mina funktioner har meningsfulla namn och att jag begränsar antalet argument till högst två. Det är en regel jag verkligen hållit mig till. Jag har också insett hur mycket enklare det blev att använda ett objekt för parametrarna istället för att skicka in flera separata argument som längd, vikt och ålder. Tidigare hade jag nog skickat in många argument och gjort koden mer komplicerad, men tack vare den här förändringen blev det mycket smidigare att hantera just min uppgift.
-
-Jag är nöjd med mina framsteg, men jag vet att jag har mer att lära, särskilt när det gäller att hålla mina funktioner fokuserade på en enda uppgift. Det är något jag kommer fortsätta jobba på.
+Det har varit en utmaning att hitta balansen mellan att skriva funktioner enligt best practice samtidigt som man vill hålla det funktionellt. Det mina funktioner har gemensamt att göra bra, är att namnen i regel är beskrivande, de allra flesta håller sig till maximalt två argument, alla utom en ligger under 20 rader och samtliga är förhoppningsvis lätta att förstå. Även felhantering följer bokens rekommendation, att använda sig av att kasta undantag. De gemensamma bristerna är att de ibland gör flera saker samtidigt trots att jag refaktoriserat funktionerna flera gånger. De upprepar sig fortfarande på vissa ställen och vissa innehåller små sidoeffekter.
+Den största förändingen i mitt sätt att skriva funktioner efter att ha läst boken är att jag tänker mer på vad som faktiskt finns i den, inte bara start och mål. Jag analyserar innehållet på ett annat sätt nu.
+Även om boken är ganska extrem så håller jag med om mycket, jag uppskattar ju det "rena" i välskriva och snygga funktioner, vilket blir den positiva konsekvensen om man följer bokens regler. Det som däremot kan göra det något mer rörigt är om man ska dela upp en funktion såpass mycket så att man ständigt måste navigera till andra funktioner för att se vad som händer, men om man då följer strikta regler med namngivning så behövs ju inte det. Då förstår man vad en funktion gör ändå, om man undviker sidoeffekter. Så summa summarum, för att uppnå riktigt bra resultat bör man följa alla regler, inte bara enstaka. Det är helheten som ger den önskade effekten av ren och lättförståelig kod
