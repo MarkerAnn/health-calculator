@@ -1,5 +1,9 @@
 # Funktioner
 
+_Jag vet att detta skulle vara i en tabell men tänkte att det blir lättare att skriva med funktionerna_
+
+---
+
 `validateHeight` (och `validateWeight` = likadan) (src/utils/validateUserInput.ts)
 antal rader: 27.
 
