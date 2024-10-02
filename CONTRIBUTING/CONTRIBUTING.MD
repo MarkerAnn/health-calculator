@@ -188,11 +188,11 @@ Before submitting a pull request, make sure your changes pass all CI checks loca
 npm run precommit
 ```
 
-If the CI checks fail on your pull request, please fix the issues and update your branch.
+If the CI checks fail on your pull request, please fix the issues and update your branch
 
 ## Using the Issue Board
 
-I encourage all contributors to make use of our GitHub Issue Board. It's a great place to:
+We encourage all contributors to make use of our GitHub Issue Board. It's a great place to:
 
 - Report bugs you've found
 - Suggest new features or improvements
@@ -214,26 +214,65 @@ When creating a new issue:
 - Provide as much relevant information as possible in the description
 - Add appropriate labels (e.g., "bug", "enhancement", "help wanted")
 
-I value your input and contributions, so don't hesitate to use the Issue Board to get involved in the project's development!
+We value your input and contributions, so don't hesitate to use the Issue Board to get involved in the project's development!
 
 ## Submitting Changes
 
-1. Ensure all CI checks pass locally.
-2. Commit your changes:
-   ```
-   git commit -m "Add your descriptive commit message"
-   ```
-3. Push to your fork:
-   ```
-   git push origin feature/your-feature-name
-   ```
-4. Submit a pull request through the GitHub website.
+1. **Ensure all CI checks pass locally.**
+2. **Commit your changes:**
+
+```
+git commit -m "Add your descriptive commit message"
+```
+
+3. **If you have forked the project**, add the original repository as an upstream remote (if you haven't already):
+
+```
+git remote add upstream https://github.com/MarkerAnn/health-calculator.git
+```
+
+4. **Before pushing, always pull the latest changes from the original repository:**
+
+```
+git pull upstream main
+```
+
+This ensures that you have the most up-to-date version of files like TESTREPORT.md that might have been updated by other contributors.
+
+5. **Push to your fork:**
+
+```
+git push origin feature/your-feature-name
+```
+
+6. **If you’ve already pushed without pulling, immediately run**:
+
+```
+git pull upstream main
+```
+
+This will sync the latest `TESTREPORT.md` and other changes from GitHub to avoid conflicts.
+
+7. **Add yourself as a contributor in `package.json` if applicable:**
+
+- Open `package.json` and add your information under the `contributors` field. If it doesn't exist, you can add it like this:
+  ```json
+  "contributors": [
+    {
+      "name": "Your Name",
+      "email": "your.email@example.com",
+      "url": "https://yourwebsite.com"
+    }
+  ]
+  ```
+
+8. **Submit a pull request through the GitHub website.**
 
 ## Code Review Process
 
-1. I will review your pull request.
-2. I may suggest changes or improvements.
+1. We will review your pull request.
+2. We may suggest changes or improvements.
 3. Make any requested changes and push them to your branch.
-4. Once approved, I will merge your pull request.
+4. Once approved, we will merge your pull request.
 
 Thank you for contributing to the Body Measurements Module! Your efforts help improve the project for everyone.

@@ -2,6 +2,9 @@
   "name": "body-measurements",
   "version": "1.0.4",
   "description": "A module for calculating body measurements and health metrics",
+  "type": "module",
+  "author": "Angelica Marker",
+  "license": "ISC",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -17,7 +20,6 @@
   "engines": {
     "node": ">=12.11.0"
   },
-  "type": "module",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
@@ -57,8 +59,6 @@
     "metric",
     "imperial"
   ],
-  "author": "Angelica Marker",
-  "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.4",
