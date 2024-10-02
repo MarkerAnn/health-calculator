@@ -47,7 +47,7 @@ Here's a quick example of how to use the module:
 ```javascript
 import { HealthCalculatorFactory } from 'body-measurements'
 
-const user = {
+const metricUser = {
   weight: 70, // kg
   height: 1.75, // meters
   age: 30,
@@ -58,11 +58,12 @@ const user = {
   unitSystem: 'metric',
   activityLevel: 'moderately',
   dailyCalories: 2500,
-  weightGoal: 65,
+  weightGoal: 65, // kg
   weeksToWeightGoal: 15,
 }
 
-const healthCalculator = HealthCalculatorFactory.createHealthCalculator(user)
+const healthCalculator =
+  HealthCalculatorFactory.createHealthCalculator(metricUser)
 
 console.log('BMI:', healthCalculator.getBmi())
 console.log('BMI Type:', healthCalculator.getBmiType())
@@ -98,6 +99,28 @@ console.log(
 )
 ```
 
+You can also use imperial:
+
+```javascript
+const imperialUser = {
+  weight: 154, // lbs
+  height: 5.9, // feet
+  age: 30,
+  gender: 'male',
+  waist: 31.5, // inches
+  hip: 37.4, // inches
+  neck: 14.5, // inches
+  unitSystem: 'imperial',
+  activityLevel: 'moderately',
+  dailyCalories: 2500,
+  weightGoal: 143, // lbs
+  weeksToWeightGoal: 10,
+}
+
+const healthCalculator =
+  HealthCalculatorFactory.createHealthCalculator(imperialUser)
+```
+
 You can find more examples of usage on the projects [GitHub page](https://github.com/MarkerAnn/health-calculator/blob/main/examples/exampleWithImperialAndMetric.js)
 
 ## API Documentation
@@ -110,13 +133,13 @@ The `User` object is used to provide input data for calculations. It has the fol
 - `height`: number (meters for metric, feet for imperial) <span style="color: red;">Required</span>
 - `age`: number (optional)
 - `gender`: 'male' | 'female' (optional)
-- `waist`: number (cm for metric, inches for imperial, optional)
-- `hip`: number (cm for metric, inches for imperial, optional)
-- `neck`: number (cm for metric, inches for imperial, optional)
+- `waist`: number - cm for metric, inches for imperial, (optional)
+- `hip`: number - cm for metric, inches for imperial, (optional)
+- `neck`: number - cm for metric, inches for imperial, (optional)
 - `unitSystem`: 'metric' | 'imperial' <span style="color: red;">Required</span>
 - `activityLevel`: 'sedentary' | 'lightly' | 'moderately' | 'very' | 'extremely' (optional)
 - `dailyCalories`: number (optional)
-- `weightGoal`: number (kg for metric, lbs for imperial, optional)
+- `weightGoal`: number - kg for metric, lbs for imperial, (optional)
 - `weeksToWeightGoal`: number (optional)
 
 ### HealthCalculator Methods
@@ -194,11 +217,11 @@ This module is designed to have minimal dependencies to ensure easy integration 
 
 ## Contributing
 
-I welcome contributions to improve the Body Measurements module. Please see our [CONTRIBUTING.md](CONTRIBUTING/CONTRIBUTING.md) file for details on how to contribute.
+I welcome contributions to improve the Body Measurements module. Please see our [CONTRIBUTING.md](https://github.com/MarkerAnn/health-calculator/blob/main/CONTRIBUTING/CONTRIBUTING.MD) file for details on how to contribute.
 
 ## License
 
-This project is licensed under the ISC License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the ISC License. See the [LICENSE](https://github.com/MarkerAnn/health-calculator/blob/main/LICENSE) file for details.
 
 ## Support
 
