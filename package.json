@@ -1,6 +1,6 @@
 {
   "name": "body-measurements",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A module for calculating body measurements and health metrics",
   "type": "module",
   "author": "Angelica Marker",
