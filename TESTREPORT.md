@@ -5,8 +5,8 @@
 - Jest version: ^29.7.0
 
 ## Summary
-- **Date:** Tue Oct  1 18:52:47 UTC 2024
-- **Commit:** a6cf2f1b6efcaaf6213ebcf288b81376811c4e56
+- **Date:** Wed Oct  2 10:23:25 UTC 2024
+- **Commit:** e2f6cea6da20f74fc91f8a3548d827b7f6b0340b
 
 ## Test Results
 - Suites: 6
@@ -16,12 +16,12 @@
 
 | Suite | Tests | Duration |
 |-------|-------|----------|
-| CalorieCalculator | 14 | 3.862s |
-| TdeeCalculator | 20 | 4.126s |
-| BmrCalculator | 10 | 0.273s |
-| BodyCompositionCalculator | 15 | 4.177s |
-| BmiCalculator | 0 | 0.145s |
-| validateUserInput | 16 | 0.165s |
+| CalorieCalculator | 14 | 4.405s |
+| BmrCalculator | 10 | 0.416s |
+| BodyCompositionCalculator | 15 | 4.89s |
+| TdeeCalculator | 20 | 4.875s |
+| BmiCalculator | 0 | 0.15s |
+| validateUserInput | 16 | 0.173s |
 
 ## Detailed Test Results
 
@@ -49,34 +49,6 @@
 ✅ should calculate daily calories for weight loss goal correctly ()
 ✅ should throw an error if weightGoal is not provided ()
 ✅ should throw an error if weeksToWeightGoal is not provided ()
-
-### TdeeCalculator &gt; calculateTdeeMifflinStJeor
-✅ should calculate correct TDEE for normal weight male (metric) with moderate activity ()
-✅ should calculate correct TDEE for overweight female (metric) with sedentary activity ()
-✅ should calculate correct TDEE for underweight male (imperial) with very active lifestyle ()
-✅ should throw an error when age is missing ()
-✅ should throw an error when activity level is missing ()
-
-### TdeeCalculator &gt; calculateTdeeHarrisBenedict
-✅ should calculate correct TDEE for normal weight male (metric) with moderate activity ()
-✅ should calculate correct TDEE for overweight female (metric) with sedentary activity ()
-✅ should calculate correct TDEE for underweight male (imperial) with very active lifestyle ()
-✅ should throw an error when age is missing ()
-✅ should throw an error when activity level is missing ()
-
-### TdeeCalculator &gt; Activity level factors &gt; Mifflin-St Jeor
-✅ should use correct activity factor for sedentary activity ()
-✅ should use correct activity factor for lightly activity ()
-✅ should use correct activity factor for moderately activity ()
-✅ should use correct activity factor for very activity ()
-✅ should use correct activity factor for extremely activity ()
-
-### TdeeCalculator &gt; Activity level factors &gt; Harris-Benedict
-✅ should use correct activity factor for sedentary activity ()
-✅ should use correct activity factor for lightly activity ()
-✅ should use correct activity factor for moderately activity ()
-✅ should use correct activity factor for very activity ()
-✅ should use correct activity factor for extremely activity ()
 
 ### BmrCalculator &gt; calculateBmrHarrisBenedict
 ✅ should calculate correct BMR for normal weight male (metric) ()
@@ -114,6 +86,34 @@
 ✅ should calculate correct lean body mass for normal weight male (metric) ()
 ✅ should calculate correct lean body mass for overweight female (metric) ()
 ✅ should throw an error for invalid gender ()
+
+### TdeeCalculator &gt; calculateTdeeMifflinStJeor
+✅ should calculate correct TDEE for normal weight male (metric) with moderate activity ()
+✅ should calculate correct TDEE for overweight female (metric) with sedentary activity ()
+✅ should calculate correct TDEE for underweight male (imperial) with very active lifestyle ()
+✅ should throw an error when age is missing ()
+✅ should throw an error when activity level is missing ()
+
+### TdeeCalculator &gt; calculateTdeeHarrisBenedict
+✅ should calculate correct TDEE for normal weight male (metric) with moderate activity ()
+✅ should calculate correct TDEE for overweight female (metric) with sedentary activity ()
+✅ should calculate correct TDEE for underweight male (imperial) with very active lifestyle ()
+✅ should throw an error when age is missing ()
+✅ should throw an error when activity level is missing ()
+
+### TdeeCalculator &gt; Activity level factors &gt; Mifflin-St Jeor
+✅ should use correct activity factor for sedentary activity ()
+✅ should use correct activity factor for lightly activity ()
+✅ should use correct activity factor for moderately activity ()
+✅ should use correct activity factor for very activity ()
+✅ should use correct activity factor for extremely activity ()
+
+### TdeeCalculator &gt; Activity level factors &gt; Harris-Benedict
+✅ should use correct activity factor for sedentary activity ()
+✅ should use correct activity factor for lightly activity ()
+✅ should use correct activity factor for moderately activity ()
+✅ should use correct activity factor for very activity ()
+✅ should use correct activity factor for extremely activity ()
 
 ### HealthCalculatorFactory and BMI calculations &gt; Metric users
 ✅ should calculate correct BMI for normal weight male ()
