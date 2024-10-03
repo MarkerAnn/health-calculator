@@ -8,18 +8,14 @@ _Jag vet att detta skulle vara i en tabell men tänkte att det blir lättare att
 antal rader: 27.
 
 ```javascript
-function validateHeight(
-  height: number,
-  unitSystem: 'metric' | 'imperial',
-  user: User
-) {
-  if (height === undefined) {
+function validateHeight(user: User) {
+  if (user.height === undefined || typeof user.height !== 'number') {
     throw new Error(
-      `Height is required. Check the height value in ${JSON.stringify(user)}`
+      `Height is required and must be a number. Check the height value in ${JSON.stringify(user)}`
     )
   }
-  if (unitSystem === 'metric') {
-    if (height <= 0 || height >= 2.5) {
+  if (user.unitSystem === 'metric') {
+    if (user.height <= 0 || user.height >= 2.5) {
       throw new RangeError(
         `Height using the metric system must be between 0-2.5 meters. Check the height value in ${JSON.stringify(
           user
@@ -27,7 +23,7 @@ function validateHeight(
       )
     }
   } else {
-    if (height < 0 || height > 8.2) {
+    if (user.height < 0 || user.height > 8.2) {
       throw new RangeError(
         `Height using the imperial system must be between 0-8.2 feet. Check the height value in ${JSON.stringify(
           user
@@ -45,19 +41,16 @@ Det den faktiskt gör rätt är att den använder _undantag_ för felhantering, 
 Antal rader: 20
 
 ```javascript
-function validateActivityLevel(
-  activityLevel?: 'sedentary' | 'lightly' | 'moderately' | 'very' | 'extremely',
-  user?: User
-) {
-  if (activityLevel === undefined) {
+function validateActivityLevel(user: User) {
+  if (user.activityLevel === undefined) {
     return
   }
   if (
-    activityLevel != 'sedentary' &&
-    activityLevel != 'lightly' &&
-    activityLevel != 'moderately' &&
-    activityLevel != 'very' &&
-    activityLevel != 'extremely'
+    user.activityLevel != 'sedentary' &&
+    user.activityLevel != 'lightly' &&
+    user.activityLevel != 'moderately' &&
+    user.activityLevel != 'very' &&
+    user.activityLevel != 'extremely'
   ) {
     throw new TypeError(
       `Activity level must be sedentary, lightly, moderately, very or extremely. Check the activityLevel value in ${JSON.stringify(
@@ -65,6 +58,7 @@ function validateActivityLevel(
       )}`
     )
   }
+}
 ```
 
 Även denna funktionen följer regeln om att använda beskrivande namn ("Use Descriptive Names"). Namnet `validateActivityLevel` förklarar tydligt vad funktionen gör, och parameternamnet `activityLevel` är också meningsfullt.
