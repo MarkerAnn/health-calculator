@@ -5,11 +5,19 @@
 
 import { User } from '../models/User.js'
 import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator.js'
+import { ActivityLevel } from '../enums/constants.js'
 
 /**
  * Class representing a TDEE (Total Daily Energy Expenditure) calculator.
  * Provides methods to calculate TDEE using different equations.
  */ export class TdeeCalculator implements InterfaceTdeeCalculator {
+  private ACTIVITY_FACTORS = {
+    SEDENTARY: 1.2,
+    LIGHTLY: 1.375,
+    MODERATELY: 1.55,
+    VERY: 1.725,
+    EXTREMELY: 1.9,
+  }
   /**
    * @inheritdoc
    * @throws Will throw an error if the user's age or activity level is not provided.
@@ -17,7 +25,9 @@ import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator.j
   calculateTdeeMifflinStJeor(user: User, bmrMifflinStJeor: number): number {
     this.validateAgeAndActivityLevel(user)
     const bmr = bmrMifflinStJeor
-    const activityFactor = this.getActivityFactor(user.activityLevel)
+    const activityFactor = this.getActivityFactor(
+      user.activityLevel as ActivityLevel
+    )
 
     return this.calculateTdee(bmr, activityFactor)
   }
@@ -29,37 +39,37 @@ import { InterfaceTdeeCalculator } from '../interfaces/InterfaceTdeeCalculator.j
   calculateTdeeHarrisBenedict(user: User, bmrHarrisBenedict: number): number {
     this.validateAgeAndActivityLevel(user)
     const bmr = bmrHarrisBenedict
-    const activityFactor = this.getActivityFactor(user.activityLevel)
+    const activityFactor = this.getActivityFactor(
+      user.activityLevel as ActivityLevel
+    )
 
     return this.calculateTdee(bmr, activityFactor)
   }
 
-  private getActivityFactor(activityLevel: string): number {
-    if (activityLevel === 'sedentary') {
-      return 1.2
+  private getActivityFactor(activityLevel: ActivityLevel): number {
+    switch (activityLevel) {
+      case ActivityLevel.Sedentary:
+        return this.ACTIVITY_FACTORS.SEDENTARY
+      case ActivityLevel.Lightly:
+        return this.ACTIVITY_FACTORS.LIGHTLY
+      case ActivityLevel.Moderately:
+        return this.ACTIVITY_FACTORS.MODERATELY
+      case ActivityLevel.Very:
+        return this.ACTIVITY_FACTORS.VERY
+      case ActivityLevel.Extremely:
+        return this.ACTIVITY_FACTORS.EXTREMELY
+      default:
+        throw new Error(
+          'Activity level must be sedentary, lightly, moderately, very, or extremely'
+        )
     }
-    if (activityLevel === 'lightly') {
-      return 1.375
-    }
-    if (activityLevel === 'moderately') {
-      return 1.55
-    }
-    if (activityLevel === 'very') {
-      return 1.725
-    }
-    if (activityLevel === 'extremely') {
-      return 1.9
-    }
-    throw new Error(
-      'Activity level must be sedentary, lightly moderately, very or extremely'
-    )
   }
 
   private validateAgeAndActivityLevel(
     user: User
   ): asserts user is User & { activityLevel: string } {
     if (!user.age || !user.activityLevel) {
-      throw new Error('Age and activity level is required for TDEE methods')
+      throw new Error('Age and activity level is required')
     }
   }
 
