@@ -138,21 +138,22 @@ function validateAge(user: User) {
   }
 }
 
-function validateActivityLevel(user: User) {
+function validateActivityLevel(user: User): void {
+  const validActivityLevels = [
+    'sedentary',
+    'lightly',
+    'moderately',
+    'very',
+    'extremely',
+  ]
+
   if (user.activityLevel === undefined) {
     return
   }
-  if (
-    user.activityLevel != 'sedentary' &&
-    user.activityLevel != 'lightly' &&
-    user.activityLevel != 'moderately' &&
-    user.activityLevel != 'very' &&
-    user.activityLevel != 'extremely'
-  ) {
+
+  if (!validActivityLevels.includes(user.activityLevel)) {
     throw new TypeError(
-      `Activity level must be sedentary, lightly, moderately, very or extremely. Check the activityLevel value in ${JSON.stringify(
-        user
-      )}`
+      `Activity level must be sedentary, lightly, moderately, very or extremely. Check the activityLevel value in ${JSON.stringify(user)}`
     )
   }
 }
