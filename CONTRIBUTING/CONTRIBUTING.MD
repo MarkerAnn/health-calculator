@@ -16,8 +16,9 @@ To read about the module, please see the [README.md](../README.md).
 9. [Continuous Integration](#continuous-integration)
 10. [Using the Issue Board](#using-the-issue-board)
 11. [Submitting Changes](#submitting-changes)
-12. [Code Review Process](#code-review-process)
-13. [Npm](#npm)
+12. [Updating the CHANGELOG.md](#updating-the-changelog.md)
+13. [Code Review Process](#code-review-process)
+14. [Npm](#npm)
 
 ## Getting Started
 
@@ -267,7 +268,36 @@ This will sync the latest `TESTREPORT.md` and other changes from GitHub to avoid
   ]
   ```
 
-8. **Submit a pull request through the GitHub website.**
+8. Update CHANGELOG.md, see more information below.
+
+9. **Submit a pull request through the GitHub website.**
+
+## Updating the CHANGELOG.md
+
+As a contributor, it is important to keep the CHANGELOG.md up to date with every significant change you make. Please follow these steps:
+
+When you make a change, update CHANGELOG.md with a summary of what was changed. Use the following structure:
+
+```plaintext
+Added: For new features.
+Changed: For updates in functionality.
+Deprecated: For soon-to-be removed features.
+Removed: For now-removed features.
+ixed: For any bug fixes.
+Security: In case of any security updates.
+Ensure each change has a corresponding version number (e.g., [1.0.6] - 2024-10-13). Make sure to update the version number in package.json as well.
+```
+
+Example of a CHANGELOG.md update:
+
+```
+## [1.0.6] - 2024-10-13
+### Added
+- Added support for new validation rules.
+
+### Fixed
+- Fixed bug in `validateUserInput` function.
+```
 
 ## Code Review Process
 

@@ -404,6 +404,10 @@ This module is designed to have minimal dependencies to ensure easy integration 
 
 I welcome contributions to improve the Body Measurements module. Please see our [CONTRIBUTING.md](https://github.com/MarkerAnn/health-calculator/blob/main/CONTRIBUTING/CONTRIBUTING.MD) file for details on how to contribute.
 
+## Changelog
+
+See the [CHANGELOG.md](https://github.com/MarkerAnn/health-calculator/blob/main/CHANGELOG.md) for details on version updates.
+
 ## License
 
 This project is licensed under the ISC License. See the [LICENSE](https://github.com/MarkerAnn/health-calculator/blob/main/LICENSE) file for details.
@@ -411,7 +415,3 @@ This project is licensed under the ISC License. See the [LICENSE](https://github
 ## Support
 
 If you encounter any issues or have questions, please file an issue on our [GitHub repository](https://github.com/MarkerAnn/health-calculator/issues).
-
-```
-
-```
