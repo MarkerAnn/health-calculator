@@ -11,6 +11,28 @@ import { InterfaceBmrCalculator } from '../interfaces/InterfaceBmrCalculator.js'
  * using both the Harris-Benedict and Mifflin-St Jeor equations.
  */
 export class BmrCalculator implements InterfaceBmrCalculator {
+  private CM_PER_METER = 100
+  private MIFFLIN_ST_JEOR = {
+    WEIGHT_FACTOR: 10,
+    HEIGHT_FACTOR: 6.25,
+    AGE_FACTOR: 5,
+    MALE_ADJUSTMENT: 5,
+    FEMALE_ADJUSTMENT: -161,
+  }
+  private HARRIS_BENEDICT = {
+    FEMALE: {
+      BASE: 447.593,
+      WEIGHT_FACTOR: 9.247,
+      HEIGHT_FACTOR: 3.098,
+      AGE_FACTOR: 4.33,
+    },
+    MALE: {
+      BASE: 88.362,
+      WEIGHT_FACTOR: 13.397,
+      HEIGHT_FACTOR: 4.799,
+      AGE_FACTOR: 5.677,
+    },
+  }
   /**
    * @inheritdoc
    * @throws {Error} Throws an error if age or gender is not provided or if the gender is invalid.
@@ -28,40 +50,44 @@ export class BmrCalculator implements InterfaceBmrCalculator {
     this.validateAge(user)
 
     const heightInCentimeter = this.convertHeightToCentimeter(user.height)
-    const weightFactor = 10 * user.weight
-    const heightFactor = 6.25 * heightInCentimeter
-    const ageFactor = 5 * user.age
-    const genderComponent = user.gender === 'male' ? 5 : -161
+    const weightFactor = this.MIFFLIN_ST_JEOR.WEIGHT_FACTOR * user.weight
+    const heightFactor = this.MIFFLIN_ST_JEOR.HEIGHT_FACTOR * heightInCentimeter
+    const ageFactor = this.MIFFLIN_ST_JEOR.AGE_FACTOR * user.age
+    const genderComponent =
+      user.gender === 'male'
+        ? this.MIFFLIN_ST_JEOR.MALE_ADJUSTMENT
+        : this.MIFFLIN_ST_JEOR.FEMALE_ADJUSTMENT
     const bmr = weightFactor + heightFactor - ageFactor + genderComponent
 
     return bmr
   }
 
   private convertHeightToCentimeter(heightInMeter: number): number {
-    const heightInCentimeter = heightInMeter * 100
-    return heightInCentimeter
+    return heightInMeter * this.CM_PER_METER
   }
 
   private harrisBenedictFemale(user: User, heightInCentimeter: number): number {
     this.validateAge(user)
 
-    const weightFactor = 9.247 * user.weight
-    const lengthFactor = 3.098 * heightInCentimeter
-    const ageFactor = 4.33 * user.age
+    const { BASE, WEIGHT_FACTOR, HEIGHT_FACTOR, AGE_FACTOR } =
+      this.HARRIS_BENEDICT.FEMALE
+    const weightFactor = WEIGHT_FACTOR * user.weight
+    const lengthFactor = HEIGHT_FACTOR * heightInCentimeter
+    const ageFactor = AGE_FACTOR * user.age
 
-    const bmrFemale = 447.593 + weightFactor + lengthFactor - ageFactor
-    return bmrFemale
+    return BASE + weightFactor + lengthFactor - ageFactor
   }
 
   private harrisBenedictMale(user: User, heightInCentimeter: number): number {
     this.validateAge(user)
 
-    const weightFactor = 13.397 * user.weight
-    const lengthFactor = 4.799 * heightInCentimeter
-    const ageFactor = 5.677 * user.age
+    const { BASE, WEIGHT_FACTOR, HEIGHT_FACTOR, AGE_FACTOR } =
+      this.HARRIS_BENEDICT.MALE
+    const weightFactor = WEIGHT_FACTOR * user.weight
+    const lengthFactor = HEIGHT_FACTOR * heightInCentimeter
+    const ageFactor = AGE_FACTOR * user.age
 
-    const bmrMale = 88.362 + weightFactor + lengthFactor - ageFactor
-    return bmrMale
+    return BASE + weightFactor + lengthFactor - ageFactor
   }
 
   private calculateBmrBasedOnGender(

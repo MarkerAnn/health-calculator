@@ -31,3 +31,11 @@ export const bmiRanges: BmiRange[] = [
   { min: 35, max: 39.9, type: BmiType.ObeseSecondGrade },
   { min: 40, max: 100, type: BmiType.ObeseThirdGrade },
 ]
+
+export enum ActivityLevel {
+  Sedentary = 'sedentary',
+  Lightly = 'lightly',
+  Moderately = 'moderately',
+  Very = 'very',
+  Extremely = 'extremely',
+}

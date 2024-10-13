@@ -5,6 +5,12 @@
 
 import { User } from '../models/User.js'
 
+// Constants for
+const METRIC_WEIGHT_LIMITS = { min: 0, max: 700 }
+const IMPERIAL_WEIGHT_LIMITS = { min: 0, max: 1543 }
+const METRIC_HEIGHT_LIMITS = { min: 0, max: 2.5 }
+const IMPERIAL_HEIGHT_LIMITS = { min: 0, max: 8.2 }
+
 export function validateUserInput(user: User): void {
   try {
     validateNumericFields(user)
@@ -20,7 +26,7 @@ export function validateUserInput(user: User): void {
   } catch (error) {
     const errorMessage = `Validation error in user object: ${JSON.stringify(
       user
-    )} - ${(error as Error).message}`
+    )} - ${(error as Error).message}. Stack trace: ${(error as Error).stack}`
     throw new Error(errorMessage)
   }
 }
@@ -61,54 +67,49 @@ function validateUnitSystem(user: User) {
   }
 }
 
-function validateWeight(user: User) {
-  if (user.weight === undefined || typeof user.weight !== 'number') {
-    throw new Error(
-      `Weight is required and must be a number. Check the weight value in ${JSON.stringify(user)}`
+function validateWithinRange(
+  value: number,
+  limits: { min: number; max: number },
+  fieldName: string,
+  unitSystem: string,
+  user: User
+): void {
+  if (value < limits.min || value > limits.max) {
+    throw new RangeError(
+      `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} using the ${unitSystem} system must be between ${limits.min}-${limits.max}. Check the ${fieldName.toLowerCase()} value in ${JSON.stringify(
+        user
+      )}`
     )
-  }
-  if (user.unitSystem === 'metric') {
-    if (user.weight < 0 || user.weight > 700) {
-      throw new RangeError(
-        `Weight using the metric system must be between 0-700 kg. Check the weight value in ${JSON.stringify(
-          user
-        )}`
-      )
-    }
-  } else {
-    if (user.weight < 0 || user.weight > 1543) {
-      throw new RangeError(
-        `Weight using the imperial system must be between 0-1543 lbs. Check the weight value in ${JSON.stringify(
-          user
-        )}`
-      )
-    }
   }
 }
 
-function validateHeight(user: User) {
-  if (user.height === undefined || typeof user.height !== 'number') {
+function validateWeight(user: User): void {
+  if (user.weight === undefined || typeof user.weight !== 'number') {
     throw new Error(
-      `Height is required and must be a number. Check the height value in ${JSON.stringify(user)}`
+      `Weight is required and must be a number. Check the weight value in ${JSON.stringify(
+        user
+      )}`
     )
   }
-  if (user.unitSystem === 'metric') {
-    if (user.height <= 0 || user.height >= 2.5) {
-      throw new RangeError(
-        `Height using the metric system must be between 0-2.5 meters. Check the height value in ${JSON.stringify(
-          user
-        )}`
-      )
-    }
-  } else {
-    if (user.height < 0 || user.height > 8.2) {
-      throw new RangeError(
-        `Height using the imperial system must be between 0-8.2 feet. Check the height value in ${JSON.stringify(
-          user
-        )}`
-      )
-    }
+  const limits =
+    user.unitSystem === 'metric' ? METRIC_WEIGHT_LIMITS : IMPERIAL_WEIGHT_LIMITS
+  const unitSystem = user.unitSystem === 'metric' ? 'metric' : 'imperial'
+  validateWithinRange(user.weight, limits, 'weight', unitSystem, user)
+}
+
+// Validera längd
+function validateHeight(user: User): void {
+  if (user.height === undefined || typeof user.height !== 'number') {
+    throw new Error(
+      `Height is required and must be a number. Check the height value in ${JSON.stringify(
+        user
+      )}`
+    )
   }
+  const limits =
+    user.unitSystem === 'metric' ? METRIC_HEIGHT_LIMITS : IMPERIAL_HEIGHT_LIMITS
+  const unitSystem = user.unitSystem === 'metric' ? 'metric' : 'imperial'
+  validateWithinRange(user.height, limits, 'height', unitSystem, user)
 }
 
 function validateGender(user: User) {
@@ -137,21 +138,22 @@ function validateAge(user: User) {
   }
 }
 
-function validateActivityLevel(user: User) {
+function validateActivityLevel(user: User): void {
+  const validActivityLevels = [
+    'sedentary',
+    'lightly',
+    'moderately',
+    'very',
+    'extremely',
+  ]
+
   if (user.activityLevel === undefined) {
     return
   }
-  if (
-    user.activityLevel != 'sedentary' &&
-    user.activityLevel != 'lightly' &&
-    user.activityLevel != 'moderately' &&
-    user.activityLevel != 'very' &&
-    user.activityLevel != 'extremely'
-  ) {
+
+  if (!validActivityLevels.includes(user.activityLevel)) {
     throw new TypeError(
-      `Activity level must be sedentary, lightly, moderately, very or extremely. Check the activityLevel value in ${JSON.stringify(
-        user
-      )}`
+      `Activity level must be sedentary, lightly, moderately, very or extremely. Check the activityLevel value in ${JSON.stringify(user)}`
     )
   }
 }

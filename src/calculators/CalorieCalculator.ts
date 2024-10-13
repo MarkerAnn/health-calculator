@@ -12,6 +12,11 @@ import { User } from 'src/models/User.js'
  * Implements the InterfaceCalorieCalculator interface.
  */
 export class CalorieCalculator implements InterfaceCalorieCalculator {
+  private DAYS_IN_WEEK = 7
+  private DAYS_IN_MONTH = 30
+  private CALORIES_PER_KILO = 7700
+  private REFERENCE_WEIGHT = 70
+
   /**
    * @inheritdoc
    * @throws Will throw an error if user.dailyCalories is not provided
@@ -29,7 +34,11 @@ export class CalorieCalculator implements InterfaceCalorieCalculator {
     caloricSurplusOrDeficit: number,
     user: User
   ): number {
-    return this.estimateWeightChange(caloricSurplusOrDeficit, user, 7)
+    return this.estimateWeightChange(
+      caloricSurplusOrDeficit,
+      user,
+      this.DAYS_IN_WEEK
+    )
   }
 
   /**
@@ -39,7 +48,11 @@ export class CalorieCalculator implements InterfaceCalorieCalculator {
     caloricSurplusOrDeficit: number,
     user: User
   ): number {
-    return this.estimateWeightChange(caloricSurplusOrDeficit, user, 30)
+    return this.estimateWeightChange(
+      caloricSurplusOrDeficit,
+      user,
+      this.DAYS_IN_MONTH
+    )
   }
 
   /**
@@ -54,7 +67,7 @@ export class CalorieCalculator implements InterfaceCalorieCalculator {
     const weeklyWeightChange = this.estimateWeightChange(
       caloricSurplusOrDeficit,
       user,
-      7
+      this.DAYS_IN_WEEK
     )
     const kilosToChange = user.weightGoal - user.weight
     const absoluteWeightDifference = Math.abs(kilosToChange)
@@ -73,13 +86,11 @@ export class CalorieCalculator implements InterfaceCalorieCalculator {
     this.validateWeightGoal(user)
     this.validateWeeksInUser(user)
 
-    const daysInWeek = 7
-    const caloriesPerKilo = 7700
     const kilosToChange = user.weightGoal - user.weight
     const absoluteKilosToChange = Math.abs(kilosToChange)
     const weeklyweightChange = absoluteKilosToChange / user.weeksToWeightGoal
     const dailyCalorieAdjustment =
-      (weeklyweightChange * caloriesPerKilo) / daysInWeek
+      (weeklyweightChange * this.CALORIES_PER_KILO) / this.DAYS_IN_WEEK
 
     const dailyCalorieForGoal =
       kilosToChange > 0
@@ -119,10 +130,8 @@ export class CalorieCalculator implements InterfaceCalorieCalculator {
     user: User,
     days: number
   ): number {
-    const caloriesPerKilo = 7700
-    const referenceWeight = 70
     const adjustedCaloriesPerKilo =
-      caloriesPerKilo * (user.weight / referenceWeight)
+      this.CALORIES_PER_KILO * (user.weight / this.REFERENCE_WEIGHT)
     const calorieBalance = caloricDifference * days
     const estimatedWeightChange = calorieBalance / adjustedCaloriesPerKilo
     return estimatedWeightChange

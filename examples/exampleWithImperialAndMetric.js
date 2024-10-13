@@ -149,3 +149,4 @@ console.log(
   'Imperial - Calories for Weight Goal:',
   imperialCalculator.getCaloriesForWeightGoal()
 ) // Output: 2112
+

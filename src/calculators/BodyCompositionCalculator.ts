@@ -13,14 +13,35 @@ import { User } from '../models/User.js'
 export class BodyCompositionCalculator
   implements InterfaceBodyCompositionCalculator
 {
+  private CM_PER_METER = 100
+  private BODY_FAT_MALE = {
+    HEIGHT_LOG_FACTOR: 70.041,
+    WAIST_NECK_LOG_FACTOR: 86.01,
+    CONSTANT_FACTOR: 36.76,
+  }
+  private BODY_FAT_FEMALE = {
+    HEIGHT_LOG_FACTOR: 97.684,
+    WAIST_HIP_NECK_LOG_FACTOR: 163.205,
+    CONSTANT_FACTOR: 78.387,
+  }
+  private LEAN_BODY_MASS_MALE = {
+    WEIGHT_FACTOR: 0.407,
+    HEIGHT_FACTOR: 0.267,
+    SUBTRACTION_CONSTANT: 19.2,
+  }
+  private LEAN_BODY_MASS_FEMALE = {
+    WEIGHT_FACTOR: 0.252,
+    HEIGHT_FACTOR: 0.473,
+    SUBTRACTION_CONSTANT: 48.3,
+  }
+
   /**
    * @inheritdoc
    * @throws {Error} Throws an error if waist or hip measurements are missing.
    */
   calculateWaistToHipRatio(user: User): number {
     this.validateWaistAndHip(user)
-    const waistToHipRatio = user.waist / user.hip
-    return waistToHipRatio
+    return user.waist / user.hip
   }
 
   /**
@@ -30,9 +51,7 @@ export class BodyCompositionCalculator
   calculateWaistToHeightRatio(user: User): number {
     this.validateWaistAndHeight(user)
     const heightInCentimeter = this.convertHeightToCentimeter(user.height)
-    const waistToHeightRatio = user.waist / heightInCentimeter
-
-    return waistToHeightRatio
+    return user.waist / heightInCentimeter
   }
 
   /**
@@ -50,8 +69,7 @@ export class BodyCompositionCalculator
   }
 
   private convertHeightToCentimeter(heightInMeter: number): number {
-    const heightInCentimeter = heightInMeter * 100
-    return heightInCentimeter
+    return heightInMeter * this.CM_PER_METER
   }
 
   private calculateMaleBodyFat(user: User, heightInCentimeter: number): number {
@@ -61,13 +79,13 @@ export class BodyCompositionCalculator
       waistNeckDifference,
       'Invalid values: waist must be greater than neck for males.'
     )
-    const heightLogFactor = 70.041
-    const waistNeckLogFactor = 86.01
-    const heightFactor = heightLogFactor * Math.log10(heightInCentimeter)
-    const waistNeckFactor = waistNeckLogFactor * Math.log10(waistNeckDifference)
-    const constantFactor = 36.76
+    const { HEIGHT_LOG_FACTOR, WAIST_NECK_LOG_FACTOR, CONSTANT_FACTOR } =
+      this.BODY_FAT_MALE
+    const heightFactor = HEIGHT_LOG_FACTOR * Math.log10(heightInCentimeter)
+    const waistNeckFactor =
+      WAIST_NECK_LOG_FACTOR * Math.log10(waistNeckDifference)
 
-    return waistNeckFactor - heightFactor + constantFactor
+    return waistNeckFactor - heightFactor + CONSTANT_FACTOR
   }
 
   private calculateFemaleBodyFat(
@@ -80,14 +98,13 @@ export class BodyCompositionCalculator
       waistHipNeckDifference,
       'Invalid values: the sum of waist + hip - neck must be greater than zero for females.'
     )
-    const heightLogFactor = 97.684
-    const waistHipNeckLogFactor = 163.205
-    const heightFactor = heightLogFactor * Math.log10(heightInCentimeter)
+    const { HEIGHT_LOG_FACTOR, WAIST_HIP_NECK_LOG_FACTOR, CONSTANT_FACTOR } =
+      this.BODY_FAT_FEMALE
+    const heightFactor = HEIGHT_LOG_FACTOR * Math.log10(heightInCentimeter)
     const waistHipNeckFactor =
-      waistHipNeckLogFactor * Math.log10(waistHipNeckDifference)
-    const constantFactor = 78.387
+      WAIST_HIP_NECK_LOG_FACTOR * Math.log10(waistHipNeckDifference)
 
-    return waistHipNeckFactor - heightFactor - constantFactor
+    return waistHipNeckFactor - heightFactor - CONSTANT_FACTOR
   }
 
   private validateWaistAndHip(
@@ -169,29 +186,25 @@ export class BodyCompositionCalculator
     user: User,
     heightInCentimeter: number
   ): number {
-    const weightFactor = 0.407
-    const heightFactor = 0.267
-    const subtractionConstant = 19.2
-
-    const leanBodyMass =
-      weightFactor * user.weight +
-      heightFactor * heightInCentimeter -
-      subtractionConstant
-    return leanBodyMass
+    const { WEIGHT_FACTOR, HEIGHT_FACTOR, SUBTRACTION_CONSTANT } =
+      this.LEAN_BODY_MASS_MALE
+    return (
+      WEIGHT_FACTOR * user.weight +
+      HEIGHT_FACTOR * heightInCentimeter -
+      SUBTRACTION_CONSTANT
+    )
   }
 
   private calculateFemaleLeanBodyMass(
     user: User,
     heightInCentimeter: number
   ): number {
-    const weightFactor = 0.252
-    const heightFactor = 0.473
-    const subtractionConstant = 48.3
-
-    const leanBodyMass =
-      weightFactor * user.weight +
-      heightFactor * heightInCentimeter -
-      subtractionConstant
-    return leanBodyMass
+    const { WEIGHT_FACTOR, HEIGHT_FACTOR, SUBTRACTION_CONSTANT } =
+      this.LEAN_BODY_MASS_FEMALE
+    return (
+      WEIGHT_FACTOR * user.weight +
+      HEIGHT_FACTOR * heightInCentimeter -
+      SUBTRACTION_CONSTANT
+    )
   }
 }
