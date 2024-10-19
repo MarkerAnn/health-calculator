@@ -1,5 +1,21 @@
 # Changelog
 
+# Changelog
+
+## [1.1.0] - 2024-10-19
+
+### Added
+
+- Made `weight` and `height` fields optional in the User object.
+
+### Changed
+
+- Updated the fat percentage calculation formula to provide more accurate values.
+
+### Fixed
+
+- Corrected incorrect fat percentage values that were returned with the previous formula.
+
 ## [1.0.6] - 2024-10-13
 
 ### Added

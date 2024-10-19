@@ -127,8 +127,8 @@ The `User` object provides input data for calculations. It has the following pro
 
 | Property          | Type   | Description                                                  | Required |
 | ----------------- | ------ | ------------------------------------------------------------ | -------- |
-| weight            | number | Weight in kg (metric) or lbs (imperial)                      | Yes      |
-| height            | number | Height in meters (metric) or feet (imperial)                 | Yes      |
+| weight            | number | Weight in kg (metric) or lbs (imperial)                      | No       |
+| height            | number | Height in meters (metric) or feet (imperial)                 | No       |
 | age               | number | Age in years                                                 | No       |
 | gender            | string | 'male' or 'female'                                           | No       |
 | waist             | number | Waist circumference in cm (metric) or inches (imperial)      | No       |
