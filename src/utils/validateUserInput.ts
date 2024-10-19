@@ -14,8 +14,8 @@ const IMPERIAL_HEIGHT_LIMITS = { min: 0, max: 8.2 }
 export function validateUserInput(user: User): void {
   try {
     validateNumericFields(user)
-    validateWeight(user)
-    validateHeight(user)
+    if (user.weight !== undefined) validateWeight(user)
+    if (user.height !== undefined) validateHeight(user)
     validateGender(user)
     validateAge(user)
     validateActivityLevel(user)
@@ -51,6 +51,9 @@ function validateNumericFields(user: User): void {
 }
 
 function validateUnitSystem(user: User) {
+  if (user.unitSystem === undefined) {
+    throw new Error('Unit system is required')
+  }
   if (typeof user.unitSystem !== 'string') {
     throw new TypeError(
       `Unit system must be a string. Check the unitSystem value in ${JSON.stringify(
@@ -58,12 +61,8 @@ function validateUnitSystem(user: User) {
       )}`
     )
   }
-  if (user.unitSystem === undefined) {
-    throw new Error(
-      `Unit system is required, imperial or metric. Check the unitSystem value in ${JSON.stringify(
-        user
-      )}`
-    )
+  if (user.unitSystem !== 'metric' && user.unitSystem !== 'imperial') {
+    throw new Error('Unit system must be either "metric" or "imperial"')
   }
 }
 
@@ -84,9 +83,9 @@ function validateWithinRange(
 }
 
 function validateWeight(user: User): void {
-  if (user.weight === undefined || typeof user.weight !== 'number') {
+  if (typeof user.weight !== 'number') {
     throw new Error(
-      `Weight is required and must be a number. Check the weight value in ${JSON.stringify(
+      `Weight must be a number if provided. Check the weight value in ${JSON.stringify(
         user
       )}`
     )
@@ -97,11 +96,10 @@ function validateWeight(user: User): void {
   validateWithinRange(user.weight, limits, 'weight', unitSystem, user)
 }
 
-// Validera längd
 function validateHeight(user: User): void {
-  if (user.height === undefined || typeof user.height !== 'number') {
+  if (typeof user.height !== 'number') {
     throw new Error(
-      `Height is required and must be a number. Check the height value in ${JSON.stringify(
+      `Height must be a number if provided. Check the height value in ${JSON.stringify(
         user
       )}`
     )

@@ -8,9 +8,9 @@
  */
 export interface User {
   /** User's weight in kg (metric) or lbs (imperial) */
-  weight: number
+  weight?: number
   /** User's height in meters (metric) or feet (imperial) */
-  height: number
+  height?: number
   /** User's age in years (optional) */
   age?: number
   /** User's gender (optional) */

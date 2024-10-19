@@ -5,14 +5,14 @@
 
 import { User } from '../models/User.js'
 
-export function convertUserToMetric(user: User) {
+export function convertUserToMetric(user: User): User {
   if (user.unitSystem === 'metric') {
     return user
   } else {
     return {
       ...user,
-      height: feetToMeters(user.height),
-      weight: lbsToKg(user.weight),
+      height: user.height !== undefined ? feetToMeters(user.height) : undefined,
+      weight: user.weight !== undefined ? lbsToKg(user.weight) : undefined,
       waist:
         user.waist !== undefined ? inchesToCentimeters(user.waist) : undefined,
       hip: user.hip !== undefined ? inchesToCentimeters(user.hip) : undefined,
@@ -25,14 +25,14 @@ export function convertUserToMetric(user: User) {
   }
 }
 
-function feetToMeters(feet: number): number {
-  return feet * 0.3048
+function feetToMeters(feet: number | undefined): number | undefined {
+  return feet !== undefined ? feet * 0.3048 : undefined
 }
 
-function lbsToKg(lbs: number): number {
-  return lbs * 0.453592
+function lbsToKg(lbs: number | undefined): number | undefined {
+  return lbs !== undefined ? lbs * 0.453592 : undefined
 }
 
-function inchesToCentimeters(inches: number): number {
-  return inches * 2.54
+function inchesToCentimeters(inches: number | undefined): number | undefined {
+  return inches !== undefined ? inches * 2.54 : undefined
 }

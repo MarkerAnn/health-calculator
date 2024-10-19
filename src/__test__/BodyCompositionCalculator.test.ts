@@ -73,7 +73,7 @@ describe('BodyCompositionCalculator', () => {
       const healthCalculator =
         HealthCalculatorFactory.createHealthCalculator(user)
       const bodyFatPercentage = healthCalculator.getBodyFatPercentage()
-      expect(bodyFatPercentage).toBeCloseTo(20.14, 1)
+      expect(bodyFatPercentage).toBeCloseTo(13.71, 1)
     })
 
     it('should calculate correct body fat percentage for overweight female (metric)', () => {
@@ -81,7 +81,7 @@ describe('BodyCompositionCalculator', () => {
       const healthCalculator =
         HealthCalculatorFactory.createHealthCalculator(user)
       const bodyFatPercentage = healthCalculator.getBodyFatPercentage()
-      expect(bodyFatPercentage).toBeCloseTo(60.62, 1)
+      expect(bodyFatPercentage).toBeCloseTo(33.81, 1)
     })
 
     it('should throw an error when waist measurement is missing', () => {
@@ -141,7 +141,7 @@ describe('BodyCompositionCalculator', () => {
       const healthCalculator =
         HealthCalculatorFactory.createHealthCalculator(user)
       const leanBodyMass = healthCalculator.getLeanBodyMass()
-      expect(leanBodyMass).toBeCloseTo(56.01, 1)
+      expect(leanBodyMass).toBeCloseTo(60.39, 1)
     })
 
     it('should calculate correct lean body mass for overweight female (metric)', () => {
@@ -149,7 +149,7 @@ describe('BodyCompositionCalculator', () => {
       const healthCalculator =
         HealthCalculatorFactory.createHealthCalculator(user)
       const leanBodyMass = healthCalculator.getLeanBodyMass()
-      expect(leanBodyMass).toBeCloseTo(48.64, 1)
+      expect(leanBodyMass).toBeCloseTo(49.64, 1)
     })
 
     it('should throw an error for invalid gender', () => {

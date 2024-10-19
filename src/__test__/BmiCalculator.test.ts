@@ -1,6 +1,7 @@
 import { HealthCalculatorFactory } from '../factories/HealthCalculatorFactory.js'
 import { testUsers } from './testData.js'
 import { InterfaceHealthCalculator } from '../interfaces/InterfaceHealthCalculator.js'
+import { User } from '../models/User.js'
 
 describe('HealthCalculatorFactory and BMI calculations', () => {
   let healthCalculator: InterfaceHealthCalculator
@@ -73,18 +74,57 @@ describe('HealthCalculatorFactory and BMI calculations', () => {
   })
 
   describe('Error handling', () => {
-    it('should throw an error for invalid user input', () => {
-      const invalidUser = testUsers.invalidUserMissingRequired
+    it('should throw an error for missing unit system', () => {
+      const invalidUser = { weight: 70, height: 1.75 } as User
       expect(() =>
         HealthCalculatorFactory.createHealthCalculator(invalidUser)
-      ).toThrow()
+      ).toThrow('Unit system is required')
     })
 
-    it('should throw an error for negative values', () => {
-      const invalidUser = testUsers.invalidUserNegativeValues
+    it('should throw an error for invalid unit system', () => {
+      const invalidUser = {
+        weight: 70,
+        height: 1.75,
+        unitSystem: 'invalid' as any,
+      } as User
       expect(() =>
         HealthCalculatorFactory.createHealthCalculator(invalidUser)
-      ).toThrow()
+      ).toThrow('Unit system must be either "metric" or "imperial"')
+    })
+
+    it('should not throw for missing weight and height', () => {
+      const userWithoutWeightAndHeight: User = {
+        unitSystem: 'metric',
+      }
+      expect(() =>
+        HealthCalculatorFactory.createHealthCalculator(
+          userWithoutWeightAndHeight
+        )
+      ).not.toThrow()
+    })
+
+    it('should throw an error for negative weight if provided', () => {
+      const invalidUser: User = {
+        weight: -70,
+        height: 1.75,
+        unitSystem: 'metric',
+      }
+
+      expect(() =>
+        HealthCalculatorFactory.createHealthCalculator(invalidUser)
+      ).toThrow(/Weight using the metric system must be between 0-700/)
+    })
+
+    it('should throw a validation error for negative height if provided', () => {
+      const invalidUser: User = {
+        weight: 70,
+        height: -1.75,
+        unitSystem: 'metric',
+      }
+
+      expect(() =>
+        HealthCalculatorFactory.createHealthCalculator(invalidUser)
+      ).toThrow(/Height using the metric system must be between 0-2.5/)
     })
   })
 })

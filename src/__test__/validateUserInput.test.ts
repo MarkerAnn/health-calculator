@@ -17,25 +17,32 @@ describe('validateUserInput', () => {
     ).not.toThrow()
   })
 
-  it('should throw for missing required fields', () => {
-    expect(() =>
-      validateUserInput(testUsers.invalidUserMissingRequired as User)
-    ).toThrow()
-  })
-
-  it('should throw for negative values', () => {
-    expect(() =>
-      validateUserInput(testUsers.invalidUserNegativeValues)
-    ).toThrow()
-  })
-
   it('should not throw for missing optional fields', () => {
     const userWithoutOptionals: User = {
-      weight: 70,
-      height: 1.75,
       unitSystem: 'metric',
     }
     expect(() => validateUserInput(userWithoutOptionals)).not.toThrow()
+  })
+
+  it('should throw for missing unit system', () => {
+    const userWithoutUnitSystem: Partial<User> = {
+      weight: 70,
+      height: 1.75,
+    }
+    expect(() => validateUserInput(userWithoutUnitSystem as User)).toThrow(
+      'Unit system is required'
+    )
+  })
+
+  it('should throw for invalid unit system', () => {
+    const userWithInvalidUnitSystem: User = {
+      weight: 70,
+      height: 1.75,
+      unitSystem: 'invalid' as any,
+    }
+    expect(() => validateUserInput(userWithInvalidUnitSystem)).toThrow(
+      'Unit system must be either "metric" or "imperial"'
+    )
   })
 
   it('should warn for age under 18', () => {
@@ -49,7 +56,7 @@ describe('validateUserInput', () => {
     consoleWarnSpy.mockRestore()
   })
 
-  it('should throw for out of range metric weight', () => {
+  it('should throw for out of range metric weight if provided', () => {
     const overweightUser: User = {
       ...testUsers.normalWeightMaleMetric,
       weight: 701,
@@ -57,7 +64,7 @@ describe('validateUserInput', () => {
     expect(() => validateUserInput(overweightUser)).toThrow()
   })
 
-  it('should throw for out of range imperial weight', () => {
+  it('should throw for out of range imperial weight if provided', () => {
     const overweightUser: User = {
       ...testUsers.underweightMaleImperial,
       weight: 1544,
@@ -65,7 +72,7 @@ describe('validateUserInput', () => {
     expect(() => validateUserInput(overweightUser)).toThrow()
   })
 
-  it('should throw for out of range metric height', () => {
+  it('should throw for out of range metric height if provided', () => {
     const tallUser: User = {
       ...testUsers.normalWeightMaleMetric,
       height: 2.6,
@@ -73,7 +80,7 @@ describe('validateUserInput', () => {
     expect(() => validateUserInput(tallUser)).toThrow()
   })
 
-  it('should throw for out of range imperial height', () => {
+  it('should throw for out of range imperial height if provided', () => {
     const tallUser: User = {
       ...testUsers.underweightMaleImperial,
       height: 8.3,
@@ -85,33 +92,40 @@ describe('validateUserInput', () => {
     expect(() => validateUserInput(testUsers.userWithValidGoals)).not.toThrow()
   })
 
-  it('should throw for negative daily calories', () => {
+  it('should throw for negative daily calories if provided', () => {
     expect(() =>
       validateUserInput(testUsers.userWithInvalidDailyCalories)
     ).toThrow()
   })
 
-  it('should throw for invalid weight goal', () => {
+  it('should throw for invalid weight goal if provided', () => {
     expect(() =>
       validateUserInput(testUsers.userWithInvalidWeightGoal)
     ).toThrow()
   })
 
-  it('should throw for negative weeks to weight goal', () => {
+  it('should throw for negative weeks to weight goal if provided', () => {
     expect(() =>
       validateUserInput(testUsers.userWithInvalidWeeksToWeightGoal)
     ).toThrow()
   })
 
-  it('should throw for non-numeric weight', () => {
-    expect(() =>
-      validateUserInput(testUsers.userWithNonNumericWeight)
-    ).toThrow()
+  it('should throw for non-numeric weight if provided', () => {
+    expect(() => validateUserInput(testUsers.userWithNonNumericWeight)).toThrow(
+      'Weight must be a number if provided'
+    )
   })
 
-  it('should throw for non-numeric height', () => {
+  it('should throw for non-numeric height if provided', () => {
     expect(() => validateUserInput(testUsers.userWithNonNumericHeight)).toThrow(
-      'Height is required and must be a number'
+      'Height must be a number if provided'
     )
+  })
+
+  it('should not throw for missing weight and height', () => {
+    const userWithoutWeightAndHeight: User = {
+      unitSystem: 'metric',
+    }
+    expect(() => validateUserInput(userWithoutWeightAndHeight)).not.toThrow()
   })
 })

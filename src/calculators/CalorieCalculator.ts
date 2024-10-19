@@ -19,7 +19,7 @@ export class CalorieCalculator implements InterfaceCalorieCalculator {
 
   /**
    * @inheritdoc
-   * @throws Will throw an error if user.dailyCalories is not provided
+   * @throws Will throw an error if user.dailyCalories is not provided or invalid
    */
   calculateCaloricSurplusOrDeficit(user: User, tdee: number): number {
     this.validateDailyCalories(user)
@@ -34,6 +34,7 @@ export class CalorieCalculator implements InterfaceCalorieCalculator {
     caloricSurplusOrDeficit: number,
     user: User
   ): number {
+    this.validateWeight(user)
     return this.estimateWeightChange(
       caloricSurplusOrDeficit,
       user,
@@ -48,6 +49,7 @@ export class CalorieCalculator implements InterfaceCalorieCalculator {
     caloricSurplusOrDeficit: number,
     user: User
   ): number {
+    this.validateWeight(user)
     return this.estimateWeightChange(
       caloricSurplusOrDeficit,
       user,
@@ -57,13 +59,14 @@ export class CalorieCalculator implements InterfaceCalorieCalculator {
 
   /**
    * @inheritdoc
-   * @throws Will throw an error if user.weightGoal is not provided
+   * @throws Will throw an error if user.weightGoal or user.weight is not provided or invalid
    */
   calculateEstimatedWeeksToWeightGoal(
     caloricSurplusOrDeficit: number,
     user: User
   ): number {
     this.validateWeightGoal(user)
+    this.validateWeight(user)
     const weeklyWeightChange = this.estimateWeightChange(
       caloricSurplusOrDeficit,
       user,
@@ -80,11 +83,12 @@ export class CalorieCalculator implements InterfaceCalorieCalculator {
 
   /**
    * @inheritdoc
-   * @throws Will throw an error if user.weighGoal or user.weeksToWeightGoal is not provided
+   * @throws Will throw an error if user.weightGoal, user.weight, or user.weeksToWeightGoal is not provided or invalid
    */
   calculateCaloriesForWeightGoal(user: User, tdee: number): number {
     this.validateWeightGoal(user)
-    this.validateWeeksInUser(user)
+    this.validateWeight(user)
+    this.validateWeeksToWeightGoal(user)
 
     const kilosToChange = user.weightGoal - user.weight
     const absoluteKilosToChange = Math.abs(kilosToChange)
@@ -102,32 +106,58 @@ export class CalorieCalculator implements InterfaceCalorieCalculator {
   private validateDailyCalories(
     user: User
   ): asserts user is User & { dailyCalories: number } {
-    if (!user.dailyCalories) {
-      throw new Error('dailyCalories is required for calorie calculation')
+    if (
+      user.dailyCalories === undefined ||
+      typeof user.dailyCalories !== 'number' ||
+      user.dailyCalories < 0
+    ) {
+      throw new Error('Valid dailyCalories is required for calorie calculation')
     }
   }
 
   private validateWeightGoal(
     user: User
   ): asserts user is User & { weightGoal: number } {
-    if (!user.weightGoal) {
-      throw new Error('weightGoal is required for some calories calculation')
+    if (
+      user.weightGoal === undefined ||
+      typeof user.weightGoal !== 'number' ||
+      user.weightGoal <= 0
+    ) {
+      throw new Error(
+        'Valid weightGoal is required for some calorie calculations'
+      )
     }
   }
 
-  private validateWeeksInUser(
+  private validateWeight(
+    user: User
+  ): asserts user is User & { weight: number } {
+    if (
+      user.weight === undefined ||
+      typeof user.weight !== 'number' ||
+      user.weight <= 0
+    ) {
+      throw new Error('Valid weight is required for some calorie calculations')
+    }
+  }
+
+  private validateWeeksToWeightGoal(
     user: User
   ): asserts user is User & { weeksToWeightGoal: number } {
-    if (!user.weeksToWeightGoal) {
+    if (
+      user.weeksToWeightGoal === undefined ||
+      typeof user.weeksToWeightGoal !== 'number' ||
+      user.weeksToWeightGoal <= 0
+    ) {
       throw new Error(
-        'weeksToWeightGoal is required for some calories calculation'
+        'Valid weeksToWeightGoal is required for some calorie calculations'
       )
     }
   }
 
   private estimateWeightChange(
     caloricDifference: number,
-    user: User,
+    user: User & { weight: number },
     days: number
   ): number {
     const adjustedCaloriesPerKilo =

@@ -14,15 +14,17 @@ import { BmiType, bmiRanges } from '../enums/constants.js'
 export class BmiCalculator implements InterfaceBmiCalculator {
   /**
    * @inheritdoc
+   * @throws {Error} Throws an error if weight or height is not provided.
    */
   calculateBmi(user: User): number {
+    this.validateWeightAndHeight(user)
     const heightExponent = 2
     const bmi = user.weight / Math.pow(user.height, heightExponent)
     return bmi
   }
 
   /**
-   * @ineheritdoc
+   * @inheritdoc
    * @throws {Error} Throws an error if the BMI value is out of the defined ranges.
    */
   calculateBmiType(bmi: number): string {
@@ -38,6 +40,7 @@ export class BmiCalculator implements InterfaceBmiCalculator {
    * @throws {Error} Throws an error if the BMI range cannot be found or if the user object is missing valid height data.
    */
   calculateIdealWeight(user: User): [number, number] {
+    this.validateHeight(user)
     const normalBmiRange = this.getNormalBmiRange()
     const minIdealWeight = this.calculateWeight(normalBmiRange.min, user.height)
     const maxIdealWeight = this.calculateWeight(normalBmiRange.max, user.height)
@@ -52,6 +55,34 @@ export class BmiCalculator implements InterfaceBmiCalculator {
     const denominator = 25
     const bmiPrime = bmi / denominator
     return bmiPrime
+  }
+
+  private validateWeightAndHeight(
+    user: User
+  ): asserts user is User & { weight: number; height: number } {
+    if (user.weight === undefined || user.height === undefined) {
+      throw new Error('Weight and height are required for BMI calculation.')
+    }
+    if (typeof user.weight !== 'number' || typeof user.height !== 'number') {
+      throw new Error('Weight and height must be numbers.')
+    }
+    if (user.weight <= 0 || user.height <= 0) {
+      throw new Error('Weight and height must be positive numbers.')
+    }
+  }
+
+  private validateHeight(
+    user: User
+  ): asserts user is User & { height: number } {
+    if (user.height === undefined) {
+      throw new Error('Height is required for ideal weight calculation.')
+    }
+    if (typeof user.height !== 'number') {
+      throw new Error('Height must be a number.')
+    }
+    if (user.height <= 0) {
+      throw new Error('Height must be a positive number.')
+    }
   }
 
   private validateBmi(bmi: number): void {

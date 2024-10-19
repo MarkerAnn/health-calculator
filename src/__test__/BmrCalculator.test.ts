@@ -49,7 +49,7 @@ describe('BmrCalculator', () => {
       }
       expect(() =>
         bmrCalculator.calculateBmrHarrisBenedict(userWithoutAge)
-      ).toThrow('Age is required')
+      ).toThrow('Valid age is required for BMR calculation.')
     })
   })
 
@@ -93,7 +93,7 @@ describe('BmrCalculator', () => {
       }
       expect(() =>
         bmrCalculator.calculateBmrMifflinStJeor(userWithoutAge)
-      ).toThrow('Age is required')
+      ).toThrow('Valid age is required for BMR calculation.')
     })
   })
 })

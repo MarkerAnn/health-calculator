@@ -33,21 +33,23 @@ export class BmrCalculator implements InterfaceBmrCalculator {
       AGE_FACTOR: 5.677,
     },
   }
+
   /**
    * @inheritdoc
-   * @throws {Error} Throws an error if age or gender is not provided or if the gender is invalid.
+   * @throws {Error} Throws an error if weight, height, age or gender is not provided or if the gender is invalid.
    */
   calculateBmrHarrisBenedict(user: User): number {
+    this.validateRequiredFields(user)
     const heightInCentimeter = this.convertHeightToCentimeter(user.height)
     return this.calculateBmrBasedOnGender(user, heightInCentimeter)
   }
 
   /**
    * @inheritdoc
-   * @throws {Error} Throws an error if age is not provided or if the gender is invalid.
+   * @throws {Error} Throws an error if weight, height, age or gender is not provided or if the gender is invalid.
    */
   calculateBmrMifflinStJeor(user: User): number {
-    this.validateAge(user)
+    this.validateRequiredFields(user)
 
     const heightInCentimeter = this.convertHeightToCentimeter(user.height)
     const weightFactor = this.MIFFLIN_ST_JEOR.WEIGHT_FACTOR * user.weight
@@ -66,9 +68,10 @@ export class BmrCalculator implements InterfaceBmrCalculator {
     return heightInMeter * this.CM_PER_METER
   }
 
-  private harrisBenedictFemale(user: User, heightInCentimeter: number): number {
-    this.validateAge(user)
-
+  private harrisBenedictFemale(
+    user: User & { weight: number; age: number },
+    heightInCentimeter: number
+  ): number {
     const { BASE, WEIGHT_FACTOR, HEIGHT_FACTOR, AGE_FACTOR } =
       this.HARRIS_BENEDICT.FEMALE
     const weightFactor = WEIGHT_FACTOR * user.weight
@@ -78,9 +81,10 @@ export class BmrCalculator implements InterfaceBmrCalculator {
     return BASE + weightFactor + lengthFactor - ageFactor
   }
 
-  private harrisBenedictMale(user: User, heightInCentimeter: number): number {
-    this.validateAge(user)
-
+  private harrisBenedictMale(
+    user: User & { weight: number; age: number },
+    heightInCentimeter: number
+  ): number {
     const { BASE, WEIGHT_FACTOR, HEIGHT_FACTOR, AGE_FACTOR } =
       this.HARRIS_BENEDICT.MALE
     const weightFactor = WEIGHT_FACTOR * user.weight
@@ -91,7 +95,12 @@ export class BmrCalculator implements InterfaceBmrCalculator {
   }
 
   private calculateBmrBasedOnGender(
-    user: User,
+    user: User & {
+      weight: number
+      height: number
+      age: number
+      gender: 'male' | 'female'
+    },
     heightInCentimeter: number
   ): number {
     if (user.gender === 'male') {
@@ -100,12 +109,43 @@ export class BmrCalculator implements InterfaceBmrCalculator {
     if (user.gender === 'female') {
       return this.harrisBenedictFemale(user, heightInCentimeter)
     }
-    throw new Error("Invalid gender, Gender must be either 'male' or 'female'.")
+    throw new Error("Invalid gender. Gender must be either 'male' or 'female'.")
   }
 
-  private validateAge(user: User): asserts user is User & { age: number } {
-    if (!user.age) {
-      throw new Error('Age is required for calculateBmRHarrisBenedict method')
+  private validateRequiredFields(user: User): asserts user is User & {
+    weight: number
+    height: number
+    age: number
+    gender: 'male' | 'female'
+  } {
+    if (
+      user.weight === undefined ||
+      typeof user.weight !== 'number' ||
+      user.weight <= 0
+    ) {
+      throw new Error('Valid weight is required for BMR calculation.')
+    }
+    if (
+      user.height === undefined ||
+      typeof user.height !== 'number' ||
+      user.height <= 0
+    ) {
+      throw new Error('Valid height is required for BMR calculation.')
+    }
+    if (
+      user.age === undefined ||
+      typeof user.age !== 'number' ||
+      user.age <= 0
+    ) {
+      throw new Error('Valid age is required for BMR calculation.')
+    }
+    if (
+      user.gender === undefined ||
+      (user.gender !== 'male' && user.gender !== 'female')
+    ) {
+      throw new Error(
+        "Valid gender is required for BMR calculation. Gender must be either 'male' or 'female'."
+      )
     }
   }
 }
