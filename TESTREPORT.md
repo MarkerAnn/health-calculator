@@ -5,8 +5,8 @@
 - Jest version: ^29.7.0
 
 ## Summary
-- **Date:** Mon Nov  4 21:34:04 UTC 2024
-- **Commit:** 442558fb4be89824e677c9563037222c133c2929
+- **Date:** Mon Nov  4 21:38:20 UTC 2024
+- **Commit:** 86d03e08f32f930918c46aeb2ca4cc8ecad7921d
 
 ## Test Results
 - Suites: 6
@@ -16,12 +16,12 @@
 
 | Suite | Tests | Duration |
 |-------|-------|----------|
-| CalorieCalculator | 14 | 3.771s |
-| BmiCalculator | 0 | 0.402s |
-| TdeeCalculator | 20 | 4.222s |
-| BodyCompositionCalculator | 15 | 4.225s |
-| BmrCalculator | 10 | 0.131s |
-| validateUserInput | 17 | 0.15s |
+| CalorieCalculator | 14 | 3.936s |
+| BodyCompositionCalculator | 15 | 4.109s |
+| TdeeCalculator | 20 | 4.114s |
+| BmiCalculator | 0 | 0.238s |
+| BmrCalculator | 10 | 0.155s |
+| validateUserInput | 17 | 0.196s |
 
 ## Detailed Test Results
 
@@ -50,24 +50,28 @@
 ✅ should throw an error if weightGoal is not provided ()
 ✅ should throw an error if weeksToWeightGoal is not provided ()
 
-### HealthCalculatorFactory and BMI calculations &gt; Metric users
-✅ should calculate correct BMI for normal weight male ()
-✅ should calculate correct BMI for overweight female ()
+### BodyCompositionCalculator &gt; calculateWaistToHipRatio
+✅ should calculate correct waist to hip ratio for normal weight male (metric) ()
+✅ should calculate correct waist to hip ratio for overweight female (metric) ()
+✅ should throw an error when waist or hip measurements are missing ()
 
-### HealthCalculatorFactory and BMI calculations &gt; Imperial users
-✅ should calculate correct BMI for underweight male ()
-✅ should calculate correct BMI for obese female ()
+### BodyCompositionCalculator &gt; calculateWaistToHeightRatio
+✅ should calculate correct waist to height ratio for normal weight male (metric) ()
+✅ should calculate correct waist to height ratio for overweight female (metric) ()
+✅ should throw an error when waist or height measurements are missing ()
 
-### HealthCalculatorFactory and BMI calculations &gt; BMI Prime and Ideal Weight
-✅ should calculate correct BMI Prime ()
-✅ should calculate correct Ideal Weight range ()
+### BodyCompositionCalculator &gt; calculateBodyFatPercentage
+✅ should calculate correct body fat percentage for normal weight male (metric) ()
+✅ should calculate correct body fat percentage for overweight female (metric) ()
+✅ should throw an error when waist measurement is missing ()
+✅ should throw an error when neck measurement is missing ()
+✅ should throw an error when hip measurement is missing for female ()
+✅ should throw an error for invalid gender ()
 
-### HealthCalculatorFactory and BMI calculations &gt; Error handling
-✅ should throw an error for missing unit system ()
-✅ should throw an error for invalid unit system ()
-✅ should not throw for missing weight and height ()
-✅ should throw an error for negative weight if provided ()
-✅ should throw a validation error for negative height if provided ()
+### BodyCompositionCalculator &gt; calculateLeanBodyMass
+✅ should calculate correct lean body mass for normal weight male (metric) ()
+✅ should calculate correct lean body mass for overweight female (metric) ()
+✅ should throw an error for invalid gender ()
 
 ### TdeeCalculator &gt; calculateTdeeMifflinStJeor
 ✅ should calculate correct TDEE for normal weight male (metric) with moderate activity ()
@@ -97,28 +101,24 @@
 ✅ should use correct activity factor for very activity ()
 ✅ should use correct activity factor for extremely activity ()
 
-### BodyCompositionCalculator &gt; calculateWaistToHipRatio
-✅ should calculate correct waist to hip ratio for normal weight male (metric) ()
-✅ should calculate correct waist to hip ratio for overweight female (metric) ()
-✅ should throw an error when waist or hip measurements are missing ()
+### HealthCalculatorFactory and BMI calculations &gt; Metric users
+✅ should calculate correct BMI for normal weight male ()
+✅ should calculate correct BMI for overweight female ()
 
-### BodyCompositionCalculator &gt; calculateWaistToHeightRatio
-✅ should calculate correct waist to height ratio for normal weight male (metric) ()
-✅ should calculate correct waist to height ratio for overweight female (metric) ()
-✅ should throw an error when waist or height measurements are missing ()
+### HealthCalculatorFactory and BMI calculations &gt; Imperial users
+✅ should calculate correct BMI for underweight male ()
+✅ should calculate correct BMI for obese female ()
 
-### BodyCompositionCalculator &gt; calculateBodyFatPercentage
-✅ should calculate correct body fat percentage for normal weight male (metric) ()
-✅ should calculate correct body fat percentage for overweight female (metric) ()
-✅ should throw an error when waist measurement is missing ()
-✅ should throw an error when neck measurement is missing ()
-✅ should throw an error when hip measurement is missing for female ()
-✅ should throw an error for invalid gender ()
+### HealthCalculatorFactory and BMI calculations &gt; BMI Prime and Ideal Weight
+✅ should calculate correct BMI Prime ()
+✅ should calculate correct Ideal Weight range ()
 
-### BodyCompositionCalculator &gt; calculateLeanBodyMass
-✅ should calculate correct lean body mass for normal weight male (metric) ()
-✅ should calculate correct lean body mass for overweight female (metric) ()
-✅ should throw an error for invalid gender ()
+### HealthCalculatorFactory and BMI calculations &gt; Error handling
+✅ should throw an error for missing unit system ()
+✅ should throw an error for invalid unit system ()
+✅ should not throw for missing weight and height ()
+✅ should throw an error for negative weight if provided ()
+✅ should throw a validation error for negative height if provided ()
 
 ### BmrCalculator &gt; calculateBmrHarrisBenedict
 ✅ should calculate correct BMR for normal weight male (metric) ()
