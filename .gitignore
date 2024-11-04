@@ -7,6 +7,9 @@ testReport.html
 # macOS
 .DS_Store
 
+# School
+Daniel/
+
 
 # Loggar
 npm-debug.log*

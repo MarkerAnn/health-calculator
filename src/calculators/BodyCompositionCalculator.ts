@@ -60,6 +60,11 @@ export class BodyCompositionCalculator
     return this.calculateBodyFatBasedOnGender(user, heightInCentimeter)
   }
 
+  /**
+   *
+   * @inheritdoc
+   * @throws {Error} Throws an error if required measurements (weight, height) are missing.
+   */
   calculateLeanBodyMass(user: User): number {
     this.validateRequiredMeasurements(user)
     const bodyFatPercentage = this.calculateBodyFatPercentage(user)

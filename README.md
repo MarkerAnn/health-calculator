@@ -356,7 +356,7 @@ console.log(healthCalculator.getCaloriesForWeightGoal())
 | getWaistToHipRatio()              |        |        |     |        | X     | X   |      | X          |               |               |            |                   |
 | getWaistToHeightRatio()           |        | X      |     |        | X     |     |      | X          |               |               |            |                   |
 | getBodyFatPercentage()            |        | X      |     | X      | X     | X\* | X    | X          |               |               |            |                   |
-| getLeanBodyMass()                 | X      |        |     | X      |       |     |      | X          |               |               |            |                   |
+| getLeanBodyMass()                 | X      | X      |     | X      | X     | X\* | X    | X          |               |               |            |                   |
 | getBmrHarrisBenedict()            | X      | X      | X   | X      |       |     |      | X          |               |               |            |                   |
 | getBmrMifflinStJeor()             | X      | X      | X   | X      |       |     |      | X          |               |               |            |                   |
 | getTdeeHarrisBenedict()           | X      | X      | X   | X      |       |     |      | X          | X             |               |            |                   |

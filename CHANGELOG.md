@@ -2,6 +2,12 @@
 
 # Changelog
 
+## [1.1.1] - 2024-11-04
+
+### Changed
+
+- Corrected a typo in `README.md`.
+
 ## [1.1.0] - 2024-10-19
 
 ### Added
