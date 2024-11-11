@@ -1,6 +1,10 @@
 # Changelog
 
-# Changelog
+## [1.1.2] - 2024-11-11
+
+### Fixed
+
+- Resolved a case sensitivity issue in `dist` files where `unitConverter.js` was incorrectly capitalized, causing build errors on Linux systems.
 
 ## [1.1.1] - 2024-11-04
 
